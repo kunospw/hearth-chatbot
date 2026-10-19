@@ -1,0 +1,226 @@
+[
+  {
+    "name": "basic promise, repeat, cooldown",
+    "setup": { "type": "undecided", "pacing": "balanced", "preset": "friendship" },
+    "steps": [
+      { "op": "user", "text": "I promise I will keep this secret, you have my word." },
+      { "op": "user", "text": "I promise I will keep this secret, you have my word." },
+      { "op": "user", "text": "I swear I will never tell anyone about the bell." },
+      { "op": "user", "text": "Thank you for trusting me with all of this." },
+      { "op": "user", "text": "hello there my friend how are you today" }
+    ]
+  },
+  {
+    "name": "slow burn halves gains and softens setbacks",
+    "setup": { "type": "undecided", "pacing": "slow", "preset": "romance", "values": { "trust": 40, "affection": 30, "attraction": 5, "tension": 5 }, "stageIdx": 2 },
+    "steps": [
+      { "op": "user", "text": "I promise I will come back for you, you have my word." },
+      { "op": "tick", "minutes": 120 },
+      { "op": "user", "text": "Why won't you just tell me what is in the letters." },
+      { "op": "user", "text": "I'm sorry, I was wrong to push you like that." }
+    ]
+  },
+  {
+    "name": "fast pacing multiplies by 1.6 and 1.2",
+    "setup": { "type": "platonic", "pacing": "fast", "preset": "friendship" },
+    "steps": [
+      { "op": "user", "text": "Let me help you carry the lamp up the stairs." },
+      { "op": "user", "text": "Why won't you just tell me what happened there." },
+      { "op": "user", "text": "I'll save you, grab my hand and hold on tight." }
+    ]
+  },
+  {
+    "name": "manual pacing suggests, accept, dismiss",
+    "setup": { "type": "undecided", "pacing": "manual", "preset": "romance" },
+    "steps": [
+      { "op": "user", "text": "I promise I will keep your secret safe, always." },
+      { "op": "accept" },
+      { "op": "user", "text": "Let me help you with the heavy door there." },
+      { "op": "dismiss" },
+      { "op": "user", "text": "Thank you for everything you did tonight, truly." },
+      { "op": "edit", "message": "m4", "text": "I broke my promise to you and I lied to you." }
+    ]
+  },
+  {
+    "name": "undo frees the cooldown and budget",
+    "setup": { "type": "undecided", "pacing": "balanced", "preset": "friendship" },
+    "steps": [
+      { "op": "user", "text": "I promise I will keep this secret, you have my word." },
+      { "op": "user", "text": "I swear I will never tell anyone about the bell." },
+      { "op": "undo", "kind": "promise_made" },
+      { "op": "user", "text": "I swear I will never tell anyone about the bell now." }
+    ]
+  },
+  {
+    "name": "diminishing returns and long cooldowns",
+    "setup": { "type": "platonic", "pacing": "balanced", "preset": "friendship" },
+    "steps": [
+      { "op": "user", "text": "Let me help you with the sails this morning." },
+      { "op": "filler", "count": 6 },
+      { "op": "user", "text": "I'll help you with the nets at sundown today." },
+      { "op": "filler", "count": 6 },
+      { "op": "user", "text": "Let me help you mend the roof before the storm." },
+      { "op": "filler", "count": 6 },
+      { "op": "user", "text": "I'll help you with whatever you need tomorrow." },
+      { "op": "user", "text": "Thank you so much for all of this, truly." },
+      { "op": "filler", "count": 5 },
+      { "op": "user", "text": "Thanks again for being so kind to me always." },
+      { "op": "filler", "count": 5 },
+      { "op": "user", "text": "Thank you once more for the lovely supper tonight." }
+    ]
+  },
+  {
+    "name": "scene budget caps a burst of big moments",
+    "setup": { "type": "undecided", "pacing": "balanced", "preset": "friendship", "values": { "trust": 50, "affection": 40, "attraction": 0, "tension": 20 } },
+    "steps": [
+      { "op": "proposal", "kind": "betrayal", "evidence": "I sold the map", "reason": "Vesper sold the map", "message": "a1", "recent": ["I sold the map to the harbour master."] },
+      { "op": "proposal", "kind": "rescue", "evidence": "pulled you out", "reason": "Vesper pulled you out", "message": "a2", "recent": ["I pulled you out of the water."] },
+      { "op": "user", "text": "I'll save you, grab my hand and hold on tight." }
+    ]
+  },
+  {
+    "name": "daily cap per value",
+    "setup": { "type": "platonic", "pacing": "balanced", "preset": "friendship", "values": { "trust": 10, "affection": 10, "attraction": 0, "tension": 0 } },
+    "steps": [
+      { "op": "user", "text": "I'll save you, grab my hand and hold on tight." },
+      { "op": "filler", "count": 10 },
+      { "op": "user", "text": "I pulled you out of the water just in time." },
+      { "op": "filler", "count": 10 },
+      { "op": "user", "text": "I'll rescue you from the tide whatever it costs." },
+      { "op": "filler", "count": 10 },
+      { "op": "user", "text": "I'll pull you out of the dark again tonight." },
+      { "op": "filler", "count": 10 },
+      { "op": "nextDay" },
+      { "op": "user", "text": "I'll save you, grab my hand and hold on again." }
+    ]
+  },
+  {
+    "name": "romance gate caps the stage and blocks attraction",
+    "setup": { "type": "undecided", "pacing": "balanced", "preset": "romance", "values": { "trust": 90, "affection": 90, "attraction": 10, "tension": 0 }, "stageIdx": 3 },
+    "steps": [
+      { "op": "correct", "values": { "trust": 92, "affection": 92, "attraction": 10, "tension": 0 }, "reason": "We grew close" },
+      { "op": "user", "text": "You look so beautiful in the lantern light tonight." },
+      { "op": "filler", "count": 6 },
+      { "op": "user", "text": "I want to hold your hand if you will let me." },
+      { "op": "setType", "type": "platonic" },
+      { "op": "filler", "count": 6 },
+      { "op": "user", "text": "You are so beautiful when you laugh like that." }
+    ]
+  },
+  {
+    "name": "locked facts reject contradicting events",
+    "setup": { "type": "romantic", "pacing": "balanced", "preset": "romance", "facts": [
+      { "text": "Vesper never breaks a promise.", "locked": true },
+      { "text": "You and Vesper are siblings.", "locked": true } ] },
+    "steps": [
+      { "op": "user", "text": "I broke my promise to you and I lied to you." },
+      { "op": "user", "text": "You look so beautiful in the lantern light tonight." },
+      { "op": "factLock", "text": "You and Vesper are siblings.", "locked": false },
+      { "op": "filler", "count": 6 },
+      { "op": "user", "text": "You are beautiful and I would kiss you if I dared." }
+    ]
+  },
+  {
+    "name": "model proposals are validated",
+    "setup": { "type": "undecided", "pacing": "balanced", "preset": "romance", "facts": [ { "text": "Vesper is loyal and would never betray you.", "locked": true } ] },
+    "steps": [
+      { "op": "proposal", "kind": "vulnerability_shared", "evidence": "I haven't shown that to anyone", "reason": "Vesper showed the logbook", "message": "a1", "recent": ["...", "*She hesitates.* \"I haven't shown that to anyone,\" she says."] },
+      { "op": "proposal", "kind": "vulnerability_shared", "evidence": "I haven't shown that to anyone", "reason": "again", "message": "a1", "recent": ["I haven't shown that to anyone"] },
+      { "op": "proposal", "kind": "teleport", "evidence": "x", "reason": "x", "message": "a2", "recent": ["x"] },
+      { "op": "proposal", "kind": "rescue", "evidence": "never said that", "reason": "x", "message": "a3", "recent": ["something else"] },
+      { "op": "proposal", "kind": "rescue", "evidence": "", "reason": "x", "message": "a4", "recent": ["something else"] },
+      { "op": "proposal", "kind": "betrayal", "evidence": "I sold the map", "reason": "sold the map", "message": "a5", "recent": ["I sold the map."] },
+      { "op": "proposal", "kind": "rescue", "evidence": "pulled you out", "reason": "", "message": "a6", "recent": ["a", "b", "c", "d", "e", "f", "pulled you out"] },
+      { "op": "proposal", "kind": "help_offered", "evidence": "old line", "reason": "late", "message": "a7", "recent": ["old line", "1", "2", "3", "4", "5", "6"] }
+    ]
+  },
+  {
+    "name": "edited messages are evaluated again",
+    "setup": { "type": "undecided", "pacing": "balanced", "preset": "friendship" },
+    "steps": [
+      { "op": "user", "text": "I promise I will keep this secret, you have my word." },
+      { "op": "edit", "message": "m0", "text": "I broke my promise to you and I lied to you." },
+      { "op": "edit", "message": "m0", "text": "ok" },
+      { "op": "edit", "message": "m0", "text": "Let me help you with the heavy door there." }
+    ]
+  },
+  {
+    "name": "stage hysteresis",
+    "setup": { "type": "platonic", "pacing": "balanced", "preset": "friendship" },
+    "steps": [
+      { "op": "correct", "values": { "trust": 50, "affection": 40, "attraction": 0, "tension": 0 } },
+      { "op": "correct", "values": { "trust": 48, "affection": 40, "attraction": 0, "tension": 0 } },
+      { "op": "correct", "values": { "trust": 44, "affection": 40, "attraction": 0, "tension": 0 } },
+      { "op": "correct", "values": { "trust": 40, "affection": 40, "attraction": 0, "tension": 0 } },
+      { "op": "correct", "values": { "trust": 90, "affection": 90, "attraction": 0, "tension": 0 } },
+      { "op": "correct", "values": { "trust": 90, "affection": 90, "attraction": 0, "tension": 50 } }
+    ]
+  },
+  {
+    "name": "stage lock and manual stage",
+    "setup": { "type": "platonic", "pacing": "balanced", "preset": "friendship" },
+    "steps": [
+      { "op": "stages", "names": ["", "Pals", "", "", "", "Kin"], "current": 4, "lock": true },
+      { "op": "correct", "values": { "trust": 5, "affection": 5, "attraction": 0, "tension": 40 } },
+      { "op": "stages", "names": [], "current": 4, "lock": false },
+      { "op": "correct", "values": { "trust": 5, "affection": 5, "attraction": 0, "tension": 40 } },
+      { "op": "undo", "kind": "correction" }
+    ]
+  },
+  {
+    "name": "settings, facts and presets",
+    "setup": { "type": "undecided", "pacing": "slow", "preset": "romance" },
+    "steps": [
+      { "op": "addFact", "text": "You are brothers by blood.", "locked": true },
+      { "op": "addFact", "text": "   ", "locked": true },
+      { "op": "factLock", "text": "You are brothers by blood.", "locked": false },
+      { "op": "removeFact", "text": "You are brothers by blood." },
+      { "op": "setPacing", "pacing": "fast" },
+      { "op": "preset", "id": "family" },
+      { "op": "setType", "type": "familial" },
+      { "op": "preset", "id": "rivalry" }
+    ]
+  },
+  {
+    "name": "deleting a chat marks its events",
+    "setup": { "type": "undecided", "pacing": "balanced", "preset": "friendship" },
+    "steps": [
+      { "op": "user", "text": "I promise I will keep this secret, you have my word.", "conv": "c1" },
+      { "op": "filler", "count": 6, "conv": "c2" },
+      { "op": "user", "text": "Let me help you with the heavy door there.", "conv": "c2" },
+      { "op": "deleteChat", "conv": "c1" }
+    ]
+  },
+  {
+    "name": "trivial messages, out-of-character and emoji",
+    "setup": { "type": "undecided", "pacing": "balanced", "preset": "friendship" },
+    "steps": [
+      { "op": "user", "text": "((I promise I will do it, you have my word))" },
+      { "op": "user", "text": "I promise" },
+      { "op": "user", "text": "💖💖💖💖💖" },
+      { "op": "user", "text": "kiss kiss kiss kiss" },
+      { "op": "user", "text": "I promise I will keep this secret, you have my word." }
+    ]
+  },
+  {
+    "name": "curly apostrophes still count",
+    "setup": { "type": "platonic", "pacing": "balanced", "preset": "friendship", "values": { "trust": 30, "affection": 20, "attraction": 0, "tension": 30 } },
+    "steps": [
+      { "op": "user", "text": "I’m sorry, I was wrong about everything I said." },
+      { "op": "filler", "count": 6 },
+      { "op": "user", "text": "I’ll help you with the heavy door there tonight." }
+    ]
+  },
+  {
+    "name": "tension rules and prerequisites",
+    "setup": { "type": "platonic", "pacing": "balanced", "preset": "friendship", "values": { "trust": 30, "affection": 20, "attraction": 0, "tension": 5 } },
+    "steps": [
+      { "op": "user", "text": "I'm sorry, I was wrong about everything I said." },
+      { "op": "user", "text": "I kept my promise to you just like I said." },
+      { "op": "user", "text": "I promise I will come back for you, you have my word." },
+      { "op": "filler", "count": 6 },
+      { "op": "user", "text": "I kept my promise to you just like I said." },
+      { "op": "user", "text": "You are such a liar and a coward, truly useless." }
+    ]
+  }
+]

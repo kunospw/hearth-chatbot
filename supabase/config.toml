@@ -1,0 +1,12 @@
+# Supabase project settings. Edge functions verify the caller's JWT by default
+# (verify_jwt = true), which is what we want: no anonymous calls.
+project_id = "hearth"
+
+[functions.chat_turn]
+verify_jwt = true
+
+[functions.apply_correction]
+verify_jwt = true
+
+[functions.suggest_replies]
+verify_jwt = true

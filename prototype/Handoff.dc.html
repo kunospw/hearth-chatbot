@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Flutter handoff</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1360px; height: 2800px; box-sizing: border-box; padding: 72px 80px; background: #F3F0EC; color: #1C1A1D; font-family: 'Figtree', system-ui, sans-serif; display: flex; flex-direction: column; gap: 44px">
+  <header style="display: flex; flex-direction: column; gap: 12px; max-width: 900px">
+    <span style="font-size: 14px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #7A2236">Hearth · Flutter handoff</span>
+    <h1 style="margin: 0; font-family: 'Newsreader', serif; font-weight: 500; font-size: 52px; line-height: 1.1">From prototype to Material 3 widgets</h1>
+    <p style="margin: 0; font-size: 18px; line-height: 1.55; color: #4A4448">Everything in the prototype uses patterns Flutter has natively: Column/Row with gaps, NavigationBar, modal bottom sheets, SnackBar with action. No hover, no browser-only CSS.</p>
+  </header>
+
+  <section style="display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 32px">
+    <div style="display: flex; flex-direction: column; gap: 12px">
+      <h2 style="margin: 0; font-size: 24px; font-weight: 700">1 · Design tokens as a ThemeExtension</h2>
+      <pre style="margin: 0; padding: 24px; border-radius: 18px; background: #1C1A1D; color: #EEE7E1; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.6; white-space: pre-wrap">@immutable
+class HearthColors extends ThemeExtension&lt;HearthColors&gt; {
+  const HearthColors({
+    this.bg = const Color(0xFF131214),
+    this.surface = const Color(0xFF1C1A1D),
+    this.surfaceRaised = const Color(0xFF262327),
+    this.outline = const Color(0xFF3A3539),
+    this.text = const Color(0xFFEEE7E1),
+    this.textMuted = const Color(0xFFB3AAA3),
+    this.textSubtle = const Color(0xFF9C948D),
+    this.primary = const Color(0xFF9A3349),   // fills only
+    this.primaryInk = const Color(0xFFE9A0AE), // links, focus
+    this.primarySoft = const Color(0xFF3B1F27),// user bubble
+    this.pin = const Color(0xFFF2CF9A),
+    this.danger = const Color(0xFFEF8A78),
+    this.ok = const Color(0xFF8DBF95),
+  });
+  // copyWith / lerp omitted
+}
+
+abstract final class Space {
+  static const xs = 4.0, sm = 8.0, md = 12.0,
+      lg = 16.0, gutter = 20.0, xl = 24.0, xxl = 32.0;
+}
+abstract final class Radii {
+  static const field = 12.0, button = 14.0,
+      card = 18.0, sheet = 26.0;
+}</pre>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 12px">
+      <h2 style="margin: 0; font-size: 24px; font-weight: 700">Typography</h2>
+      <pre style="margin: 0; padding: 24px; border-radius: 18px; background: #1C1A1D; color: #EEE7E1; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.6; white-space: pre-wrap">// google_fonts: Figtree (UI), Newsreader (story)
+final ui = GoogleFonts.figtreeTextTheme();
+TextTheme hearthText = ui.copyWith(
+  displaySmall: GoogleFonts.newsreader(
+      fontSize: 30, height: 1.15, fontWeight: FontWeight.w500),
+  titleMedium: GoogleFonts.newsreader(
+      fontSize: 19, height: 1.25, fontWeight: FontWeight.w500),
+  bodyLarge: ui.bodyLarge!.copyWith(fontSize: 16, height: 1.62),
+  bodyMedium: ui.bodyMedium!.copyWith(fontSize: 15, height: 1.5),
+  labelLarge: ui.labelLarge!.copyWith(
+      fontSize: 16, fontWeight: FontWeight.w600),
+  labelSmall: ui.labelSmall!.copyWith(
+      fontSize: 13, letterSpacing: 0.8, fontWeight: FontWeight.w600),
+);
+// Story text: Newsreader, user size 15–26, height 1.72
+// Bundle the fonts as assets for offline use.</pre>
+      <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #3C373B">Use <b>ColorScheme.fromSeed</b> only for system widgets you don't restyle; read brand colours from <b>Theme.of(context).extension&lt;HearthColors&gt;()</b>. Keep a “True black” variant that swaps bg to #000000 and surface to #121112.</p>
+    </div>
+  </section>
+
+  <section style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px">
+    <div style="display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; font-size: 24px; font-weight: 700">2 · Navigation flows</h2>
+      <pre style="margin: 0; padding: 24px; border-radius: 18px; background: #1C1A1D; color: #EEE7E1; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.6; white-space: pre-wrap">// go_router
+StatefulShellRoute.indexedStack(   // NavigationBar
+  branches: [
+    /characters          → CharacterLibrary
+    /chats               → Conversations
+    /library?tab=…       → Library (universes|memories|personas)
+  ])
+/characters/:id         → CharacterDetails   (push)
+/characters/new|:id/edit→ CharacterEditor    (fullscreen dialog)
+/chat/:conversationId   → ChatScreen (mode: chat|story)
+/universes/:id          → UniverseDetail
+/universes/:id/memories → Memories (filtered)
+/settings, /settings/ai → Settings, AiSettings
+// Sheets: showModalBottomSheet(useSafeArea, showDragHandle)</pre>
+      <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #3C373B">Bottom bar shows on the three tab roots only. Chat, editor and settings are pushed full-screen so the reading area is clean. Android back always pops one level; on a tab root it goes to Characters, then exits. Chat ↔ Story is a state toggle on the same route, never a new route, so context and scroll position carry over.</p>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; font-size: 24px; font-weight: 700">3 · Screen layouts</h2>
+      <div style="display: flex; flex-direction: column; border-radius: 18px; overflow: hidden; background: #FFFFFF; border: 1px solid #E2DBD4; font-size: 14px; line-height: 1.5">
+        <div style="display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>Character Library</b><span style="color: #3C373B">CustomScrollView: header, SearchBar, ContinueCard (InkWell), recent avatars (horizontal ListView), SliverGrid 2-col (3 ≥600dp), drafts.</span></div>
+        <div style="display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>Details</b><span style="color: #3C373B">Scaffold + CustomScrollView with portrait SliverAppBar; bottom action bar in bottomNavigationBar slot (Edit + Start chat).</span></div>
+        <div style="display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>Editor</b><span style="color: #3C373B">Form + ListView; ExpansionTile for “More details”; sticky FilledButton; PopScope to warn on unsaved changes.</span></div>
+        <div style="display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>Chat</b><span style="color: #3C373B">Column[AppBar, Expanded(ListView.builder(reverse: true)), Composer]. Reverse list keeps the newest at the bottom without forced scrolling.</span></div>
+        <div style="display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>Story</b><span style="color: #3C373B">Same data, StoryPassage widgets; ConstrainedBox(maxWidth: 640) centred; minimal app bar that hides on scroll.</span></div>
+        <div style="display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>Chats</b><span style="color: #3C373B">SearchBar + sectioned ListView (Pinned / Recent); trailing IconButton opens an action sheet.</span></div>
+        <div style="display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 16px; padding: 12px 18px"><b>Library, Memory, Settings</b><span style="color: #3C373B">SegmentedButton tabs; FilterChip row for universes; grouped ListViews; SwitchListTile / RadioListTile.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="display: flex; flex-direction: column; gap: 14px">
+    <h2 style="margin: 0; font-size: 24px; font-weight: 700">4 · Reusable components</h2>
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; font-size: 14px; line-height: 1.5">
+      <div style="display: flex; flex-direction: column; gap: 6px; padding: 18px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E2DBD4"><b style="font-family: 'JetBrains Mono', monospace; font-size: 13px">CharacterAvatar</b><span style="color: #3C373B">size, shape (rounded/circle), tile + ink, initial, optional image. Always excludeSemantics; the parent row names the character.</span></div>
+      <div style="display: flex; flex-direction: column; gap: 6px; padding: 18px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E2DBD4"><b style="font-family: 'JetBrains Mono', monospace; font-size: 13px">CharacterCard</b><span style="color: #3C373B">Grid card: portrait, name, one-line short, first tag. One InkWell, min height 210.</span></div>
+      <div style="display: flex; flex-direction: column; gap: 6px; padding: 18px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E2DBD4"><b style="font-family: 'JetBrains Mono', monospace; font-size: 13px">ContinueCard / ChatTile</b><span style="color: #3C373B">Avatar, title, character · time, preview (1–2 lines), optional trailing ⋯ (48dp).</span></div>
+      <div style="display: flex; flex-direction: column; gap: 6px; padding: 18px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E2DBD4"><b style="font-family: 'JetBrains Mono', monospace; font-size: 13px">RichRoleplayText</b><span style="color: #3C373B">Parses *actions* and "dialogue" into TextSpans (italic/muted vs bright). Shared by chat and story; tolerant of half-streamed markup.</span></div>
+      <div style="display: flex; flex-direction: column; gap: 6px; padding: 18px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E2DBD4"><b style="font-family: 'JetBrains Mono', monospace; font-size: 13px">AiMessage / UserBubble</b><span style="color: #3C373B">States: thinking, streaming (caret), done, stopped, editing. Carries alts[] and altIndex.</span></div>
+      <div style="display: flex; flex-direction: column; gap: 6px; padding: 18px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E2DBD4"><b style="font-family: 'JetBrains Mono', monospace; font-size: 13px">MessageActions</b><span style="color: #3C373B">Version stepper (‹ 2 of 3 ›), Rewrite, Copy, Edit — labelled TextButtons, 44dp tall.</span></div>
+      <div style="display: flex; flex-direction: column; gap: 6px; padding: 18px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E2DBD4"><b style="font-family: 'JetBrains Mono', monospace; font-size: 13px">Composer</b><span style="color: #3C373B">Multiline TextField (1–5 lines), Send ↔ Stop swap, story variant with Continue. Wrapped in SafeArea; padding follows viewInsets.</span></div>
+      <div style="display: flex; flex-direction: column; gap: 6px; padding: 18px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E2DBD4"><b style="font-family: 'JetBrains Mono', monospace; font-size: 13px">InlineNotice / ModelPicker</b><span style="color: #3C373B">Error card with primary + secondary action; model radio list with availability line and reason when disabled.</span></div>
+    </div>
+  </section>
+
+  <section style="display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 32px">
+    <div style="display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; font-size: 24px; font-weight: 700">5 · Interaction states — a reply's life</h2>
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-size: 14px; font-weight: 600">
+        <span style="padding: 10px 14px; border-radius: 12px; background: #FFFFFF; border: 1px solid #E2DBD4">idle</span><span style="color: #7A2236">→ send</span>
+        <span style="padding: 10px 14px; border-radius: 12px; background: #FFFFFF; border: 1px solid #E2DBD4">thinking</span><span style="color: #7A2236">→ first token</span>
+        <span style="padding: 10px 14px; border-radius: 12px; background: #FFFFFF; border: 1px solid #E2DBD4">streaming</span><span style="color: #7A2236">→</span>
+        <span style="padding: 10px 14px; border-radius: 12px; background: #1C1A1D; color: #EEE7E1">done</span>
+        <span style="padding: 10px 14px; border-radius: 12px; background: #FFFFFF; border: 1px solid #E2DBD4">stopped</span>
+        <span style="padding: 10px 14px; border-radius: 12px; background: #F6E0DC; border: 1px solid #E7B5AB">error: limit · busy · offline</span>
+      </div>
+      <div style="display: flex; flex-direction: column; border-radius: 18px; overflow: hidden; background: #FFFFFF; border: 1px solid #E2DBD4; font-size: 14px; line-height: 1.5">
+        <div style="display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>thinking</b><span style="color: #3C373B">“Vesper is writing…” with three pulsing dots. Composer Send becomes Stop. After 20 s add “Still working — this model is slow right now.”</span></div>
+        <div style="display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>streaming</b><span style="color: #3C373B">Append chunks to the message; caret at the end. Auto-follow only if the list is at the bottom; otherwise show “New reply below”.</span></div>
+        <div style="display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>stopped</b><span style="color: #3C373B">Keep partial text with an ellipsis; actions appear (Rewrite, Edit). Nothing is lost.</span></div>
+        <div style="display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>rewrite</b><span style="color: #3C373B">Adds a new alt to the same message and streams into it; ‹ › moves between alts. The next user message branches from the visible alt.</span></div>
+        <div style="display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 16px; padding: 12px 18px"><b>error</b><span style="color: #3C373B">InlineNotice in the list where the reply would be. Limit/busy → “Switch model” (primary) re-sends automatically; offline → queue and “Try again”.</span></div>
+      </div>
+      <p style="margin: 0; font-size: 14px; line-height: 1.55; color: #3C373B">Also design for: pressed (InkWell splash on surfaceRaised), focused (2dp primaryInk outline), disabled (surface fill, textSubtle label + a reason nearby), selected (chips and segments).</p>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 28px">
+      <div style="display: flex; flex-direction: column; gap: 12px">
+        <h2 style="margin: 0; font-size: 24px; font-weight: 700">6 · Responsive behaviour</h2>
+        <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.55; color: #3C373B">
+          <li><b>Compact (&lt;600dp)</b>: as designed; 20dp gutters, 2-column character grid.</li>
+          <li><b>Medium (600–839)</b>: 3-column grid; NavigationRail replaces the bottom bar.</li>
+          <li><b>Expanded (≥840)</b>: Chats becomes list-detail; chat and story text capped at 640dp wide.</li>
+          <li><b>Keyboard</b>: resizeToAvoidBottomInset on; the reversed list keeps the latest message visible above the composer.</li>
+          <li><b>Landscape phone</b>: hide the story header on scroll; composer stays one line until focused.</li>
+        </ul>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px">
+        <h2 style="margin: 0; font-size: 24px; font-weight: 700">7 · Accessibility</h2>
+        <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.55; color: #3C373B">
+          <li>All tap targets ≥48dp (MaterialTapTargetSize.padded); inline message actions ≥44dp tall with labels.</li>
+          <li>Every text/background pair ≥4.5:1; accent burgundy is never used for text.</li>
+          <li>Support text scale to 200%: no fixed-height text containers; cards grow.</li>
+          <li>TalkBack: announce a reply once when it finishes (SemanticsService.announce), not per chunk; “Vesper is writing” is a live region.</li>
+          <li>Icon buttons have tooltips + semantic labels; toggles use Switch semantics; selected chips expose selected state.</li>
+          <li>Honour “Remove animations” (MediaQuery.disableAnimations): show replies whole instead of streaming.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section style="display: flex; flex-direction: column; gap: 14px; padding: 32px; border-radius: 22px; background: #1C1A1D; color: #EEE7E1">
+    <h2 style="margin: 0; font-size: 24px; font-weight: 700">8 · Data the UI expects (for the Supabase phase)</h2>
+    <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.6; color: #CFC6BF">
+      <span><b style="color: #E9A0AE">Character</b><br>id, name, short, tags[]<br>personality, greeting<br>advanced{…}, tile, ink<br>universeId?, avatarUrl?</span>
+      <span><b style="color: #E9A0AE">Universe</b><br>id, name, desc, era<br>tile</span>
+      <span><b style="color: #E9A0AE">Conversation</b><br>id, characterId, title<br>pinned, mode, updatedAt</span>
+      <span><b style="color: #E9A0AE">Message</b><br>id, role, alts[]<br>altIndex, status<br>(streaming|done|stopped)</span>
+      <span><b style="color: #E9A0AE">Memory</b><br>id, universeId, category<br>(important|facts|<br>relationships|world)<br>text, pinned</span>
+    </div>
+    <p style="margin: 0; font-size: 14px; line-height: 1.55; color: #B3AAA3">Model availability (free replies left, reset time, busy) comes from one endpoint so AI settings, the picker and the inline error always agree.</p>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1360,"height":2800}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

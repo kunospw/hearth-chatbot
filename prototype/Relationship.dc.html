@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Relationship engine spec</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1360px; height: 3000px; box-sizing: border-box; padding: 72px 80px; background: #F3F0EC; color: #1C1A1D; font-family: 'Figtree', system-ui, sans-serif; display: flex; flex-direction: column; gap: 44px">
+  <header style="display: flex; flex-direction: column; gap: 12px; max-width: 960px">
+    <span style="font-size: 14px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #7A2236">Hearth · Flutter handoff · Relationship Journal</span>
+    <h1 style="margin: 0; font-family: 'Newsreader', serif; font-weight: 500; font-size: 52px; line-height: 1.1">A relationship engine that changes the story, not just a progress bar</h1>
+    <p style="margin: 0; font-size: 18px; line-height: 1.55; color: #4A4448">Values are owned by the backend, not the model. The model may propose an event; a deterministic engine decides whether it counts, how much, and what the next reply is told. Every change is logged, explainable and reversible.</p>
+  </header>
+
+  <section style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px">
+    <div style="display: flex; flex-direction: column; gap: 8px; padding: 22px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E2DBD4"><span style="font-family: 'Newsreader', serif; font-size: 22px">Deterministic</span><span style="font-size: 15px; line-height: 1.55; color: #3C373B">Same inputs give the same outcome. Rules, magnitudes and thresholds live in server tables, not prompts.</span></div>
+    <div style="display: flex; flex-direction: column; gap: 8px; padding: 22px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E2DBD4"><span style="font-family: 'Newsreader', serif; font-size: 22px">AI proposes, backend decides</span><span style="font-size: 15px; line-height: 1.55; color: #3C373B">The model can name one event kind with evidence. It can never set numbers, stages or facts.</span></div>
+    <div style="display: flex; flex-direction: column; gap: 8px; padding: 22px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E2DBD4"><span style="font-family: 'Newsreader', serif; font-size: 22px">Gradual by design</span><span style="font-size: 15px; line-height: 1.55; color: #3C373B">Pacing, cooldowns, diminishing returns and scene budgets make slow burn actually slow — and farming useless.</span></div>
+    <div style="display: flex; flex-direction: column; gap: 8px; padding: 22px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E2DBD4"><span style="font-family: 'Newsreader', serif; font-size: 22px">Not romance by default</span><span style="font-size: 15px; line-height: 1.55; color: #3C373B">Affection ≠ attraction. Romance needs an allowing type and its own signal; stages are per character and scenario.</span></div>
+  </section>
+
+  <section style="display: flex; flex-direction: column; gap: 16px">
+    <h2 style="margin: 0; font-size: 24px; font-weight: 700">1 · The loop for every user message</h2>
+    <div style="display: flex; align-items: stretch; gap: 10px">
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 6px; padding: 16px; border-radius: 16px; background: #1C1A1D; color: #EEE7E1"><span style="font-size: 12px; font-weight: 700; color: #E9A0AE">1 · CLIENT</span><span style="font-size: 15px; font-weight: 600">User sends a message</span><span style="font-size: 13px; line-height: 1.5; color: #B3AAA3">Flutter posts it to the chat edge function. No relationship maths on the device.</span></div>
+      <span aria-hidden="true" style="align-self: center; font-size: 22px; color: #7A2236">→</span>
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 6px; padding: 16px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E2DBD4"><span style="font-size: 12px; font-weight: 700; color: #7A2236">2 · ENGINE (PRE)</span><span style="font-size: 15px; font-weight: 600">Classify the user's action</span><span style="font-size: 13px; line-height: 1.5; color: #3C373B">Rule matchers + a small classifier pick at most one event kind from a fixed list.</span></div>
+      <span aria-hidden="true" style="align-self: center; font-size: 22px; color: #7A2236">→</span>
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 6px; padding: 16px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E2DBD4"><span style="font-size: 12px; font-weight: 700; color: #7A2236">3 · VALIDATE</span><span style="font-size: 15px; font-weight: 600">Apply safeguards</span><span style="font-size: 13px; line-height: 1.5; color: #3C373B">Trivial filter, cooldown, diminishing returns, scene budget, gates, locks, pacing.</span></div>
+      <span aria-hidden="true" style="align-self: center; font-size: 22px; color: #7A2236">→</span>
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 6px; padding: 16px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E2DBD4"><span style="font-size: 12px; font-weight: 700; color: #7A2236">4 · PERSIST</span><span style="font-size: 15px; font-weight: 600">Append event, update state</span><span style="font-size: 13px; line-height: 1.5; color: #3C373B">One transaction: event row + new values + stage. Manual pacing writes a suggestion instead.</span></div>
+      <span aria-hidden="true" style="align-self: center; font-size: 22px; color: #7A2236">→</span>
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 6px; padding: 16px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E2DBD4"><span style="font-size: 12px; font-weight: 700; color: #7A2236">5 · PROMPT</span><span style="font-size: 15px; font-weight: 600">Build the context block</span><span style="font-size: 13px; line-height: 1.5; color: #3C373B">Stage, type, value words, behaviour lines, locked facts — from fresh state.</span></div>
+      <span aria-hidden="true" style="align-self: center; font-size: 22px; color: #7A2236">→</span>
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 6px; padding: 16px; border-radius: 16px; background: #1C1A1D; color: #EEE7E1"><span style="font-size: 12px; font-weight: 700; color: #E9A0AE">6 · MODEL</span><span style="font-size: 15px; font-weight: 600">Reply + optional proposal</span><span style="font-size: 13px; line-height: 1.5; color: #B3AAA3">The proposal re-enters step 3 as a candidate for the character's own actions. Never applied directly.</span></div>
+    </div>
+    <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #3C373B">Because step 5 runs after step 4, a meaningful action changes <b>this</b> reply: a promise kept at Trust 31 gets a guarded nod; the same promise at Trust 62 gets a confession about the logbook. The prototype does this with tiered reply pools; production does it with the context block.</p>
+  </section>
+
+  <section style="display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 32px">
+    <div style="display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; font-size: 24px; font-weight: 700">2 · Safeguards (validator, in order)</h2>
+      <div style="display: flex; flex-direction: column; border-radius: 18px; overflow: hidden; background: #FFFFFF; border: 1px solid #E2DBD4; font-size: 14px; line-height: 1.5">
+        <div style="display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>Trivial filter</b><span style="color: #3C373B">Under 4 words, out-of-character lines (( … )), emoji-only, or a normalised-text hash seen in the last 20 turns → no event.</span></div>
+        <div style="display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>Evidence check</b><span style="color: #3C373B">A model proposal must quote text that actually appears in the last 6 messages, and its kind must be in the catalogue. Otherwise it is dropped and logged.</span></div>
+        <div style="display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>Cooldown</b><span style="color: #3C373B">Each event kind fires at most once per 6 user turns per relationship.</span></div>
+        <div style="display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>Diminishing returns</b><span style="color: #3C373B">× 1 / (1 + 0.5·n), where n = times this kind counted in the last 30 turns. The fifth “thank you” is worth a third of the first.</span></div>
+        <div style="display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>Scene budget</b><span style="color: #3C373B">Total movement capped at 8 points per 10 turns, and ±12 per value per day. Excess is scaled down and noted in “why”.</span></div>
+        <div style="display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>Romance gate</b><span style="color: #3C373B">Attraction events only apply when type is Romantic or “Let the story decide”. Affection never converts into attraction.</span></div>
+        <div style="display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>Locks</b><span style="color: #3C373B">A locked stage never moves automatically. Events tagged as contradicting a locked fact are rejected.</span></div>
+        <div style="display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>Idempotence</b><span style="color: #3C373B">Events key on (message_id, kind). Rewrites and regenerations never double-count; editing a message re-evaluates and replaces its event.</span></div>
+        <div style="display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 16px; padding: 12px 18px"><b>Pacing</b><span style="color: #3C373B">Multiply last, round to 0.5. Manual pacing writes a suggestion for the user to approve.</span></div>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; font-size: 24px; font-weight: 700">3 · Pacing &amp; stages</h2>
+      <div style="display: flex; flex-direction: column; border-radius: 18px; overflow: hidden; background: #FFFFFF; border: 1px solid #E2DBD4; font-size: 14px">
+        <div style="display: grid; grid-template-columns: 1.2fr 1fr 1fr 2fr; gap: 12px; padding: 12px 18px; background: #1C1A1D; color: #EEE7E1; font-weight: 700"><span>Pacing</span><span>Gains ×</span><span>Setbacks ×</span><span>Feels like</span></div>
+        <div style="display: grid; grid-template-columns: 1.2fr 1fr 1fr 2fr; gap: 12px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>Slow burn (default)</b><span>0.5</span><span>0.75</span><span style="color: #3C373B">~25–40 meaningful moments per stage</span></div>
+        <div style="display: grid; grid-template-columns: 1.2fr 1fr 1fr 2fr; gap: 12px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>Balanced</b><span>1.0</span><span>1.0</span><span style="color: #3C373B">a stage every few sessions</span></div>
+        <div style="display: grid; grid-template-columns: 1.2fr 1fr 1fr 2fr; gap: 12px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>Fast</b><span>1.6</span><span>1.2</span><span style="color: #3C373B">short adventures</span></div>
+        <div style="display: grid; grid-template-columns: 1.2fr 1fr 1fr 2fr; gap: 12px; padding: 12px 18px"><b>Manual</b><span>—</span><span>—</span><span style="color: #3C373B">suggestions only; user approves</span></div>
+      </div>
+      <pre style="margin: 0; padding: 20px; border-radius: 16px; background: #1C1A1D; color: #EEE7E1; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.6; white-space: pre-wrap">score = 0.6·trust + 0.4·affection − 0.3·tension
+stage = highest i where score ≥ threshold[i]
+        thresholds  [−∞, 15, 32, 46, 60, 75]
+if stage ≥ romanticFrom and not (romance allowed
+   and attraction ≥ 35): stage = romanticFrom − 1
+hysteresis: only drop a stage when score
+   falls 5 below its threshold
+stageLocked → stage never changes automatically</pre>
+      <p style="margin: 0; font-size: 14px; line-height: 1.55; color: #3C373B">Stage <b>names</b> are per relationship (presets: Romance arc, Friendship, Rivalry, Family, or fully custom like Morrow's “Visitor → Keeper of the Stacks”). Setbacks lower values; hysteresis stops one argument from erasing a stage, but a real betrayal can.</p>
+    </div>
+  </section>
+
+  <section style="display: flex; flex-direction: column; gap: 14px">
+    <h2 style="margin: 0; font-size: 24px; font-weight: 700">4 · Event catalogue (server table, editable without an app release)</h2>
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; font-size: 14px; line-height: 1.45">
+      <div style="padding: 14px 16px; border-radius: 14px; background: #FFFFFF; border: 1px solid #E2DBD4"><b>promise_made</b><br><span style="color: #3C373B">trust +4</span></div>
+      <div style="padding: 14px 16px; border-radius: 14px; background: #FFFFFF; border: 1px solid #E2DBD4"><b>promise_kept</b><br><span style="color: #3C373B">trust +6 · needs an earlier promise_made</span></div>
+      <div style="padding: 14px 16px; border-radius: 14px; background: #FFFFFF; border: 1px solid #E2DBD4"><b>promise_broken</b><br><span style="color: #3C373B">trust −8 · tension +6</span></div>
+      <div style="padding: 14px 16px; border-radius: 14px; background: #FFFFFF; border: 1px solid #E2DBD4"><b>help_offered / rescue</b><br><span style="color: #3C373B">trust +3 / +6 · affection +1 / +3</span></div>
+      <div style="padding: 14px 16px; border-radius: 14px; background: #FFFFFF; border: 1px solid #E2DBD4"><b>boundary_respected</b><br><span style="color: #3C373B">trust +3 · tension −1</span></div>
+      <div style="padding: 14px 16px; border-radius: 14px; background: #FFFFFF; border: 1px solid #E2DBD4"><b>boundary_crossed</b><br><span style="color: #3C373B">trust −3 · tension +5</span></div>
+      <div style="padding: 14px 16px; border-radius: 14px; background: #FFFFFF; border: 1px solid #E2DBD4"><b>vulnerability_shared</b><br><span style="color: #3C373B">trust +3 · affection +2 · usually from the character</span></div>
+      <div style="padding: 14px 16px; border-radius: 14px; background: #FFFFFF; border: 1px solid #E2DBD4"><b>conflict</b><br><span style="color: #3C373B">tension +4 · trust ±0</span></div>
+      <div style="padding: 14px 16px; border-radius: 14px; background: #FFFFFF; border: 1px solid #E2DBD4"><b>apology / reconciliation</b><br><span style="color: #3C373B">tension −4 · trust +2 · only when tension &gt; 10</span></div>
+      <div style="padding: 14px 16px; border-radius: 14px; background: #FFFFFF; border: 1px solid #E2DBD4"><b>betrayal</b><br><span style="color: #3C373B">trust −12 · affection −4 · tension +10 · may drop a stage</span></div>
+      <div style="padding: 14px 16px; border-radius: 14px; background: #FFFFFF; border: 1px solid #E2DBD4"><b>appreciation</b><br><span style="color: #3C373B">affection +1 · the most farmable, so cooldown 10</span></div>
+      <div style="padding: 14px 16px; border-radius: 14px; background: #FFFFFF; border: 1px solid #E2DBD4"><b>romantic_gesture</b><br><span style="color: #3C373B">attraction +2 · gated by type · never raises affection</span></div>
+    </div>
+  </section>
+
+  <section style="display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 32px">
+    <div style="display: flex; flex-direction: column; gap: 12px">
+      <h2 style="margin: 0; font-size: 24px; font-weight: 700">5 · Database (Supabase / Postgres)</h2>
+      <pre style="margin: 0; padding: 22px; border-radius: 18px; background: #1C1A1D; color: #EEE7E1; font-family: 'JetBrains Mono', monospace; font-size: 12.5px; line-height: 1.6; white-space: pre-wrap">create table relationships (
+  id uuid primary key,
+  user_id uuid not null references auth.users,
+  character_id uuid not null, universe_id uuid,
+  persona_id uuid,                    -- who you play as
+  type text not null default 'undecided',
+  pacing text not null default 'slow',
+  trust numeric(5,1), affection numeric(5,1),
+  attraction numeric(5,1), tension numeric(5,1),
+  stage_idx int not null default 0,
+  stage_locked bool not null default false,
+  romantic_from int,                  -- null = no romance stages
+  version int not null default 0,     -- optimistic locking
+  unique (user_id, character_id, universe_id, persona_id)
+);
+create table relationship_stages (
+  relationship_id uuid, idx int, name text,
+  primary key (relationship_id, idx));
+create table relationship_events (     -- append-only
+  id uuid primary key, relationship_id uuid,
+  conversation_id uuid, message_id uuid,
+  kind text, source text,  -- engine|model_proposal|user|undo
+  deltas jsonb, multipliers jsonb,     -- pace, repeat, cap
+  evidence text, why text,
+  stage_before int, stage_after int,
+  undone_by uuid, created_at timestamptz,
+  unique (message_id, kind));
+create table relationship_facts (
+  id uuid primary key, relationship_id uuid,
+  text text, locked bool, tags text[]);
+create table relationship_suggestions (
+  id uuid primary key, relationship_id uuid,
+  event jsonb, status text,   -- pending|applied|dismissed
+  created_at timestamptz);
+-- RLS: user_id = auth.uid() on every table.
+-- Values change only via the apply_event() and
+-- apply_correction() SQL functions (security definer).</pre>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 12px">
+      <h2 style="margin: 0; font-size: 24px; font-weight: 700">6 · Prompt context</h2>
+      <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #3C373B">Built server-side on every turn, after the character card and before memories, ≈150–200 tokens. Numbers are paired with words; behaviour lines come from the same deterministic tables the Journal shows, so what users read is what the model gets.</p>
+      <pre style="margin: 0; padding: 20px; border-radius: 16px; background: #1C1A1D; color: #EEE7E1; font-family: 'JetBrains Mono', monospace; font-size: 12.5px; line-height: 1.6; white-space: pre-wrap">[relationship — set by the app, read-only]
+stage: Wary Acquaintances
+type: Let the story decide — do not assume romance
+trust 32 (cautious), affection 22 (polite warmth),
+attraction 6, tension 14 (mild)
+pacing: slow burn — change openness gradually
+play it like this:
+- Shares facts and plans, not feelings.
+- Shows warmth through small actions.
+- No romantic interest; fondness stays platonic.
+never contradict:
+- You are not related to Vesper.
+latest turning point: You gave your word…
+you may propose ONE relationship_event.</pre>
+      <span style="font-size: 14px; font-weight: 700">Model output contract (tool call / JSON tail)</span>
+      <pre style="margin: 0; padding: 18px; border-radius: 16px; background: #1C1A1D; color: #EEE7E1; font-family: 'JetBrains Mono', monospace; font-size: 12.5px; line-height: 1.6; white-space: pre-wrap">{ "relationship_event": {
+    "kind": "vulnerability_shared",
+    "actor": "character",
+    "evidence": "I haven't shown that to anyone",
+    "reason": "Vesper showed the logbook" } }
+// No numbers accepted. Unknown kinds, missing
+// evidence or a second event → discarded + logged.</pre>
+    </div>
+  </section>
+
+  <section style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px">
+    <div style="display: flex; flex-direction: column; gap: 12px">
+      <h2 style="margin: 0; font-size: 24px; font-weight: 700">7 · Flutter UI</h2>
+      <div style="display: flex; flex-direction: column; border-radius: 18px; overflow: hidden; background: #FFFFFF; border: 1px solid #E2DBD4; font-size: 14px; line-height: 1.5">
+        <div style="display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>Route</b><span style="color: #3C373B">/characters/:id/relationship?entry=… — from the chat ⋯ menu, the Story header menu, character details, or a marker in the chat.</span></div>
+        <div style="display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>StageHeader</b><span style="color: #3C373B">Avatar, stage name (Newsreader 25), type + pacing chips, plain-language “Next:” hint.</span></div>
+        <div style="display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>BehaviorCard</b><span style="color: #3C373B">The four behaviour lines + expandable “what the AI is told” (monospace, selectable).</span></div>
+        <div style="display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>ValueMeter</b><span style="color: #3C373B">Label, word, number, 6 dp track. Semantics reads the word (“Trust: cautious, 32 of 100”).</span></div>
+        <div style="display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>TimelineEntry</b><span style="color: #3C373B">ExpansionTile: kind colour + label, title, chat · date, delta chips; expanded shows why, who decided, Undo.</span></div>
+        <div style="display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>SuggestionCard</b><span style="color: #3C373B">Manual pacing: proposed deltas + reason with Apply / Dismiss.</span></div>
+        <div style="display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>RelationshipNote (chat)</b><span style="color: #3C373B">Under the user message that caused it: icon + “Trust grew a little · Why?”, textSubtle, 44 dp tall. Never numbers.</span></div>
+        <div style="display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 16px; padding: 12px 18px"><b>StoryOrnament (story)</b><span style="color: #3C373B">Centred italic Newsreader line, “— Something shifted between you. —”, tappable. Hidden setting removes both.</span></div>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 12px">
+      <h2 style="margin: 0; font-size: 24px; font-weight: 700">8 · Edge cases</h2>
+      <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #3C373B">
+        <li><b>Scope:</b> one relationship per user × character × universe × persona. Different universes never share values; several chats in the same world do.</li>
+        <li><b>Rewrite / alternate replies:</b> character-side proposals attach to the visible alt; switching alts re-evaluates. User-side events never change.</li>
+        <li><b>Deleted chat:</b> its events stay in the timeline marked “from a deleted chat”, so the history still adds up. The user can undo them individually.</li>
+        <li><b>Corrections:</b> write a user event with the diff (source = user). The engine treats it as the new baseline, and the Journal shows it as “Your correction”.</li>
+        <li><b>Undo:</b> writes a reversing event linked by undone_by. The original is struck through, never deleted.</li>
+        <li><b>Type change:</b> switching to Platonic or Family freezes attraction for prompts (n/a) and caps romance stages, but keeps history.</li>
+        <li><b>Concurrency:</b> the version column + apply_event() in one transaction; the client re-fetches on conflict through Supabase realtime.</li>
+        <li><b>Safety:</b> the content policy still governs the reply; relationship state can never unlock content the account settings don't allow.</li>
+      </ul>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1360,"height":3000}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

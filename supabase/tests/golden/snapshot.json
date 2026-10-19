@@ -1,0 +1,89 @@
+{
+  "id": "rel-1",
+  "characterId": "char-1",
+  "personaId": "persona-1",
+  "universeId": null,
+  "type": "undecided",
+  "pacing": "manual",
+  "values": {
+    "trust": 24,
+    "affection": 15,
+    "attraction": 0,
+    "tension": 0
+  },
+  "stages": [
+    "Strangers",
+    "Wary Acquaintances",
+    "Reluctant Allies",
+    "Growing Trust",
+    "Unspoken Feelings",
+    "Established Relationship"
+  ],
+  "stageIdx": 1,
+  "stageLocked": false,
+  "romanticFrom": 4,
+  "turn": 2,
+  "ignored": 0,
+  "version": 7,
+  "recentHashes": [
+    "1|i promise i will keep your secret safe always",
+    "2|let me help you with the heavy door there"
+  ],
+  "facts": [
+    {
+      "id": "init0",
+      "text": "You and Vesper are siblings.",
+      "locked": true,
+      "tags": [
+        "family"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "e3",
+      "kindId": "promise_made",
+      "category": "shift",
+      "title": "You made a promise",
+      "at": "2026-03-10T09:02:00.000Z",
+      "why": "Matched “you made a promise” in your message: “I promise I will keep your secret safe, always.”. Manual pacing: Trust +4 → +4. Approved by you (Manual pacing).",
+      "source": "approved",
+      "deltas": {
+        "trust": 4
+      },
+      "multipliers": {},
+      "evidence": null,
+      "chatTitle": "Chat",
+      "conversationId": null,
+      "messageId": "m0",
+      "turn": 1,
+      "stageBefore": 1,
+      "stageAfter": null,
+      "undoable": true,
+      "undoneBy": null,
+      "undoOf": null,
+      "fromDeletedChat": false
+    }
+  ],
+  "pending": [
+    {
+      "id": "p5",
+      "kindId": "help_offered",
+      "category": "shift",
+      "title": "You offered help",
+      "deltas": {
+        "trust": 3,
+        "affection": 1
+      },
+      "multipliers": {},
+      "why": "Matched “you offered help” in your message: “Let me help you with the heavy door there.”. Manual pacing: Trust +3 → +3, Affection +1 → +1.",
+      "evidence": null,
+      "source": "engine",
+      "chatTitle": "Chat",
+      "conversationId": null,
+      "messageId": "m2",
+      "turn": 2,
+      "at": "2026-03-10T09:03:00.000Z"
+    }
+  ]
+}

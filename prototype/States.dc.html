@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Screen states and behaviour</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1360px; height: 2500px; box-sizing: border-box; padding: 72px 80px; background: #F3F0EC; color: #1C1A1D; font-family: 'Figtree', system-ui, sans-serif; display: flex; flex-direction: column; gap: 44px">
+  <header style="display: flex; flex-direction: column; gap: 12px; max-width: 960px">
+    <span style="font-size: 14px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #7A2236">Hearth · Flutter handoff · Part 2</span>
+    <h1 style="margin: 0; font-family: 'Newsreader', serif; font-weight: 500; font-size: 52px; line-height: 1.1">Screen states and interaction behaviour</h1>
+    <p style="margin: 0; font-size: 18px; line-height: 1.55; color: #4A4448">Companion to “Flutter handoff” (tokens, routes, components) and “Relationship engine”. Everything here is live in the prototype.</p>
+  </header>
+
+  <section style="display: flex; flex-direction: column; gap: 14px">
+    <h2 style="margin: 0; font-size: 24px; font-weight: 700">1 · State matrix</h2>
+    <div style="display: flex; flex-direction: column; border-radius: 18px; overflow: hidden; background: #FFFFFF; border: 1px solid #E2DBD4; font-size: 13.5px; line-height: 1.45">
+      <div style="display: grid; grid-template-columns: 150px repeat(4, minmax(0, 1fr)); gap: 16px; padding: 14px 18px; background: #1C1A1D; color: #EEE7E1; font-weight: 700"><span>Screen</span><span>Empty</span><span>Loading</span><span>Error</span><span>Success / feedback</span></div>
+      <div style="display: grid; grid-template-columns: 150px repeat(4, minmax(0, 1fr)); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>Characters (home)</b><span>“Your first story starts here” + Meet the sample characters / Create my own</span><span>Skeleton continue card, avatars and 2 grid cards; “Loading your stories…”</span><span>“Can't reach Hearth right now” + Try again; cached chats stay readable</span><span>Search: “3 matches”; no match → Create “query”</span></div>
+      <div style="display: grid; grid-template-columns: 150px repeat(4, minmax(0, 1fr)); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>Details</b><span>Missing intro → short description; no chats → only Start new chat</span><span>Portrait tile shows initial at once; picture fades in</span><span>Picture fails → initial stays (no broken image)</span><span>Resume link if a chat exists</span></div>
+      <div style="display: grid; grid-template-columns: 150px repeat(4, minmax(0, 1fr)); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>Editor</b><span>Only Name required; disabled button explains why</span><span>Saving… on the button</span><span>Field-level message under the field</span><span>“Draft saved” toast · Save &amp; start chat opens the chat (editor removed from back stack)</span></div>
+      <div style="display: grid; grid-template-columns: 150px repeat(4, minmax(0, 1fr)); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>Chat / Story</b><span>New chat opens with the greeting already there</span><span>“Vesper is writing…” → streaming with caret · Stop</span><span>Inline card: limit / busy / offline, message kept, Switch model or Try again</span><span>Copied · Message updated · Stopped (kept partial) · relationship note</span></div>
+      <div style="display: grid; grid-template-columns: 150px repeat(4, minmax(0, 1fr)); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>Chats</b><span>“No chats yet” + Browse characters; search miss has its own copy</span><span>Skeleton rows</span><span>Offline banner, list from cache</span><span>Pinned to top · Renamed · Delete asks first</span></div>
+      <div style="display: grid; grid-template-columns: 150px repeat(4, minmax(0, 1fr)); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>Universes</b><span>“No one lives here yet” with how to add someone</span><span>Skeleton cards</span><span>Save disabled until it has a name</span><span>“Universe created / updated”</span></div>
+      <div style="display: grid; grid-template-columns: 150px repeat(4, minmax(0, 1fr)); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>Memories</b><span>Per category: “Nothing here yet.”</span><span>Skeleton rows</span><span>Save disabled while empty</span><span>Saved · Pinned — always remembered · Deleted + Undo</span></div>
+      <div style="display: grid; grid-template-columns: 150px repeat(4, minmax(0, 1fr)); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b>Relationship journal</b><span>No timeline → “Turning points will appear here”; no facts → hint</span><span>Header skeleton</span><span>Conflict → refetch and show the newest state</span><span>Correction saved · Change undone · Suggestion applied</span></div>
+      <div style="display: grid; grid-template-columns: 150px repeat(4, minmax(0, 1fr)); gap: 16px; padding: 12px 18px"><b>AI settings</b><span>—</span><span>Model status shimmer</span><span>Busy / limit shown per model with reason and reset time</span><span>“Switched to Lumen” and the waiting reply resumes</span></div>
+    </div>
+  </section>
+
+  <section style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px">
+    <div style="display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; font-size: 24px; font-weight: 700">2 · Interaction behaviour</h2>
+      <div style="display: flex; flex-direction: column; gap: 14px; font-size: 15px; line-height: 1.55; color: #3C373B">
+        <div><b style="color: #1C1A1D">Resume in one tap.</b> The Continue card is one InkWell. A chat reopens at the newest message, in the mode that chat was last in (stored per conversation).</div>
+        <div><b style="color: #1C1A1D">Continue vs. recent characters.</b> Continue = conversations (title + last line, opens the chat). Recent characters = people (round avatars, open the profile). Each section has a one-line subtitle saying which.</div>
+        <div><b style="color: #1C1A1D">Chat ↔ Story keeps your place.</b> Before switching, record the first visible message id and how far into it you'd scrolled (0–1). After the new layout, scroll to that message plus the same fraction. If you were at the bottom, stay at the bottom.</div>
+        <div><b style="color: #1C1A1D">Streaming never steals scroll.</b> Follow new text only when within 72 dp of the bottom; otherwise show “New reply below”. Don't re-scroll on every chunk; throttle rebuilds to ~60 ms.</div>
+        <div><b style="color: #1C1A1D">Keyboard.</b> resizeToAvoidBottomInset: true; reversed ListView so the latest message sits right above the composer. On focus, after the keyboard animation (~300 ms), jump to latest only if already near it. Android Enter inserts a newline; Send is the button (Ctrl+Enter on hardware keyboards).</div>
+        <div><b style="color: #1C1A1D">Safe areas.</b> Edge-to-edge with transparent system bars. Composer, bottom nav and sheets sit inside SafeArea(bottom); the chat list pads for the gesture inset so the last line is never under the handle.</div>
+        <div><b style="color: #1C1A1D">Touch targets.</b> 48 dp for primary actions and icon buttons; 44 dp minimum for inline actions (Rewrite, Copy, version arrows, chips, swatches). Visual size can be smaller; the hit area can't.</div>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; font-size: 24px; font-weight: 700">​</h2>
+      <div style="display: flex; flex-direction: column; gap: 14px; font-size: 15px; line-height: 1.55; color: #3C373B">
+        <div><b style="color: #1C1A1D">Long replies on small screens.</b> AI text is full-width prose, not a bubble; 16 dp side padding at 360 dp wide; paragraphs 12 dp apart; actions in italic muted, dialogue brightest. Only the latest reply shows its action row, so long histories stay quiet.</div>
+        <div><b style="color: #1C1A1D">Reading settings.</b> One “Text &amp; reading” sheet, opened from ⋯ in either mode: size (chat 14–22, default 16; story 15–26, default 19), line spacing Compact / Comfortable / Roomy, a live preview line, and narration and pacing in Story mode. Stored per device; respects the system text scale on top.</div>
+        <div><b style="color: #1C1A1D">Portraits with fallback.</b> CharacterAvatar always paints the tile colour + initial first, then fades in the image (150 ms) when it loads. On error it keeps the initial and doesn't retry until the next launch. The editor treats a picture as optional, and the colour doubles as the fallback.</div>
+        <div><b style="color: #1C1A1D">Simple creation.</b> Name is the only required field. “More details” stays collapsed by default. Leaving with changes opens Save draft / Keep editing / Discard (PopScope handles Android back too).</div>
+        <div><b style="color: #1C1A1D">Relationship notes.</b> Optional and subtle: one muted line under the message that caused a change (Chat), or a centred italic line (Story). Never numbers; “Hidden” turns them off. The journal is one tap from the chat ⋯ menu, the Story header menu, or the character profile.</div>
+      </div>
+    </div>
+  </section>
+
+  <section style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px">
+    <div style="display: flex; flex-direction: column; gap: 12px">
+      <h2 style="margin: 0; font-size: 24px; font-weight: 700">3 · Components added in this pass</h2>
+      <div style="display: flex; flex-direction: column; border-radius: 18px; overflow: hidden; background: #FFFFFF; border: 1px solid #E2DBD4; font-size: 14px; line-height: 1.5">
+        <div style="display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b style="font-family: 'JetBrains Mono', monospace; font-size: 13px">CharacterAvatar</b><span style="color: #3C373B">image?, tile, ink, initial, size, shape · states: placeholder → loaded | failed</span></div>
+        <div style="display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b style="font-family: 'JetBrains Mono', monospace; font-size: 13px">ReadingSheet</b><span style="color: #3C373B">mode, size, lineSpacing, preview; story-only narration and pacing</span></div>
+        <div style="display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b style="font-family: 'JetBrains Mono', monospace; font-size: 13px">HomeSkeleton / FirstRun / OfflineState</b><span style="color: #3C373B">home's three non-content states; one primary action each</span></div>
+        <div style="display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b style="font-family: 'JetBrains Mono', monospace; font-size: 13px">DiscardSheet</b><span style="color: #3C373B">Save draft (primary) · Keep editing · Discard (danger outline)</span></div>
+        <div style="display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 16px; padding: 12px 18px; border-bottom: 1px solid #ECE6E0"><b style="font-family: 'JetBrains Mono', monospace; font-size: 13px">JumpToLatestPill</b><span style="color: #3C373B">visible while new content arrives below the viewport</span></div>
+        <div style="display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 16px; padding: 12px 18px"><b style="font-family: 'JetBrains Mono', monospace; font-size: 13px">RelationshipNote / StoryOrnament</b><span style="color: #3C373B">see the Relationship engine board</span></div>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 12px">
+      <h2 style="margin: 0; font-size: 24px; font-weight: 700">4 · Token additions</h2>
+      <pre style="margin: 0; padding: 22px; border-radius: 18px; background: #1C1A1D; color: #EEE7E1; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.6; white-space: pre-wrap">abstract final class Reading {
+  static const chatSize   = (min: 14, def: 16, max: 22);
+  static const storySize  = (min: 15, def: 19, max: 26);
+  static const chatLeading  = {compact: 1.50,
+      comfortable: 1.62, roomy: 1.80};
+  static const storyLeading = {compact: 1.58,
+      comfortable: 1.72, roomy: 1.90};
+  static const storyMaxWidth = 640.0;
+}
+abstract final class Hit {
+  static const primary = 48.0, inline = 44.0;
+}
+abstract final class Rel {               // journal
+  static const trust = Color(0xFFBFD9D6);
+  static const affection = Color(0xFFE9A0AE);
+  static const attraction = Color(0xFFF2CF9A);
+  static const tension = Color(0xFFEF8A78);
+  static const meterHeight = 6.0;
+}</pre>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1360,"height":2500}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

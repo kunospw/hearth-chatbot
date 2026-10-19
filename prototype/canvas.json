@@ -1,0 +1,242 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "Directions.dc.html": {
+      "h": 1760,
+      "title": "Visual directions + recommendation",
+      "w": 1360,
+      "x": 0,
+      "y": 2480
+    },
+    "Handoff.dc.html": {
+      "h": 3001,
+      "title": "Flutter handoff",
+      "w": 1360,
+      "x": 4320,
+      "y": 2480
+    },
+    "Main.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "01 · Character Library (home)",
+      "w": 390,
+      "x": 0,
+      "y": 0
+    },
+    "Relationship.dc.html": {
+      "h": 3000,
+      "title": "Relationship engine · spec",
+      "w": 1360,
+      "x": 5760,
+      "y": 2480
+    },
+    "Review.dc.html": {
+      "h": 2000,
+      "title": "UX review · journeys A–F",
+      "w": 1360,
+      "x": 2880,
+      "y": 2480
+    },
+    "Screen-AI.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "09 · AI Settings",
+      "w": 390,
+      "x": 1880,
+      "y": 1260
+    },
+    "Screen-Chat.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "04 · Roleplay Chat",
+      "w": 390,
+      "x": 1410,
+      "y": 0
+    },
+    "Screen-Chats.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "06 · Conversations",
+      "w": 390,
+      "x": 0,
+      "y": 1260
+    },
+    "Screen-Details.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "02 · Character Details",
+      "w": 390,
+      "x": 470,
+      "y": 0
+    },
+    "Screen-Editor.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "03 · Character Editor",
+      "w": 390,
+      "x": 940,
+      "y": 0
+    },
+    "Screen-Empty.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "State · First launch (empty)",
+      "w": 390,
+      "x": 2820,
+      "y": 1260
+    },
+    "Screen-Journal.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "11 · Relationship Journal",
+      "w": 390,
+      "x": 2820,
+      "y": 0
+    },
+    "Screen-Library.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "07 · Universe Library",
+      "w": 390,
+      "x": 470,
+      "y": 1260
+    },
+    "Screen-Loading.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "State · Loading → offline → retry",
+      "w": 390,
+      "x": 3290,
+      "y": 1260
+    },
+    "Screen-Memory.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "08 · Lorebook & Memory",
+      "w": 390,
+      "x": 1410,
+      "y": 1260
+    },
+    "Screen-RateLimit.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "04b · Chat — model limit reached",
+      "w": 390,
+      "x": 2350,
+      "y": 0
+    },
+    "Screen-Settings.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "10 · App Settings",
+      "w": 390,
+      "x": 2350,
+      "y": 1260
+    },
+    "Screen-Story.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "05 · Story Mode",
+      "w": 390,
+      "x": 1880,
+      "y": 0
+    },
+    "Screen-Universe.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "07b · Universe detail",
+      "w": 390,
+      "x": 940,
+      "y": 1260
+    },
+    "States.dc.html": {
+      "h": 2500,
+      "title": "Flutter handoff · states & behaviour",
+      "w": 1360,
+      "x": 7200,
+      "y": 2480
+    },
+    "System.dc.html": {
+      "h": 2700,
+      "title": "Design system · components · states",
+      "w": 1360,
+      "x": 1440,
+      "y": 2480
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-10-17T04:10:00Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "view": "canvas"
+  },
+  "notes": {
+    "row1": {
+      "kind": "title1",
+      "maxW": 3210,
+      "text": "Hearth — the core loop: pick a character, start roleplaying",
+      "w": 240,
+      "x": 0,
+      "y": -260
+    },
+    "row2": {
+      "kind": "title1",
+      "maxW": 3680,
+      "text": "Chats, worlds, memories, settings and app states",
+      "w": 240,
+      "x": 0,
+      "y": 1010
+    },
+    "row3": {
+      "kind": "title1",
+      "maxW": 8000,
+      "text": "Directions, system, review and handoff",
+      "w": 240,
+      "x": 0,
+      "y": 2230
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Screen-Details.dc.html",
+    "Screen-Editor.dc.html",
+    "Screen-Chat.dc.html",
+    "Screen-Story.dc.html",
+    "Screen-RateLimit.dc.html",
+    "Screen-Journal.dc.html",
+    "Screen-Chats.dc.html",
+    "Screen-Library.dc.html",
+    "Screen-Universe.dc.html",
+    "Screen-Memory.dc.html",
+    "Screen-AI.dc.html",
+    "Screen-Settings.dc.html",
+    "Screen-Empty.dc.html",
+    "Screen-Loading.dc.html",
+    "Directions.dc.html",
+    "System.dc.html",
+    "Review.dc.html",
+    "Handoff.dc.html",
+    "Relationship.dc.html",
+    "States.dc.html"
+  ],
+  "pages": [],
+  "title": "Hearth — AI Roleplay App"
+}

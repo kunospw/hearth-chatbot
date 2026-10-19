@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Hearth design system</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1360px; height: 2700px; box-sizing: border-box; padding: 72px 80px; background: #0F0E10; color: #EEE7E1; font-family: 'Figtree', system-ui, sans-serif; display: flex; flex-direction: column; gap: 56px">
+  <header style="display: flex; flex-direction: column; gap: 12px; max-width: 920px">
+    <span style="font-size: 14px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #E9A0AE">Hearth · Design system v0.1</span>
+    <h1 style="margin: 0; font-family: 'Newsreader', serif; font-weight: 500; font-size: 52px; line-height: 1.1; color: #F4EDE7">Tokens, components and states</h1>
+    <p style="margin: 0; font-size: 19px; line-height: 1.55; color: #B3AAA3">Midnight Editorial. Every value here is named so it maps one-to-one onto a Flutter ThemeExtension. Units are logical pixels (dp).</p>
+  </header>
+
+  <section style="display: flex; flex-direction: column; gap: 20px">
+    <h2 style="margin: 0; font-size: 22px; font-weight: 600">Colour</h2>
+    <div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 8px"><span style="height: 80px; border-radius: 16px; background: #131214; border: 1px solid #3A3539"></span><span style="font-size: 15px; font-weight: 600">bg</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #B3AAA3">#131214 · app ground</span></div>
+      <div style="display: flex; flex-direction: column; gap: 8px"><span style="height: 80px; border-radius: 16px; background: #1C1A1D"></span><span style="font-size: 15px; font-weight: 600">surface</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #B3AAA3">#1C1A1D · cards, fields</span></div>
+      <div style="display: flex; flex-direction: column; gap: 8px"><span style="height: 80px; border-radius: 16px; background: #262327"></span><span style="font-size: 15px; font-weight: 600">surfaceRaised</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #B3AAA3">#262327 · chips, pills</span></div>
+      <div style="display: flex; flex-direction: column; gap: 8px"><span style="height: 80px; border-radius: 16px; background: #3A3539"></span><span style="font-size: 15px; font-weight: 600">outline</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #B3AAA3">#3A3539 · borders</span></div>
+      <div style="display: flex; flex-direction: column; gap: 8px"><span style="height: 80px; border-radius: 16px; background: #EEE7E1"></span><span style="font-size: 15px; font-weight: 600">text</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #B3AAA3">#EEE7E1 · 15.6:1 on bg</span></div>
+      <div style="display: flex; flex-direction: column; gap: 8px"><span style="height: 80px; border-radius: 16px; background: #B3AAA3"></span><span style="font-size: 15px; font-weight: 600">textMuted</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #B3AAA3">#B3AAA3 · 8.4:1</span></div>
+      <div style="display: flex; flex-direction: column; gap: 8px"><span style="height: 80px; border-radius: 16px; background: #9C948D"></span><span style="font-size: 15px; font-weight: 600">textSubtle</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #B3AAA3">#9C948D · 6.3:1 labels</span></div>
+      <div style="display: flex; flex-direction: column; gap: 8px"><span style="height: 80px; border-radius: 16px; background: #9A3349"></span><span style="font-size: 15px; font-weight: 600">primary</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #B3AAA3">#9A3349 · fills only</span></div>
+      <div style="display: flex; flex-direction: column; gap: 8px"><span style="height: 80px; border-radius: 16px; background: #E9A0AE"></span><span style="font-size: 15px; font-weight: 600">primaryInk</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #B3AAA3">#E9A0AE · links, focus</span></div>
+      <div style="display: flex; flex-direction: column; gap: 8px"><span style="height: 80px; border-radius: 16px; background: #3B1F27"></span><span style="font-size: 15px; font-weight: 600">primarySoft</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #B3AAA3">#3B1F27 · your bubbles</span></div>
+      <div style="display: flex; flex-direction: column; gap: 8px"><span style="height: 80px; border-radius: 16px; background: #F2CF9A"></span><span style="font-size: 15px; font-weight: 600">pin</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #B3AAA3">#F2CF9A · pinned items</span></div>
+      <div style="display: flex; flex-direction: column; gap: 8px"><span style="height: 80px; border-radius: 16px; background: #EF8A78"></span><span style="font-size: 15px; font-weight: 600">danger / ok</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #B3AAA3">#EF8A78 · #8DBF95</span></div>
+    </div>
+    <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #B3AAA3">Character tiles carry their own pair (tile + ink, e.g. #2F4A4F / #BFD9D6) chosen so the ink clears 4.5:1 on its tile. The app accent never sits behind a character portrait.</p>
+  </section>
+
+  <section style="display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 48px">
+    <div style="display: flex; flex-direction: column; gap: 16px">
+      <h2 style="margin: 0; font-size: 22px; font-weight: 600">Type scale</h2>
+      <div style="display: flex; flex-direction: column; border-top: 1px solid #2C282C">
+        <div style="display: flex; align-items: baseline; gap: 20px; padding: 14px 0; border-bottom: 1px solid #2C282C"><span style="width: 170px; flex: none; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #9C948D">display · 30/1.15</span><span style="font-family: 'Newsreader', serif; font-size: 30px; font-weight: 500">Good evening</span></div>
+        <div style="display: flex; align-items: baseline; gap: 20px; padding: 14px 0; border-bottom: 1px solid #2C282C"><span style="width: 170px; flex: none; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #9C948D">title · 19/1.25</span><span style="font-family: 'Newsreader', serif; font-size: 19px; font-weight: 500">The letter from the north tide</span></div>
+        <div style="display: flex; align-items: baseline; gap: 20px; padding: 14px 0; border-bottom: 1px solid #2C282C"><span style="width: 170px; flex: none; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #9C948D">story · 19/1.72</span><span style="font-family: 'Newsreader', serif; font-size: 19px; line-height: 1.72; color: #E6DED6">The great lamp begins its slow turn.</span></div>
+        <div style="display: flex; align-items: baseline; gap: 20px; padding: 14px 0; border-bottom: 1px solid #2C282C"><span style="width: 170px; flex: none; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #9C948D">chat · 16/1.62</span><span style="font-size: 16px; line-height: 1.62"><span style="font-style: italic; color: #B3AAA3">She sets the kettle on.</span> “Sit. The fog won't lift.”</span></div>
+        <div style="display: flex; align-items: baseline; gap: 20px; padding: 14px 0; border-bottom: 1px solid #2C282C"><span style="width: 170px; flex: none; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #9C948D">label · 16/600</span><span style="font-size: 16px; font-weight: 600">Start new chat</span></div>
+        <div style="display: flex; align-items: baseline; gap: 20px; padding: 14px 0; border-bottom: 1px solid #2C282C"><span style="width: 170px; flex: none; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #9C948D">body · 15/1.5</span><span style="font-size: 15px; line-height: 1.5; color: #CFC6BF">Each universe keeps its own lore and timeline.</span></div>
+        <div style="display: flex; align-items: baseline; gap: 20px; padding: 14px 0; border-bottom: 1px solid #2C282C"><span style="width: 170px; flex: none; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #9C948D">overline · 13/600 +6%</span><span style="font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #9C948D">Continue chatting</span></div>
+        <div style="display: flex; align-items: baseline; gap: 20px; padding: 14px 0; border-bottom: 1px solid #2C282C"><span style="width: 170px; flex: none; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #9C948D">caption · 13/1.45</span><span style="font-size: 13px; color: #9C948D">Free replies reset at 07:00</span></div>
+      </div>
+      <p style="margin: 0; font-size: 14px; line-height: 1.55; color: #B3AAA3">Chat text follows the user's size setting (15 / 16 / 18) and the OS text scale. Story text runs 15–26 via A− / A+.</p>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 28px">
+      <div style="display: flex; flex-direction: column; gap: 14px">
+        <h2 style="margin: 0; font-size: 22px; font-weight: 600">Spacing (4 dp base)</h2>
+        <div style="display: flex; align-items: flex-end; gap: 14px">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px"><span style="width: 4px; height: 4px; background: #E9A0AE"></span><span style="font-size: 12px; color: #9C948D">4</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px"><span style="width: 8px; height: 8px; background: #E9A0AE"></span><span style="font-size: 12px; color: #9C948D">8</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; background: #E9A0AE"></span><span style="font-size: 12px; color: #9C948D">12</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px"><span style="width: 16px; height: 16px; background: #E9A0AE"></span><span style="font-size: 12px; color: #9C948D">16</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px"><span style="width: 20px; height: 20px; background: #E9A0AE"></span><span style="font-size: 12px; color: #9C948D">20 gutter</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px"><span style="width: 24px; height: 24px; background: #E9A0AE"></span><span style="font-size: 12px; color: #9C948D">24</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px"><span style="width: 32px; height: 32px; background: #E9A0AE"></span><span style="font-size: 12px; color: #9C948D">32</span></div>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 14px">
+        <h2 style="margin: 0; font-size: 22px; font-weight: 600">Radius</h2>
+        <div style="display: flex; gap: 14px">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px"><span style="width: 56px; height: 56px; border-radius: 12px; background: #262327; border: 1px solid #3A3539"></span><span style="font-size: 12px; color: #9C948D">12 field</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px"><span style="width: 56px; height: 56px; border-radius: 14px; background: #262327; border: 1px solid #3A3539"></span><span style="font-size: 12px; color: #9C948D">14 button</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px"><span style="width: 56px; height: 56px; border-radius: 18px; background: #262327; border: 1px solid #3A3539"></span><span style="font-size: 12px; color: #9C948D">18 card</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px"><span style="width: 56px; height: 56px; border-radius: 26px 26px 0 0; background: #262327; border: 1px solid #3A3539"></span><span style="font-size: 12px; color: #9C948D">26 sheet</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px"><span style="width: 56px; height: 56px; border-radius: 28px; background: #262327; border: 1px solid #3A3539"></span><span style="font-size: 12px; color: #9C948D">full</span></div>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <h2 style="margin: 0; font-size: 22px; font-weight: 600">Depth</h2>
+        <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #B3AAA3">Elevation is tonal, not shadowed: bg → surface → surfaceRaised. Shadows appear only on floating things — toasts, the “new reply” pill — and the sheet scrim (#080708 at 66%).</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <h2 style="margin: 0; font-size: 22px; font-weight: 600">Motion</h2>
+        <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #B3AAA3">150 ms for presses and toggles, 250 ms emphasized-decelerate for sheets and screen pushes. Streaming text reveals a few words at a time; no bouncing. Respect “Remove animations”.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="display: flex; flex-direction: column; gap: 22px">
+    <h2 style="margin: 0; font-size: 22px; font-weight: 600">Components</h2>
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px">
+      <div style="display: flex; flex-direction: column; gap: 14px; padding: 24px; border-radius: 22px; background: #131214">
+        <span style="font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #9C948D">Buttons · 52 / 48 / 44 dp</span>
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; gap: 10px; align-items: center"><span style="flex: 1; display: flex; align-items: center; justify-content: center; height: 52px; border-radius: 14px; background: #9A3349; color: #FFF6F3; font-size: 16px; font-weight: 600">Start new chat</span><span style="width: 90px; font-size: 12px; color: #9C948D">default</span></div>
+          <div style="display: flex; gap: 10px; align-items: center"><span style="flex: 1; display: flex; align-items: center; justify-content: center; height: 52px; border-radius: 14px; background: #7E2739; color: #FFF6F3; font-size: 16px; font-weight: 600">Start new chat</span><span style="width: 90px; font-size: 12px; color: #9C948D">pressed</span></div>
+          <div style="display: flex; gap: 10px; align-items: center"><span style="flex: 1; display: flex; align-items: center; justify-content: center; height: 52px; border-radius: 14px; background: #9A3349; color: #FFF6F3; font-size: 16px; font-weight: 600; outline: 2px solid #E9A0AE; outline-offset: 2px">Start new chat</span><span style="width: 90px; font-size: 12px; color: #9C948D">focused</span></div>
+          <div style="display: flex; gap: 10px; align-items: center"><span style="flex: 1; display: flex; align-items: center; justify-content: center; height: 52px; border-radius: 14px; background: #2C282C; color: #8C847E; font-size: 16px; font-weight: 600">Save &amp; start chat</span><span style="width: 90px; font-size: 12px; color: #9C948D">disabled + hint</span></div>
+          <div style="display: flex; gap: 10px; align-items: center"><span style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 10px; height: 52px; border-radius: 14px; background: #9A3349; color: #FFF6F3; font-size: 16px; font-weight: 600"><span style="width: 16px; height: 16px; border-radius: 8px; border: 2px solid rgba(255,246,243,0.35); border-top-color: #FFF6F3"></span>Saving…</span><span style="width: 90px; font-size: 12px; color: #9C948D">loading</span></div>
+          <div style="display: flex; gap: 10px"><span style="flex: 1; display: flex; align-items: center; justify-content: center; height: 48px; border-radius: 14px; border: 1px solid #3A3539; background: #1C1A1D; font-size: 15px; font-weight: 600">Secondary</span><span style="flex: 1; display: flex; align-items: center; justify-content: center; height: 48px; border-radius: 14px; background: #8E2B22; color: #FFF1EE; font-size: 15px; font-weight: 600">Delete</span></div>
+          <div style="display: flex; gap: 10px"><span style="display: flex; align-items: center; height: 44px; padding: 0 12px; color: #E9A0AE; font-size: 15px; font-weight: 600">Text button</span><span style="display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 24px; background: #9A3349; color: #FFF6F3"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"></path></svg></span><span style="display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 24px; background: #262327; color: #7F7873"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"></path></svg></span></div>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 14px; padding: 24px; border-radius: 22px; background: #131214">
+        <span style="font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #9C948D">Selection controls</span>
+        <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; padding: 4px; background: #1C1A1D; border-radius: 14px"><span style="display: flex; align-items: center; justify-content: center; height: 42px; border-radius: 11px; color: #B3AAA3; font-size: 14px; font-weight: 600">Short</span><span style="display: flex; align-items: center; justify-content: center; height: 42px; border-radius: 11px; background: #EEE7E1; color: #1A1719; font-size: 14px; font-weight: 600">Medium</span><span style="display: flex; align-items: center; justify-content: center; height: 42px; border-radius: 11px; color: #B3AAA3; font-size: 14px; font-weight: 600">Long</span></div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px"><span style="display: flex; align-items: center; height: 40px; padding: 0 14px; border-radius: 20px; border: 1px solid #C24D66; background: #3B1F27; color: #F6DCE1; font-size: 14px; font-weight: 600">Saltmarsh Coast</span><span style="display: flex; align-items: center; height: 40px; padding: 0 14px; border-radius: 20px; border: 1px solid #3A3539; color: #CFC6BF; font-size: 14px; font-weight: 600">Meridian City</span></div>
+        <div style="display: flex; align-items: center; gap: 16px">
+          <span style="position: relative; width: 50px; height: 30px; border-radius: 15px; background: #9A3349"><span style="position: absolute; top: 3px; left: 23px; width: 24px; height: 24px; border-radius: 12px; background: #F4EDE7"></span></span>
+          <span style="position: relative; width: 50px; height: 30px; border-radius: 15px; background: #3A3539"><span style="position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 12px; background: #F4EDE7"></span></span>
+          <span style="width: 22px; height: 22px; border-radius: 11px; border: 2px solid #E9A0AE; display: flex; align-items: center; justify-content: center"><span style="width: 10px; height: 10px; border-radius: 5px; background: #E9A0AE"></span></span>
+          <span style="width: 22px; height: 22px; border-radius: 11px; border: 2px solid #5A5357"></span>
+        </div>
+        <span style="font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #9C948D; margin-top: 8px">Text field</span>
+        <div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 15px; font-weight: 600">Name</span><span style="display: flex; align-items: center; height: 50px; padding: 0 14px; border-radius: 12px; background: #1C1A1D; border: 1px solid #3A3539; color: #8C847E; font-size: 16px">e.g. Captain Mara Quill</span></div>
+        <div style="display: flex; flex-direction: column; gap: 6px"><span style="display: flex; align-items: center; height: 50px; padding: 0 14px; border-radius: 12px; background: #1C1A1D; border: 2px solid #E9A0AE; font-size: 16px">Mara Quill</span><span style="font-size: 12px; color: #9C948D">focused</span></div>
+        <div style="display: flex; flex-direction: column; gap: 6px"><span style="display: flex; align-items: center; height: 50px; padding: 0 14px; border-radius: 12px; background: #1C1A1D; border: 2px solid #EF8A78; font-size: 16px; color: #8C847E">Universe name</span><span style="font-size: 13px; color: #EF8A78">Give your universe a name to save it.</span></div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 14px; padding: 24px; border-radius: 22px; background: #131214">
+        <span style="font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #9C948D">Roleplay messages</span>
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <div style="display: flex; align-items: center; gap: 10px"><span style="width: 28px; height: 28px; border-radius: 9px; background: #2F4A4F; color: #BFD9D6; display: flex; align-items: center; justify-content: center; font-family: 'Newsreader', serif; font-size: 15px">V</span><span style="font-size: 13px; font-weight: 600; color: #B3AAA3">Vesper</span></div>
+          <p style="margin: 0; font-size: 16px; line-height: 1.62; color: #D9D1CA"><span style="font-style: italic; color: #B3AAA3">She slides the envelope across the table.</span> <span style="color: #F6EFE9">“Seven so far.”</span></p>
+          <div style="display: flex; align-items: center; gap: 2px; margin-left: -6px; font-size: 13px; font-weight: 600; color: #CFC6BF"><span style="padding: 0 8px">‹</span><span style="color: #B3AAA3">2 of 3</span><span style="padding: 0 8px">›</span><span style="padding: 0 10px">Rewrite</span><span style="padding: 0 10px">Copy</span><span style="padding: 0 10px">Edit</span></div>
+        </div>
+        <div style="align-self: flex-end; max-width: 80%; padding: 12px 15px; border-radius: 18px 18px 6px 18px; background: #3B1F27; color: #F6ECEE; font-size: 16px; line-height: 1.55"><span style="font-style: italic">I hold out my hand.</span> Let me see it.</div>
+        <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #9C948D">AI replies are un-bubbled full-width prose — they get long. Actions (*asterisks*) render italic and muted; dialogue in quotes renders brightest. The latest reply always shows its actions; older ones open them from ⋯.</p>
+        <div style="display: flex; align-items: flex-end; gap: 8px; padding-top: 8px; border-top: 1px solid #221F23"><span style="flex: 1; display: flex; align-items: center; height: 48px; padding: 0 16px; border-radius: 22px; background: #1C1A1D; border: 1px solid #3A3539; color: #8C847E; font-size: 16px">Message Vesper…</span><span style="width: 48px; height: 48px; border-radius: 24px; background: #262327; border: 1px solid #4A3239; display: flex; align-items: center; justify-content: center"><span style="width: 12px; height: 12px; border-radius: 2px; background: #EEE7E1"></span></span></div>
+        <span style="font-size: 12px; color: #9C948D">Composer while a reply is streaming: Send becomes Stop.</span>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px">
+      <div style="display: flex; flex-direction: column; gap: 14px; padding: 24px; border-radius: 22px; background: #131214">
+        <span style="font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #9C948D">Character card · list row</span>
+        <div style="display: flex; gap: 14px">
+          <div style="width: 160px; border-radius: 18px; overflow: hidden; background: #1C1A1D; border: 1px solid #2C282C">
+            <div style="height: 104px; background: #5A3F22; color: #F2CF9A; display: flex; align-items: flex-end; padding: 10px 12px; box-sizing: border-box; font-family: 'Newsreader', serif; font-size: 58px; line-height: 0.9">J</div>
+            <div style="padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 14px; font-weight: 600">Jun Okafor</span><span style="font-size: 12px; color: #B3AAA3">A fast-talking courier.</span><span style="align-self: flex-start; font-size: 11px; font-weight: 600; padding: 3px 7px; border-radius: 7px; background: #262327; color: #CFC6BF">Adventure</span></div>
+          </div>
+          <div style="flex: 1; display: flex; flex-direction: column; gap: 8px">
+            <div style="display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 14px; border: 1px solid #262327"><span style="width: 40px; height: 40px; border-radius: 12px; background: #3A3354; color: #CFC4F0; display: flex; align-items: center; justify-content: center; font-family: 'Newsreader', serif; font-size: 20px">M</span><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 600">The bookmark…</span><span style="font-size: 12px; color: #9C948D">Morrow · Mon</span></span></div>
+            <span style="font-size: 12px; line-height: 1.5; color: #9C948D">Whole row is one tap target (min 64 dp). Management lives behind a separate 44×48 ⋯ button.</span>
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 14px; padding: 24px; border-radius: 22px; background: #131214">
+        <span style="font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #9C948D">Memory row</span>
+        <div style="display: flex; align-items: stretch; background: #1C1A1D; border: 1px solid #5C4A2A; border-radius: 14px"><span style="flex: 1; padding: 13px 4px 13px 14px; font-size: 15px; line-height: 1.5; color: #E6DED6">Vesper trusts you a little — she let you hold the lamp key.</span><span style="width: 48px; display: flex; align-items: center; justify-content: center; color: #F2CF9A"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="#F2CF9A" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h6l-1 6 4 4H6l4-4-1-6z"></path><path d="M12 14v6"></path></svg></span></div>
+        <div style="display: flex; align-items: stretch; background: #1C1A1D; border: 1px solid #2C282C; border-radius: 14px"><span style="flex: 1; padding: 13px 4px 13px 14px; font-size: 15px; line-height: 1.5; color: #E6DED6">The letters only arrive on the north tide.</span><span style="width: 48px; display: flex; align-items: center; justify-content: center; color: #7F7873"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h6l-1 6 4 4H6l4-4-1-6z"></path><path d="M12 14v6"></path></svg></span></div>
+        <span style="font-size: 12px; color: #9C948D">Pinned = gold border + filled pin. Tap text to edit; pin toggles in place.</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 14px; padding: 24px; border-radius: 22px; background: #131214">
+        <span style="font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #9C948D">Bottom navigation · 3 destinations</span>
+        <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 6px 4px 10px; border-radius: 16px; background: #161416">
+          <span style="display: flex; flex-direction: column; align-items: center; gap: 4px; color: #F4EDE7"><span style="width: 60px; height: 32px; border-radius: 16px; background: #3B1F27"></span><span style="font-size: 12px; font-weight: 700">Characters</span></span>
+          <span style="display: flex; flex-direction: column; align-items: center; gap: 4px; color: #9C948D"><span style="width: 60px; height: 32px"></span><span style="font-size: 12px; font-weight: 500">Chats</span></span>
+          <span style="display: flex; flex-direction: column; align-items: center; gap: 4px; color: #9C948D"><span style="width: 60px; height: 32px"></span><span style="font-size: 12px; font-weight: 500">Library</span></span>
+        </div>
+        <span style="font-size: 12px; line-height: 1.5; color: #9C948D">Always labelled. Hidden inside a chat, the editor and settings so reading space stays clear. Settings live behind the profile button.</span>
+      </div>
+    </div>
+  </section>
+
+  <section style="display: flex; flex-direction: column; gap: 22px">
+    <h2 style="margin: 0; font-size: 22px; font-weight: 600">States</h2>
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px">
+      <div style="display: flex; flex-direction: column; gap: 12px; padding: 24px; border-radius: 22px; background: #131214">
+        <span style="font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #9C948D">Empty · first launch</span>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 28px 16px; text-align: center; border: 1px dashed #3A3539; border-radius: 18px">
+          <span style="width: 56px; height: 56px; border-radius: 28px; background: #262327; display: flex; align-items: center; justify-content: center; color: #E9A0AE; font-family: 'Newsreader', serif; font-size: 28px">✦</span>
+          <span style="font-family: 'Newsreader', serif; font-size: 20px; color: #F4EDE7">Your first story starts here</span>
+          <span style="font-size: 14px; line-height: 1.5; color: #B3AAA3">Meet a ready-made character or create your own in about a minute.</span>
+          <span style="display: flex; align-items: center; justify-content: center; width: 100%; height: 48px; border-radius: 14px; background: #9A3349; color: #FFF6F3; font-size: 15px; font-weight: 600">Meet a character</span>
+          <span style="font-size: 14px; font-weight: 600; color: #E9A0AE">Create my own</span>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px; padding: 24px; border-radius: 22px; background: #131214">
+        <span style="font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #9C948D">Loading · skeleton</span>
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+          <div style="border-radius: 16px; overflow: hidden; background: #1C1A1D"><div style="height: 80px; background: #262327"></div><div style="padding: 10px; display: flex; flex-direction: column; gap: 6px"><span style="height: 12px; width: 70%; border-radius: 6px; background: #2C282C"></span><span style="height: 10px; width: 90%; border-radius: 5px; background: #262327"></span></div></div>
+          <div style="border-radius: 16px; overflow: hidden; background: #1C1A1D"><div style="height: 80px; background: #262327"></div><div style="padding: 10px; display: flex; flex-direction: column; gap: 6px"><span style="height: 12px; width: 60%; border-radius: 6px; background: #2C282C"></span><span style="height: 10px; width: 85%; border-radius: 5px; background: #262327"></span></div></div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; padding-top: 8px"><span style="display: flex; gap: 5px"><span style="width: 7px; height: 7px; border-radius: 4px; background: #E9A0AE"></span><span style="width: 7px; height: 7px; border-radius: 4px; background: #E9A0AE; opacity: 0.3"></span><span style="width: 7px; height: 7px; border-radius: 4px; background: #E9A0AE; opacity: 0.3"></span></span><span style="font-size: 14px; color: #B3AAA3">Vesper is writing…</span></div>
+        <span style="font-size: 12px; line-height: 1.5; color: #9C948D">Skeletons for lists; named “is writing…” for replies, then words stream in. After 20 s: “Still working — this model is slow right now.”</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px; padding: 24px; border-radius: 22px; background: #131214">
+        <span style="font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #9C948D">Error · in place</span>
+        <div style="display: flex; flex-direction: column; gap: 10px; padding: 14px; background: #221A1C; border: 1px solid #5A2F36; border-radius: 16px">
+          <span style="font-size: 15px; font-weight: 600; color: #F6E3DF">Couldn't reach Vesper</span>
+          <span style="font-size: 14px; line-height: 1.5; color: #CFC6BF">You seem to be offline. Your message is saved and will send when you're back.</span>
+          <span style="display: flex; align-items: center; justify-content: center; height: 44px; border-radius: 12px; border: 1px solid #3A3539; font-size: 14px; font-weight: 600">Try again</span>
+        </div>
+        <span style="font-size: 12px; line-height: 1.5; color: #9C948D">Errors appear where the reply would be, say what happened, promise the message is safe, and give one obvious next step. Limits get “Switch model” as the primary action.</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px; padding: 24px; border-radius: 22px; background: #131214">
+        <span style="font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #9C948D">Success · undo</span>
+        <div style="display: flex; align-items: center; min-height: 52px; padding: 4px 6px 4px 16px; border-radius: 14px; background: #EEE7E1; color: #1A1719"><span style="flex: 1; font-size: 15px; font-weight: 500">Memory saved</span></div>
+        <div style="display: flex; align-items: center; min-height: 52px; padding: 4px 6px 4px 16px; border-radius: 14px; background: #EEE7E1; color: #1A1719"><span style="flex: 1; font-size: 15px; font-weight: 500">Memory deleted</span><span style="padding: 0 14px; font-size: 15px; font-weight: 700; color: #7A2236">Undo</span></div>
+        <div style="display: flex; flex-direction: column; gap: 8px; padding: 14px; border-radius: 16px; background: #1C1A1D"><span style="font-size: 15px; font-weight: 600">Delete “Rooftop delivery”?</span><span style="font-size: 13px; color: #B3AAA3">Gone for good. Universe memories stay safe.</span><div style="display: flex; gap: 8px"><span style="flex: 1; display: flex; align-items: center; justify-content: center; height: 40px; border-radius: 12px; border: 1px solid #3A3539; font-size: 14px; font-weight: 600">Keep it</span><span style="flex: 1; display: flex; align-items: center; justify-content: center; height: 40px; border-radius: 12px; background: #8E2B22; color: #FFF1EE; font-size: 14px; font-weight: 600">Delete</span></div></div>
+        <span style="font-size: 12px; line-height: 1.5; color: #9C948D">Small, reversible deletes get Undo. Whole chats get a confirm whose safe option is on the left and worded as a choice.</span>
+      </div>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1360,"height":2700}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

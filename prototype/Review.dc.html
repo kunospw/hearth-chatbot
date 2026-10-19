@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>UX review</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1360px; height: 2000px; box-sizing: border-box; padding: 72px 80px; background: #F3F0EC; color: #1C1A1D; font-family: 'Figtree', system-ui, sans-serif; display: flex; flex-direction: column; gap: 40px">
+  <header style="display: flex; justify-content: space-between; align-items: flex-end; gap: 40px">
+    <div style="display: flex; flex-direction: column; gap: 12px; max-width: 760px">
+      <span style="font-size: 14px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #7A2236">Hearth · UX review</span>
+      <h1 style="margin: 0; font-family: 'Newsreader', serif; font-weight: 500; font-size: 52px; line-height: 1.1">Six journeys, counted tap by tap</h1>
+      <p style="margin: 0; font-size: 18px; line-height: 1.55; color: #4A4448">Counted in the prototype from a cold open. Typing is not a tap. Targets: 1 tap to resume, 2–3 taps to start a new chat.</p>
+    </div>
+    <div style="display: flex; gap: 14px">
+      <div style="display: flex; flex-direction: column; align-items: center; padding: 18px 22px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E2DBD4"><span style="font-family: 'Newsreader', serif; font-size: 44px; color: #7A2236">1</span><span style="font-size: 13px; color: #4A4448">tap to resume</span></div>
+      <div style="display: flex; flex-direction: column; align-items: center; padding: 18px 22px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E2DBD4"><span style="font-family: 'Newsreader', serif; font-size: 44px; color: #7A2236">2</span><span style="font-size: 13px; color: #4A4448">taps to a new chat</span></div>
+    </div>
+  </header>
+
+  <div style="display: flex; flex-direction: column; border-radius: 24px; overflow: hidden; background: #FFFFFF; border: 1px solid #E2DBD4">
+    <div style="display: grid; grid-template-columns: 210px 300px 90px minmax(0, 1fr) minmax(0, 1fr); gap: 24px; padding: 16px 28px; background: #1C1A1D; color: #EEE7E1; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase">
+      <span>Journey</span><span>Path in the prototype</span><span>Taps</span><span>What we cut or simplified</span><span>Watch-outs → fix</span>
+    </div>
+    <div style="display: grid; grid-template-columns: 210px 300px 90px minmax(0, 1fr) minmax(0, 1fr); gap: 24px; padding: 22px 28px; border-bottom: 1px solid #ECE6E0; font-size: 15px; line-height: 1.55">
+      <span style="font-weight: 700">A · Pick a character and start chatting</span>
+      <span style="color: #3C373B">Character card → <b>Start new chat</b> → type → send</span>
+      <span style="font-family: 'Newsreader', serif; font-size: 30px; color: #7A2236">2</span>
+      <span style="color: #3C373B">No persona, model or scenario picker before chatting — sensible defaults apply. The greeting is already on screen when the chat opens.</span>
+      <span style="color: #3C373B">“Start new chat” next to an existing chat could fork stories by accident → details screen shows a <b>Resume “…”</b> link right above it.</span>
+    </div>
+    <div style="display: grid; grid-template-columns: 210px 300px 90px minmax(0, 1fr) minmax(0, 1fr); gap: 24px; padding: 22px 28px; border-bottom: 1px solid #ECE6E0; font-size: 15px; line-height: 1.55">
+      <span style="font-weight: 700">B · Resume the last conversation</span>
+      <span style="color: #3C373B"><b>Continue story</b> card at the top of home</span>
+      <span style="font-family: 'Newsreader', serif; font-size: 30px; color: #7A2236">1</span>
+      <span style="color: #3C373B">The whole card is the button, with title and last line so you know where you left off. Two more recent chats sit right below it.</span>
+      <span style="color: #3C373B">Chats tab is a second route (2 taps) with search and pins. The chat opens scrolled to the newest message.</span>
+    </div>
+    <div style="display: grid; grid-template-columns: 210px 300px 90px minmax(0, 1fr) minmax(0, 1fr); gap: 24px; padding: 22px 28px; border-bottom: 1px solid #ECE6E0; font-size: 15px; line-height: 1.55">
+      <span style="font-weight: 700">C · Create a character, save, chat</span>
+      <span style="color: #3C373B"><b>New character</b> → type a name → <b>Save &amp; start chat</b></span>
+      <span style="font-family: 'Newsreader', serif; font-size: 30px; color: #7A2236">2</span>
+      <span style="color: #3C373B">Only the name is required. Avatar defaults to a colour and initial; blank greeting gets a written default. Seven advanced fields sit behind one “More details”. Save and chat is one button, not two steps.</span>
+      <span style="color: #3C373B">Users may think every field is required → helper copy says “everything else is optional” and the disabled button explains why. <b>Fixed:</b> leaving with changes now asks Save draft / Keep editing / Discard, and Back from the new chat returns home, not to the editor.</span>
+    </div>
+    <div style="display: grid; grid-template-columns: 210px 300px 90px minmax(0, 1fr) minmax(0, 1fr); gap: 24px; padding: 22px 28px; border-bottom: 1px solid #ECE6E0; font-size: 15px; line-height: 1.55">
+      <span style="font-weight: 700">D · Switch Chat → Story mode</span>
+      <span style="color: #3C373B"><b>Story</b> pill in the chat header (and back with <b>Chat</b>)</span>
+      <span style="font-family: 'Newsreader', serif; font-size: 30px; color: #7A2236">1</span>
+      <span style="color: #3C373B">Same conversation, same messages, re-rendered as prose. <b>Fixed:</b> you land on the same message you were reading, and each chat remembers its own mode when you come back.</span>
+      <span style="color: #3C373B">“Aa” in Story mode is a convention, not a word → it has an accessible name; if testing shows hesitation, swap to a “Text” label.</span>
+    </div>
+    <div style="display: grid; grid-template-columns: 210px 300px 90px minmax(0, 1fr) minmax(0, 1fr); gap: 24px; padding: 22px 28px; border-bottom: 1px solid #ECE6E0; font-size: 15px; line-height: 1.55">
+      <span style="font-weight: 700">E · View or edit a saved memory</span>
+      <span style="color: #3C373B">In chat: ⋯ → <b>Memories in this world</b> → tap memory → edit → <b>Save</b></span>
+      <span style="font-family: 'Newsreader', serif; font-size: 30px; color: #7A2236">4</span>
+      <span style="color: #3C373B">The chat shortcut opens memories already filtered to the right universe, skipping Library → tab → filter (would be 5–6). Pin toggles in place, no edit screen.</span>
+      <span style="color: #3C373B">Users may not know memories exist → the first time a character recalls one, show a quiet “Remembered: …” chip that links here. Next: <b>Remember this</b> in the message actions.</span>
+    </div>
+    <div style="display: grid; grid-template-columns: 210px 300px 90px minmax(0, 1fr) minmax(0, 1fr); gap: 24px; padding: 22px 28px; font-size: 15px; line-height: 1.55">
+      <span style="font-weight: 700">F · Change model after a rate limit</span>
+      <span style="color: #3C373B">Inline error → <b>Switch model</b> → pick Lumen (reply starts automatically)</span>
+      <span style="font-family: 'Newsreader', serif; font-size: 30px; color: #7A2236">2</span>
+      <span style="color: #3C373B">No trip to Settings, no retyping: the unanswered message is kept and re-sent. Unavailable models are greyed out and say why (busy, or limit + reset time).</span>
+      <span style="color: #3C373B">Free usage must never feel unlimited → AI settings show “2 of 30 free replies left today” before the wall, and the limit copy names the reset time.</span>
+    </div>
+    <div style="display: grid; grid-template-columns: 210px 300px 90px minmax(0, 1fr) minmax(0, 1fr); gap: 24px; padding: 22px 28px; border-top: 1px solid #ECE6E0; font-size: 15px; line-height: 1.55">
+      <span style="font-weight: 700">G · See why a relationship changed</span>
+      <span style="color: #3C373B">Tap “Trust grew a little · Why?” under your message → the journal opens with that moment expanded</span>
+      <span style="font-family: 'Newsreader', serif; font-size: 30px; color: #7A2236">1</span>
+      <span style="color: #3C373B">No HUD in the chat. Notes use words, never numbers, and can be hidden. Undo and Adjust live in the journal, not mid-scene.</span>
+      <span style="color: #3C373B">Users may expect a “love meter” → attraction is gated by relationship type, and behaviour lines say plainly how the character will act.</span>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px">
+    <div style="display: flex; flex-direction: column; gap: 12px; padding: 28px; border-radius: 22px; background: #FFFFFF; border: 1px solid #E2DBD4">
+      <h2 style="margin: 0; font-family: 'Newsreader', serif; font-weight: 500; font-size: 26px">What's working</h2>
+      <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.55; color: #3C373B">
+        <li>One primary action per screen, always the burgundy button at the bottom.</li>
+        <li>Chat header holds just back, who you're talking to, Story and ⋯.</li>
+        <li>Technical words only appear inside AI settings → Advanced.</li>
+        <li>Streaming never yanks you down while you're reading back; a “New reply below” pill appears instead.</li>
+      </ul>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 12px; padding: 28px; border-radius: 22px; background: #FFFFFF; border: 1px solid #E2DBD4">
+      <h2 style="margin: 0; font-family: 'Newsreader', serif; font-weight: 500; font-size: 26px">Fixed during review</h2>
+      <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.55; color: #3C373B">
+        <li>Message actions were hidden behind long-press (undiscoverable) → latest reply shows them; older ones use a visible ⋯.</li>
+        <li>“Regenerate” → “Rewrite”, with version arrows “2 of 3”.</li>
+        <li>Delete chat now asks first; deleting a memory gives Undo.</li>
+        <li>Empty Story composer means “Continue”, so readers can keep going without typing.</li>
+      </ul>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 12px; padding: 28px; border-radius: 22px; background: #FFFFFF; border: 1px solid #E2DBD4">
+      <h2 style="margin: 0; font-family: 'Newsreader', serif; font-weight: 500; font-size: 26px">Refinement pass, verified</h2>
+      <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.55; color: #3C373B">
+        <li>Each journey was traced through the prototype's logic, and four bugs were fixed along the way.</li>
+        <li>All inline targets were raised to ≥44 px; primary ones are 48–52.</li>
+        <li>Portraits fall back to the initial; empty, loading and offline home states were added.</li>
+        <li>Composer focus jumps to the latest message; Enter makes a new line.</li>
+      </ul>
+      <h2 style="margin: 12px 0 0 0; font-family: 'Newsreader', serif; font-weight: 500; font-size: 26px">Test next with real users</h2>
+      <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.55; color: #3C373B">
+        <li>Do people understand Universes without the word “lorebook”?</li>
+        <li>Is “Rewrite” clearer than “Try again” or “Another version”?</li>
+        <li>Personas: should the active one show in the chat header?</li>
+        <li>How long can AI replies get before Story mode becomes the default?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1360,"height":2000}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
