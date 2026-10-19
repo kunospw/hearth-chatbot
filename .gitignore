@@ -57,3 +57,6 @@ node_modules/
 *.jks
 *.keystore
 key.properties
+
+# Marketing tooling
+marketing/tools/node_modules/

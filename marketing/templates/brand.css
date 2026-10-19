@@ -1,0 +1,20 @@
+@font-face { font-family: 'Newsreader'; src: url('../../assets/fonts/Newsreader.ttf'); font-weight: 200 800; font-style: normal; }
+@font-face { font-family: 'Newsreader'; src: url('../../assets/fonts/Newsreader-Italic.ttf'); font-weight: 200 800; font-style: italic; }
+@font-face { font-family: 'Figtree'; src: url('../../assets/fonts/Figtree.ttf'); font-weight: 300 900; }
+:root { --bg:#131214; --surface:#1C1A1D; --raised:#262327; --text:#EEE7E1; --muted:#B3AAA3; --primary:#9A3349; --ink:#E9A0AE; --soft:#3B1F27; }
+* { box-sizing: border-box; margin: 0; }
+html, body { background: var(--bg); color: var(--text); font-family: 'Figtree', sans-serif; }
+.slide { width: 1080px; height: 1350px; padding: 140px 96px; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden;
+  background: radial-gradient(900px 700px at 85% 110%, var(--soft), transparent 70%), var(--bg); }
+.eyebrow { font-weight: 600; font-size: 28px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink); margin-bottom: 36px; }
+h1 { font-family: 'Newsreader', serif; font-weight: 500; font-size: 112px; line-height: 1.05; letter-spacing: -.01em; }
+h1 em { color: var(--ink); font-style: italic; }
+p.lead { font-family: 'Newsreader', serif; font-size: 48px; line-height: 1.35; color: var(--muted); margin-top: 44px; max-width: 800px; }
+.brand { position: absolute; left: 96px; bottom: 90px; display: flex; align-items: center; gap: 20px; font-weight: 600; font-size: 34px; }
+.brand svg { width: 64px; height: 64px; }
+.count { position: absolute; right: 96px; bottom: 100px; color: var(--muted); font-size: 28px; font-weight: 500; }
+.card { background: var(--surface); border: 1px solid var(--raised); border-radius: 28px; padding: 48px; margin-top: 56px; }
+.card .u { font-family: 'Newsreader', serif; font-size: 44px; line-height: 1.4; }
+.card .u i { color: var(--muted); }
+.bubble { align-self: flex-end; background: var(--primary); border-radius: 28px 28px 8px 28px; padding: 28px 36px; font-size: 38px; max-width: 700px; margin-top: 40px; }
+.chip { display: inline-block; background: var(--soft); color: var(--ink); border-radius: 999px; padding: 14px 30px; font-size: 30px; font-weight: 600; margin: 0 14px 14px 0; }
