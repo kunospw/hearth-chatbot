@@ -44,6 +44,7 @@ Read these before writing UI or backend code:
 - **Phase 4 – Creation and management: done** (plus Light mode). Editor, drafts, Chats list (+ wide list-detail), Library (Universes/Memories/Personas), Universe detail, Memories, AI settings, App settings.
 - **Phase 5 – Relationship Journal on mock data: done.** Pure-Dart engine, journal screen + sheets, in-chat notes, Story ornament, manual-pacing approvals. The mock backend runs the engine on the device; Phase 6 swaps in the server.
 - **Phase 6 – Backend: built and tested locally, not yet deployed** (needs your Supabase project and Ollama key; steps in `supabase/README.md`). Without `--dart-define SUPABASE_URL/SUPABASE_ANON_KEY` the app still runs on sample data.
+- **Phase 7 – Soft launch: planned.** See `docs/LAUNCH_PLAN.md` (build in public, own waitlist + web preview first; Play Console only after ≥10 waitlist sign-ups; closed test with Founding Storytellers; Indonesia first, 18+). Launch blockers found in the audit are listed there (release signing, delete account, password reset, age gate, report reply, legal pages, suggest_replies quota, crash reporting, Bahasa Indonesia).
 
 ## Commands
 ```
