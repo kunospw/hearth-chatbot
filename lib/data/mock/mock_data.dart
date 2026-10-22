@@ -79,6 +79,7 @@ abstract final class MockData {
       personality: 'Proud, theatrical, sharper than her blade. Secretly afraid of being forgotten.',
       speaking: 'Grand declarations, fencing metaphors, sudden honesty.',
       greeting: '''*A woman in a moth-eaten officer's coat drops from the top of a bookcase and lands in a crouch, rapier half-drawn.* "Stop right there, reader. Are you here to finish my chapter — or to close the book on me?"''',
+      startingPoint: StartingPoint.rivals,
     ),
   ];
 

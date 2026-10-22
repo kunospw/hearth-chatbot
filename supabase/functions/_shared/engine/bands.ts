@@ -7,8 +7,11 @@ import {
   REL_LABEL,
   romanceAllowed,
   stageName,
+  type RelPacing,
   type RelValue,
   type Relationship,
+  type RelationType,
+  type StartingPoint,
   type TimelineKind,
   type Values,
 } from './models.ts';
@@ -45,12 +48,109 @@ export const STAGE_PRESETS: readonly StagePreset[] = [
     stages: ['Estranged', 'Distant', 'Thawing', 'Reconnecting', 'Close', 'Unbreakable'],
     romanticFrom: null,
   },
+  {
+    // For a couple who are already together: the stages say how it's going.
+    id: 'couple',
+    label: 'Couple',
+    stages: ['On the Rocks', 'Drifting Apart', 'Mending', 'Steady', 'Happy Together', 'Deeply in Love'],
+    romanticFrom: null,
+  },
 ];
 
 export function presetById(id: string): StagePreset {
   const p = STAGE_PRESETS.find((x) => x.id === id);
   if (!p) throw new Error(`unknown preset ${id}`);
   return p;
+}
+
+/** What a starting point sets up. The values sit inside the stage's score band. */
+export interface StartingSetup {
+  presetId: string;
+  stageIdx: number;
+  type: RelationType;
+  pacing: RelPacing;
+  values: Values;
+  /** What the model is told about your past together (null: a first meeting). */
+  history: string | null;
+}
+
+/** The same table is in the Dart engine and in ensure_relationship_for() (SQL). */
+export const STARTING_SETUPS: Record<StartingPoint, StartingSetup> = {
+  strangers: {
+    presetId: 'friendship',
+    stageIdx: 1,
+    type: 'undecided',
+    pacing: 'slow',
+    values: { trust: 20, affection: 15, attraction: 0, tension: 0 },
+    history: null,
+  },
+  friends: {
+    presetId: 'friendship',
+    stageIdx: 3,
+    type: 'undecided',
+    pacing: 'balanced',
+    values: { trust: 55, affection: 55, attraction: 0, tension: 0 },
+    history: 'already friends before the story began — this is not a first meeting',
+  },
+  together: {
+    presetId: 'couple',
+    stageIdx: 4,
+    type: 'romantic',
+    pacing: 'balanced',
+    values: { trust: 70, affection: 75, attraction: 70, tension: 0 },
+    history: 'already a couple before the story began — this is not a first meeting',
+  },
+  family: {
+    presetId: 'family',
+    stageIdx: 4,
+    type: 'familial',
+    pacing: 'balanced',
+    values: { trust: 65, affection: 70, attraction: 0, tension: 0 },
+    history: 'already family before the story began — this is not a first meeting',
+  },
+  rivals: {
+    presetId: 'rivalry',
+    stageIdx: 0,
+    type: 'rivalrous',
+    pacing: 'slow',
+    values: { trust: 15, affection: 15, attraction: 0, tension: 45 },
+    history: 'already rivals before the story began — this is not a first meeting',
+  },
+};
+
+/** A new relationship that begins at [start] (no events, no facts yet). */
+export function startingRelationship(o: {
+  id: string;
+  characterId: string;
+  personaId: string;
+  universeId?: string | null;
+  start?: StartingPoint;
+}): Relationship {
+  const start = o.start ?? 'strangers';
+  const s = STARTING_SETUPS[start];
+  const p = presetById(s.presetId);
+  return {
+    id: o.id,
+    characterId: o.characterId,
+    personaId: o.personaId,
+    universeId: o.universeId ?? null,
+    startingPoint: start,
+    type: s.type,
+    pacing: s.pacing,
+    values: { ...s.values },
+    stages: [...p.stages],
+    stageIdx: s.stageIdx,
+    stageLocked: false,
+    romanticFrom: p.romanticFrom,
+    facts: [],
+    events: [],
+    pending: [],
+    ledger: [],
+    recentHashes: [],
+    turn: 0,
+    ignored: 0,
+    version: 0,
+  };
 }
 
 const band = (v: number, cuts: number[], words: string[]): string => {
@@ -107,15 +207,20 @@ export function behaviorLines(r: Relationship): string[] {
 export function promptBlock(r: Relationship): string {
   const v = r.values;
   const romance = romanceAllowed(r.type);
+  const history = STARTING_SETUPS[r.startingPoint]?.history ?? null;
+  // Once feelings "may be acknowledged" (the top attraction band), saying them
+  // is no longer a sudden confession, e.g. for a couple.
+  const openRomance = romance && v.attraction >= 60;
   const lines: string[] = [
     '[relationship — set by the app, read-only]',
     `stage: ${stageName(r)}${r.stageLocked ? ' (locked by user)' : ''}`,
     `type: ${RELATION_LABEL[r.type]}${r.type === 'undecided' ? ' — do not assume romance' : romance ? '' : ' — no romance'}`,
+    ...(history === null ? [] : [`history: ${history}`]),
     `trust ${Math.round(v.trust)} (${wordFor('trust', v.trust).toLowerCase()}), ` +
       `affection ${Math.round(v.affection)} (${wordFor('affection', v.affection).toLowerCase()}), ` +
       `attraction ${romance ? Math.round(v.attraction) : 'n/a'}, ` +
       `tension ${Math.round(v.tension)} (${wordFor('tension', v.tension).toLowerCase()})`,
-    `pacing: ${PACING[r.pacing].label.toLowerCase()} — change openness gradually; no sudden confessions`,
+    `pacing: ${PACING[r.pacing].label.toLowerCase()} — change openness gradually${openRomance ? '' : '; no sudden confessions'}`,
     'play it like this:',
     ...behaviorLines(r).map((l) => `- ${l}`),
   ];

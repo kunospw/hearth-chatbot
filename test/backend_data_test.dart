@@ -93,6 +93,14 @@ void main() {
       expect(back.universeId, 'u-1');
     });
 
+    test('a character keeps its starting point; an unknown one reads as Just met', () {
+      final row = characterToRow(_vesper.copyWith(startingPoint: StartingPoint.together), userId: 'u');
+      expect(row['starting_point'], 'together');
+      expect(characterFromRow(row).startingPoint, StartingPoint.together);
+      expect(characterFromRow({...row, 'starting_point': 'pen-pals'}).startingPoint, StartingPoint.strangers);
+      expect(characterFromRow({...row}..remove('starting_point')).startingPoint, StartingPoint.strangers);
+    });
+
     test('library rows keep their category, pin and colour', () {
       final u = universeFromRow(universeToRow(
           const Universe(id: 'u', name: 'World', era: 'Era', tile: Color(0xFF4A3620), description: 'd'),

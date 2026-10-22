@@ -9,6 +9,7 @@
 | E · Edit a memory | Chat ⋯ → Memories in this world → tap memory → Save | 4 |
 | F · Model after a rate limit | Inline error → Switch model → pick (auto-resends) | 2 |
 | G · Why a relationship changed | "Trust grew a little · Why?" → journal entry expanded | 1 |
+| H · Roleplay an established relationship | New character → name → "Together" (or Friends / Family / Rivals) → Save & start chat | 3 (+ typing) |
 
 **Acceptance checks on a 360dp Android device**
 - **Layout:** no horizontal scroll; inline targets ≥44dp, primary targets ≥48dp; the composer stays visible with the keyboard open.

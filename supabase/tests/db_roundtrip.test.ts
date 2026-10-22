@@ -10,7 +10,8 @@ import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { diffRelationship, isEmptyPatch } from '../functions/_shared/engine/persist.ts';
-import { relationshipFromJson } from '../functions/_shared/engine/models.ts';
+import { STARTING_POINTS, relationshipFromJson } from '../functions/_shared/engine/models.ts';
+import { startingRelationship } from '../functions/_shared/engine/bands.ts';
 import { normState, run, type Json } from './support/scenario_runner.ts';
 
 const container = process.env.HEARTH_PG_CONTAINER;
@@ -66,11 +67,11 @@ test('database round trip: every golden scenario', { skip: container ? false : '
 
     // The starting point, as ensure_relationship() + the setup would leave it.
     psql(
-      `insert into public.relationships (id, user_id, character_id, persona_id, type, pacing, trust, affection,
-         attraction, tension, stage_idx, romantic_from)
-       values (${q(relId)}, ${q(USER)}, ${q(charId)}, ${q(persona)}, ${q(initial.type)}, ${q(initial.pacing)},
-         ${initial.values.trust}, ${initial.values.affection}, ${initial.values.attraction}, ${initial.values.tension},
-         ${initial.stageIdx}, ${initial.romanticFrom ?? 'null'});` +
+      `insert into public.relationships (id, user_id, character_id, persona_id, starting_point, type, pacing, trust,
+         affection, attraction, tension, stage_idx, romantic_from)
+       values (${q(relId)}, ${q(USER)}, ${q(charId)}, ${q(persona)}, ${q(initial.startingPoint)}, ${q(initial.type)},
+         ${q(initial.pacing)}, ${initial.values.trust}, ${initial.values.affection}, ${initial.values.attraction},
+         ${initial.values.tension}, ${initial.stageIdx}, ${initial.romanticFrom ?? 'null'});` +
         initial.stages.map((n, i) => `insert into public.relationship_stages values (${q(relId)}, ${i}, ${q(n)});`).join('') +
         initial.facts
           .map((f) => `insert into public.relationship_facts (id, relationship_id, text, locked, tags)
@@ -109,5 +110,21 @@ test('database round trip: every golden scenario', { skip: container ? false : '
         assert.deepEqual(normState(fromDb, unmap), normState(next, unmap), where);
       },
     });
+  }
+});
+
+test('database: a new relationship begins at its character\'s starting point, as the engine does', { skip: container ? false : 'needs HEARTH_PG_CONTAINER (run tests/run.sh)' }, () => {
+  psql(`insert into auth.users (id, email) values (${q(USER)}, 'roundtrip@example.com') on conflict do nothing;`);
+  const persona = psql(`select id from public.personas where user_id = ${q(USER)} and is_default;`);
+  for (const start of STARTING_POINTS) {
+    const charId = randomUUID();
+    psql(
+      `insert into public.characters (id, user_id, name, first, initial, tile_color, ink_color, starting_point)
+       values (${q(charId)}, ${q(USER)}, ${q(`Start ${start}`)}, 'Mara', 'M', 1, 2, ${q(start)});`,
+    );
+    const snap = JSON.parse(psql(`select public.ensure_relationship_for(${q(USER)}, ${q(charId)}, ${q(persona)});`));
+    const fromDb = relationshipFromJson(snap);
+    const want = startingRelationship({ id: fromDb.id, characterId: charId, personaId: persona, start });
+    assert.deepEqual(normState(fromDb), normState(want), start);
   }
 });

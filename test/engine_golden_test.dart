@@ -37,12 +37,20 @@ void main() {
 
 // ── runner ────────────────────────────────────────────────────────────────
 
-Map<String, dynamic> _run(Map<String, dynamic> sc) {
-  final setup = sc['setup'] as Map<String, dynamic>;
+Relationship _initial(Map<String, dynamic> setup) {
+  // A relationship created at a starting point, as on first use.
+  if (setup['start'] case final String start) {
+    return startingRelationship(
+      id: 'r',
+      characterId: 'c',
+      personaId: 'p',
+      start: StartingPoint.values.byName(start),
+    );
+  }
   final preset = presetById(setup['preset'] as String);
   final v = (setup['values'] as Map<String, dynamic>?) ?? const {};
   var n = 0;
-  var r = Relationship(
+  return Relationship(
     id: 'r',
     characterId: 'c',
     personaId: 'p',
@@ -67,6 +75,10 @@ Map<String, dynamic> _run(Map<String, dynamic> sc) {
         ),
     ],
   );
+}
+
+Map<String, dynamic> _run(Map<String, dynamic> sc) {
+  var r = _initial(sc['setup'] as Map<String, dynamic>);
   const engine = RelationshipEngine();
   var clock = DateTime.utc(2026, 3, 10, 9);
   final steps = <Map<String, dynamic>>[];
@@ -167,6 +179,8 @@ Map<String, dynamic> _run(Map<String, dynamic> sc) {
         r = engine.setPacing(r, RelPacing.values.byName(s['pacing'] as String));
       case 'preset':
         r = engine.applyPreset(r, presetById(s['id'] as String));
+      case 'start':
+        r = engine.applyStartingPoint(r, StartingPoint.values.byName(s['id'] as String), now: clock);
       case 'stages':
         r = engine.saveStages(r, (s['names'] as List).cast<String>(), s['current'] as int, s['lock'] as bool, now: clock);
       case 'addFact':
@@ -214,6 +228,7 @@ Map<String, dynamic> _state(Relationship r) {
     id(f.id);
   }
   return {
+    'startingPoint': r.startingPoint.name,
     'type': r.type.name,
     'pacing': r.pacing.name,
     'values': {for (final k in RelValue.values) k.name: _n(r.values[k])},

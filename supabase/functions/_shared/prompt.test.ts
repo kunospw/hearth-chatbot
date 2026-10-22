@@ -2,6 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { StreamFilter, buildMessages, buildSystemPrompt, contentPolicy, parseModelReply, DEFAULT_SETTINGS } from './prompt.ts';
 import { sampleContext } from '../../tests/support/fake_store.ts';
+import { startingRelationship } from './engine/bands.ts';
 import { newRelationship } from '../../tests/support/fake_store.ts';
 
 const tag = (j: unknown) => `<relationship_event>${JSON.stringify(j)}</relationship_event>`;
@@ -100,6 +101,36 @@ test('system prompt: card, persona, world, memories, relationship block, rules',
   assert.match(s, /<relationship_event>/);
   assert.match(s, /one of: promise_made, /);
   assert.match(s, /Never write Wren's words/);
+});
+
+test('relationship block: a starting point is told as history; an open romance is not held back', () => {
+  const ctx = sampleContext();
+  const prompt = (rel: ReturnType<typeof startingRelationship>) =>
+    buildSystemPrompt({
+      character: ctx.character,
+      personaName: 'Wren',
+      personaDescription: '',
+      universe: null,
+      memories: [],
+      relationship: rel,
+      mode: 'chat',
+      settings: DEFAULT_SETTINGS,
+      adultContent: false,
+    });
+  const met = prompt(startingRelationship({ id: 'r', characterId: 'c', personaId: 'p' }));
+  assert.doesNotMatch(met, /history:/);
+  assert.match(met, /pacing: slow burn — change openness gradually; no sudden confessions/);
+
+  const couple = prompt(startingRelationship({ id: 'r', characterId: 'c', personaId: 'p', start: 'together' }));
+  assert.match(couple, /stage: Happy Together\ntype: Romantic\nhistory: already a couple before the story began — this is not a first meeting\ntrust 70/);
+  assert.match(couple, /pacing: balanced — change openness gradually\n/);
+  assert.doesNotMatch(couple, /no sudden confessions/);
+  assert.match(couple, /Romantic feelings are present and may be acknowledged\./);
+
+  for (const [start, word] of [['friends', 'friends'], ['family', 'family'], ['rivals', 'rivals']] as const) {
+    const s = prompt(startingRelationship({ id: 'r', characterId: 'c', personaId: 'p', start }));
+    assert.match(s, new RegExp(`history: already ${word} before the story began`), start);
+  }
 });
 
 test('system prompt: story mode narrates; a rewrite is told to avoid the earlier text', () => {

@@ -7,6 +7,7 @@ import 'package:hearth/core/backend/backend_api.dart';
 import 'package:hearth/core/backend/backend_providers.dart';
 import 'package:hearth/core/backend/mappers.dart';
 import 'package:hearth/core/widgets/composer.dart';
+import 'package:hearth/core/widgets/controls.dart';
 import 'package:hearth/features/auth/data/auth_providers.dart';
 import 'package:hearth/features/auth/data/auth_service.dart';
 import 'package:hearth/features/characters/domain/character.dart';
@@ -497,6 +498,54 @@ void main() {
       await t.scrollUntilVisible(find.text('Fast'), 300, scrollable: find.byType(Scrollable).first);
       await t.tapAndSettle(find.text('Fast'));
       expect(api.invokeBodies.last, {'action': 'set_pacing', 'relationshipId': 'rel-1', 'pacing': 'fast'});
+    });
+
+    testWidgets('starting over from another starting point is one request; the server decides the rest', (t) async {
+      final api = world();
+      final h = await pumpServer(t, api);
+      await h.push('/characters/c-vesper/relationship');
+      await t.ensureVisible(find.text('Change'));
+      await t.pumpAndSettle();
+      await t.tapAndSettle(find.text('Change'));
+      await t.tapAndSettle(find.text('Together'));
+      await t.ensureVisible(find.text('Start from here'));
+      await t.pumpAndSettle();
+      await t.tapAndSettle(find.text('Start from here'));
+      expect(api.invokeBodies.last, {'action': 'set_starting_point', 'relationshipId': 'rel-1', 'startingPoint': 'together'});
+    });
+
+    testWidgets('a starting point picked in the editor is saved with the character and starts the story over', (t) async {
+      final api = world();
+      final h = await pumpServer(t, api);
+      await h.push('/characters/c-vesper/edit');
+      final together = find.widgetWithText(HearthChip, 'Together');
+      await t.scrollUntilVisible(together, 300, scrollable: find.byType(Scrollable).first);
+      await t.ensureVisible(together);
+      await t.pumpAndSettle();
+      await t.tapAndSettle(together);
+      await t.tapAndSettle(find.widgetWithText(FilledButton, 'Save changes'));
+      expect(api.table('characters').single['starting_point'], 'together');
+      expect(api.log, contains('rpc ensure_relationship'), reason: 'created on first use, on the server');
+      expect(api.invokeBodies.last, {'action': 'set_starting_point', 'relationshipId': 'rel-1', 'startingPoint': 'together'});
+      expect(find.text('Changes saved — starting point: Together'), findsOneWidget);
+    });
+
+    testWidgets('if the server cannot start the story over, the character is still saved and you are told', (t) async {
+      final api = world();
+      api.invokes['apply_correction'] = (b) => throw const BackendException(500, 'server_error', 'Something went wrong.');
+      final h = await pumpServer(t, api);
+      await h.push('/characters/c-vesper/edit');
+      final rivals = find.widgetWithText(HearthChip, 'Rivals');
+      await t.scrollUntilVisible(rivals, 300, scrollable: find.byType(Scrollable).first);
+      await t.ensureVisible(rivals);
+      await t.pumpAndSettle();
+      await t.tapAndSettle(rivals);
+      await t.tapAndSettle(find.widgetWithText(FilledButton, 'Save changes'));
+      expect(api.table('characters').single['starting_point'], 'rivals');
+      expect(
+        find.text('Changes saved, but your story couldn’t start over. Try again in the relationship journal.'),
+        findsOneWidget,
+      );
     });
   });
 }

@@ -10,6 +10,7 @@ import {
 } from './models.ts';
 
 export interface RelationshipPatch {
+  startingPoint?: string;
   type?: string;
   pacing?: string;
   values?: Relationship['values'];
@@ -32,6 +33,7 @@ const same = (a: unknown, b: unknown): boolean => JSON.stringify(a) === JSON.str
 /** What changed between two states of the same relationship. */
 export function diffRelationship(prev: Relationship, next: Relationship): RelationshipPatch {
   const p: RelationshipPatch = {};
+  if (prev.startingPoint !== next.startingPoint) p.startingPoint = next.startingPoint;
   if (prev.type !== next.type) p.type = next.type;
   if (prev.pacing !== next.pacing) p.pacing = next.pacing;
   if (!same(prev.values, next.values)) p.values = next.values;

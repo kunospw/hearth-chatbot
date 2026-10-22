@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/backend/backend_providers.dart';
 import '../../characters/data/character_repository.dart';
+import '../../characters/domain/character.dart';
 import '../../library/data/library_repository.dart';
 import '../domain/relationship_models.dart';
 import 'relationship_backend.dart';
@@ -43,15 +44,26 @@ class RelationshipsNotifier extends Notifier<Map<String, Relationship>> {
   /// Shows a relationship the server just sent (inside a chat reply).
   void apply(Relationship r) => _put(r);
 
+  /// Loads the relationship with this character from the backend (a new one
+  /// begins in the character's universe, at their starting point).
+  Future<Relationship> _load(String characterId, String persona) {
+    Character? ch;
+    for (final c in ref.read(charactersProvider).valueOrNull ?? const []) {
+      if (c.id == characterId) ch = c;
+    }
+    return _backend.load(
+      characterId,
+      persona,
+      universeId: ch?.universeId,
+      startingPoint: ch?.startingPoint ?? StartingPoint.strangers,
+    );
+  }
+
   /// Reads the relationship with this character again (it may have changed on
   /// another device).
   Future<void> refresh(String characterId) async {
     final persona = await _persona();
-    String? universe;
-    for (final c in ref.read(charactersProvider).valueOrNull ?? const []) {
-      if (c.id == characterId) universe = c.universeId;
-    }
-    _put(await _backend.load(characterId, persona, universeId: universe));
+    _put(await _load(characterId, persona));
   }
 
   /// Loads (and creates on first use) the relationship with this character.
@@ -59,11 +71,7 @@ class RelationshipsNotifier extends Notifier<Map<String, Relationship>> {
     final persona = await _persona();
     final existing = state[_key(characterId, persona)];
     if (existing != null) return existing;
-    String? universe;
-    for (final c in ref.read(charactersProvider).valueOrNull ?? const []) {
-      if (c.id == characterId) universe = c.universeId;
-    }
-    final r = await _backend.load(characterId, persona, universeId: universe);
+    final r = await _load(characterId, persona);
     // Another caller may have loaded it meanwhile.
     return state[_key(characterId, persona)] ??
         (() {
@@ -229,6 +237,13 @@ class RelationshipsNotifier extends Notifier<Map<String, Relationship>> {
   Future<void> applyPreset(String characterId, String presetId) async {
     final r = await ensure(characterId);
     await _applyR(_backend.applyPreset(r.id, presetId));
+  }
+
+  /// Starts the relationship with this character over from [start]. A
+  /// relationship created just now already begins there, so nothing is logged.
+  Future<void> setStartingPoint(String characterId, StartingPoint start) async {
+    final r = await ensure(characterId);
+    await _applyR(_backend.setStartingPoint(r.id, start));
   }
 
   Future<void> saveStages(

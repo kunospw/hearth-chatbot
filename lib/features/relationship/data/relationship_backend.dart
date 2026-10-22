@@ -18,11 +18,14 @@ class RelationshipUpdate {
 /// Phase 6 replaces [MockRelationshipBackend] with one that calls the
 /// `chat_turn` and `apply_correction` edge functions; no screen changes.
 abstract interface class RelationshipBackend {
-  /// The relationship for [characterId] as [personaId] (created on first use).
+  /// The relationship for [characterId] as [personaId]. Created on first use
+  /// at the character's [startingPoint] (the server reads it from the
+  /// character itself).
   Future<Relationship> load(
     String characterId,
     String personaId, {
     String? universeId,
+    StartingPoint startingPoint,
   });
 
   Future<RelationshipUpdate> userMessage({
@@ -86,6 +89,12 @@ abstract interface class RelationshipBackend {
   Future<Relationship> setType(String relationshipId, RelationType type);
   Future<Relationship> setPacing(String relationshipId, RelPacing pacing);
   Future<Relationship> applyPreset(String relationshipId, String presetId);
+
+  /// Starts over from [start]: kind, stages, pacing and values (logged).
+  Future<Relationship> setStartingPoint(
+    String relationshipId,
+    StartingPoint start,
+  );
   Future<Relationship> saveStages(
     String relationshipId,
     List<String> names,
@@ -128,6 +137,7 @@ class MockRelationshipBackend implements RelationshipBackend {
     String characterId,
     String personaId, {
     String? universeId,
+    StartingPoint startingPoint = StartingPoint.strangers,
   }) async {
     final id = 'rel-$characterId-$personaId';
     return _byId.putIfAbsent(
@@ -137,6 +147,7 @@ class MockRelationshipBackend implements RelationshipBackend {
         personaId: personaId,
         now: _now(),
         universeId: universeId,
+        startingPoint: startingPoint,
       ),
     );
   }
@@ -281,6 +292,14 @@ class MockRelationshipBackend implements RelationshipBackend {
     String presetId,
   ) async =>
       _save(engine.applyPreset(_get(relationshipId), presetById(presetId)));
+
+  @override
+  Future<Relationship> setStartingPoint(
+    String relationshipId,
+    StartingPoint start,
+  ) async => _save(
+    engine.applyStartingPoint(_get(relationshipId), start, now: _now()),
+  );
 
   @override
   Future<Relationship> saveStages(

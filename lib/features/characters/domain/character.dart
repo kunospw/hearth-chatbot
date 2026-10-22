@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/painting.dart';
 
+import '../../relationship/domain/relationship_models.dart';
+
 /// A roleplay character. [tile] and [ink] are the character's own colour pair
 /// (ink is ≥4.5:1 on tile); the app accent never sits behind a portrait.
 @immutable
@@ -26,6 +28,7 @@ class Character {
     this.rules = '',
     this.relationships = '',
     this.scenario = '',
+    this.startingPoint = StartingPoint.strangers,
     this.archived = false,
   });
 
@@ -56,6 +59,10 @@ class Character {
   final String relationships;
   final String scenario;
 
+  /// How you know each other when a story with them begins (Just met,
+  /// Together…). Every new relationship with them starts here.
+  final StartingPoint startingPoint;
+
   /// Hidden from the main lists (kept, with its chats, until you delete it).
   final bool archived;
 
@@ -85,6 +92,7 @@ class Character {
     String? rules,
     String? relationships,
     String? scenario,
+    StartingPoint? startingPoint,
     bool? archived,
   }) {
     return Character(
@@ -112,6 +120,7 @@ class Character {
       rules: rules ?? this.rules,
       relationships: relationships ?? this.relationships,
       scenario: scenario ?? this.scenario,
+      startingPoint: startingPoint ?? this.startingPoint,
       archived: archived ?? this.archived,
     );
   }

@@ -55,6 +55,39 @@ test('type, pacing, presets and stages', async () => {
   assert.equal((await call(deps, { action: 'save_stages', relationshipId: rel.id, names: [], current: 9, lock: false })).status, 400);
 });
 
+test('set_starting_point: starts over as a couple, keeps the history, and is refused for junk', async () => {
+  const { store, deps, rel } = await setup();
+  await call(deps, { action: 'correct', relationshipId: rel.id, values: { trust: 30, affection: 25, attraction: 0, tension: 10 } });
+  await call(deps, { action: 'save_stages', relationshipId: rel.id, names: [], current: 2, lock: true });
+  const r = await call(deps, { action: 'set_starting_point', relationshipId: rel.id, startingPoint: 'together' });
+  assert.equal(r.status, 200);
+  const j = r.json.relationship;
+  assert.equal(j.startingPoint, 'together');
+  assert.equal(j.type, 'romantic');
+  assert.equal(j.pacing, 'balanced');
+  assert.deepEqual(j.values, { trust: 70, affection: 75, attraction: 70, tension: 0 });
+  assert.equal(j.stages[j.stageIdx], 'Happy Together');
+  assert.equal(j.stageLocked, false, 'starting over unlocks the stage');
+  const ev = j.events[0];
+  assert.equal(ev.title, 'Starting point: Together');
+  assert.equal(ev.category, 'correction');
+  assert.equal(ev.source, 'user');
+  assert.equal(ev.undoable, false);
+  assert.deepEqual(ev.deltas, { trust: 40, affection: 50, attraction: 70, tension: -10 });
+  assert.ok(j.events.some((e: any) => e.kindId === 'correction'), 'earlier corrections stay in the timeline');
+  assert.equal(store.relationships.get(rel.id)!.startingPoint, 'together');
+
+  // the same starting point again, with nothing changed since, logs nothing
+  const commits = store.commits;
+  const again = await call(deps, { action: 'set_starting_point', relationshipId: rel.id, startingPoint: 'together' });
+  assert.equal(again.json.relationship.events.length, j.events.length);
+  assert.equal(store.commits, commits);
+
+  for (const bad of ['pen-pals', '', 5, undefined]) {
+    assert.equal((await call(deps, { action: 'set_starting_point', relationshipId: rel.id, startingPoint: bad })).status, 400);
+  }
+});
+
 test('facts: add, lock, remove', async () => {
   const { deps, rel } = await setup();
   let r = await call(deps, { action: 'add_fact', relationshipId: rel.id, text: 'You are siblings.', locked: true });

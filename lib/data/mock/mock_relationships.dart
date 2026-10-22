@@ -3,12 +3,14 @@ import '../../features/relationship/domain/relationship_bands.dart';
 import '../../features/relationship/domain/relationship_models.dart';
 
 /// The starting relationship for a character (as seen by [personaId]).
-/// Characters without a seed get a fresh friendship arc.
+/// Characters without a seed begin at their [startingPoint] (a fresh
+/// friendship arc when you have just met).
 Relationship seedRelationship({
   required String characterId,
   required String personaId,
   required DateTime now,
   String? universeId,
+  StartingPoint startingPoint = StartingPoint.strangers,
 }) {
   final id = 'rel-$characterId-$personaId';
   final romance = presetById('romance');
@@ -215,6 +217,7 @@ Relationship seedRelationship({
         characterId: characterId,
         personaId: personaId,
         universeId: universeId,
+        startingPoint: StartingPoint.rivals,
         type: RelationType.rivalrous,
         pacing: RelPacing.slow,
         values: const Values(
@@ -238,12 +241,11 @@ Relationship seedRelationship({
         ],
       );
   }
-  return Relationship(
+  return startingRelationship(
     id: id,
     characterId: characterId,
     personaId: personaId,
     universeId: universeId,
-    stages: List.of(friendship.stages),
-    stageIdx: 1,
+    start: startingPoint,
   );
 }

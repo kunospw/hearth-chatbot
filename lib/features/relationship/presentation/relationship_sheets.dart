@@ -358,3 +358,61 @@ class _FactSheetState extends State<_FactSheet> {
     );
   }
 }
+
+// ── Starting point ───────────────────────────────────────────────────────
+
+/// "Where does your story start?": how you know each other. Starting over
+/// sets the kind, the stages, the pacing and the values to match it; the
+/// timeline keeps everything that happened.
+Future<StartingPoint?> showStartingPointSheet(
+  BuildContext context,
+  Relationship r,
+  String first,
+) {
+  return showHearthSheet<StartingPoint>(
+    context,
+    builder: (_) => _StartingPointSheet(r: r, first: first),
+  );
+}
+
+class _StartingPointSheet extends StatefulWidget {
+  const _StartingPointSheet({required this.r, required this.first});
+
+  final Relationship r;
+  final String first;
+
+  @override
+  State<_StartingPointSheet> createState() => _StartingPointSheetState();
+}
+
+class _StartingPointSheetState extends State<_StartingPointSheet> {
+  late StartingPoint _pick = widget.r.startingPoint;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        SheetHeader(
+          title: 'Where does your story start?',
+          message:
+              'Pick how you and ${widget.first} know each other. The kind of '
+              'relationship, the stages, the pacing and the values are set to '
+              'match. Everything that happened stays in the timeline.',
+        ),
+        for (final s in StartingPoint.values)
+          RadioRow(
+            title: s.label,
+            subtitle: s.hint,
+            selected: _pick == s,
+            onTap: () => setState(() => _pick = s),
+          ),
+        const SizedBox(height: Space.md),
+        FilledButton(
+          onPressed: () => Navigator.of(context).pop(_pick),
+          child: const Text('Start from here'),
+        ),
+      ],
+    );
+  }
+}

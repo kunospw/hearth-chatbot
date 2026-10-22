@@ -6,6 +6,7 @@
 //   correct            { values: {trust, affection, attraction, tension}, reason? }
 //   set_type           { type }                  set_pacing         { pacing }
 //   apply_preset       { presetId }              save_stages        { names[], current, lock }
+//   set_starting_point { startingPoint }         start over as Just met / Friends / Together…
 //   add_fact           { text, locked }          set_fact_locked    { factId, locked }
 //   remove_fact        { factId }
 //   reevaluate_message { messageId }    you edited a message; judge the new text
@@ -18,6 +19,7 @@ import { presetById, STAGE_PRESETS } from './engine/bands.ts';
 import {
   PACINGS,
   RELATION_TYPES,
+  STARTING_POINTS,
   relationshipToJson,
   type Relationship,
   type RelationshipNote,
@@ -92,6 +94,11 @@ export async function handleApplyCorrection(body: unknown, userId: string, deps:
       case 'apply_preset': {
         const id = oneOf(b.presetId, STAGE_PRESETS.map((p) => p.id), 'presetId');
         apply = (r) => engine.applyPreset(r, presetById(id));
+        break;
+      }
+      case 'set_starting_point': {
+        const start = oneOf(b.startingPoint, STARTING_POINTS, 'startingPoint');
+        apply = (r) => engine.applyStartingPoint(r, start, { now });
         break;
       }
       case 'save_stages': {

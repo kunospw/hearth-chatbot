@@ -222,5 +222,49 @@
       { "op": "user", "text": "I kept my promise to you just like I said." },
       { "op": "user", "text": "You are such a liar and a coward, truly useless." }
     ]
+  },
+  {
+    "name": "starting point: a couple from the start, then starting over",
+    "setup": { "start": "together" },
+    "steps": [
+      { "op": "tick", "minutes": 1 },
+      { "op": "user", "text": "I promise I will be home before the storm, you have my word." },
+      { "op": "user", "text": "Come here, I want to kiss you before I leave." },
+      { "op": "stages", "names": [], "current": 5, "lock": true },
+      { "op": "start", "id": "together" },
+      { "op": "start", "id": "together" },
+      { "op": "start", "id": "friends" },
+      { "op": "user", "text": "Let me help you carry the boxes up the stairs." },
+      { "op": "start", "id": "family" },
+      { "op": "user", "text": "You look beautiful tonight, let me hold your hand." },
+      { "op": "start", "id": "rivals" },
+      { "op": "start", "id": "strangers" }
+    ]
+  },
+  {
+    "name": "starting point: old rivals",
+    "setup": { "start": "rivals" },
+    "steps": [
+      { "op": "tick", "minutes": 1 },
+      { "op": "user", "text": "You are a pathetic fraud and everybody knows it." },
+      { "op": "user", "text": "I'm sorry, I was wrong to say that to you." },
+      { "op": "proposal", "kind": "romantic_gesture", "evidence": "I was wrong", "reason": "She softened", "message": "a1", "recent": ["I'm sorry, I was wrong to say that to you."] }
+    ]
+  },
+  {
+    "name": "starting point: friends",
+    "setup": { "start": "friends" },
+    "steps": [
+      { "op": "tick", "minutes": 1 },
+      { "op": "user", "text": "Thank you for always being there for me, truly." }
+    ]
+  },
+  {
+    "name": "starting point: family",
+    "setup": { "start": "family" },
+    "steps": [
+      { "op": "tick", "minutes": 1 },
+      { "op": "user", "text": "I promise I will visit you every Sunday, you have my word." }
+    ]
   }
 ]

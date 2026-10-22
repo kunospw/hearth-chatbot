@@ -7,6 +7,7 @@
         "outcome": "applied",
         "note": "Trust grew | Something shifted between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -66,6 +67,7 @@
         "outcome": "ignored:trivial:true",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -126,6 +128,7 @@
         "outcome": "ignored:cooldown:true",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -187,6 +190,7 @@
         "outcome": "applied",
         "note": "Affection grew a little | Something shifted between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -273,6 +277,7 @@
         "outcome": "ignored:noMatch:false",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -365,6 +370,7 @@
         "outcome": "applied",
         "note": "Trust grew | Something shifted between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "slow",
           "values": {
@@ -426,6 +432,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "slow",
           "values": {
@@ -487,6 +494,7 @@
         "outcome": "applied",
         "note": "Tension rose | A distance opened between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "slow",
           "values": {
@@ -577,6 +585,7 @@
         "outcome": "ignored:tensionTooLow:true",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "slow",
           "values": {
@@ -673,6 +682,7 @@
         "outcome": "applied",
         "note": "Trust grew | Something shifted between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "fast",
           "values": {
@@ -735,6 +745,7 @@
         "outcome": "applied",
         "note": "Tension rose | A distance opened between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "fast",
           "values": {
@@ -826,6 +837,7 @@
         "outcome": "ignored:sceneBudget:true",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "fast",
           "values": {
@@ -923,6 +935,7 @@
         "outcome": "suggested",
         "note": "Suggested change · review it | The story suggests a shift.",
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "manual",
           "values": {
@@ -976,6 +989,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "manual",
           "values": {
@@ -1035,6 +1049,7 @@
         "outcome": "suggested",
         "note": "Suggested change · review it | The story suggests a shift.",
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "manual",
           "values": {
@@ -1115,6 +1130,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "manual",
           "values": {
@@ -1175,6 +1191,7 @@
         "outcome": "suggested",
         "note": "Suggested change · review it | The story suggests a shift.",
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "manual",
           "values": {
@@ -1255,6 +1272,7 @@
         "outcome": "suggested",
         "note": "Suggested change · review it | The story suggests a shift.",
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "manual",
           "values": {
@@ -1343,6 +1361,7 @@
         "outcome": "applied",
         "note": "Trust grew | Something shifted between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -1402,6 +1421,7 @@
         "outcome": "ignored:cooldown:true",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -1462,6 +1482,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -1546,6 +1567,7 @@
         "outcome": "applied",
         "note": "Trust grew | Something shifted between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -1660,6 +1682,7 @@
         "outcome": "applied",
         "note": "Trust grew | Something shifted between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -1720,6 +1743,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -1786,6 +1810,7 @@
         "outcome": "applied",
         "note": "Trust grew | Something shifted between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -1880,6 +1905,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -1980,6 +2006,7 @@
         "outcome": "applied",
         "note": "Trust grew a little | Something shifted between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -2108,6 +2135,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -2242,6 +2270,7 @@
         "outcome": "applied",
         "note": "Trust grew a little | Something shifted between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -2403,6 +2432,7 @@
         "outcome": "applied",
         "note": "Affection grew a little | Something shifted between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -2588,6 +2618,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -2773,6 +2804,7 @@
         "outcome": "ignored:cooldown:true",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -2958,6 +2990,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -3143,6 +3176,7 @@
         "outcome": "applied",
         "note": "Affection grew a little | Something shifted between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -3359,6 +3393,7 @@
         "outcome": "applied",
         "note": "Trust slipped | A distance opened between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -3442,6 +3477,7 @@
         "outcome": "applied",
         "note": "Trust grew a little | Something shifted between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -3551,6 +3587,7 @@
         "outcome": "ignored:cooldown:true",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -3667,6 +3704,7 @@
         "outcome": "applied",
         "note": "Trust grew | Something shifted between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -3729,6 +3767,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -3801,6 +3840,7 @@
         "outcome": "applied",
         "note": "Trust grew | Something shifted between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -3901,6 +3941,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -4010,6 +4051,7 @@
         "outcome": "applied",
         "note": "Trust grew | Something shifted between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -4147,6 +4189,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -4284,6 +4327,7 @@
         "outcome": "applied",
         "note": "Affection grew a little | Something shifted between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -4448,6 +4492,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -4612,6 +4657,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -4776,6 +4822,7 @@
         "outcome": "applied",
         "note": "Trust grew | Something shifted between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -4972,6 +5019,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -5030,6 +5078,7 @@
         "outcome": "applied",
         "note": "Attraction grew | Something shifted between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -5114,6 +5163,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -5204,6 +5254,7 @@
         "outcome": "applied",
         "note": "Attraction grew a little | Something shifted between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -5321,6 +5372,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -5438,6 +5490,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -5561,6 +5614,7 @@
         "outcome": "ignored:romanceOff:true",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -5690,6 +5744,7 @@
         "outcome": "ignored:contradictsFact:true",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "romantic",
           "pacing": "balanced",
           "values": {
@@ -5741,6 +5796,7 @@
         "outcome": "ignored:contradictsFact:true",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "romantic",
           "pacing": "balanced",
           "values": {
@@ -5793,6 +5849,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "romantic",
           "pacing": "balanced",
           "values": {
@@ -5845,6 +5902,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "romantic",
           "pacing": "balanced",
           "values": {
@@ -5903,6 +5961,7 @@
         "outcome": "applied",
         "note": "Attraction grew | Something shifted between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "romantic",
           "pacing": "balanced",
           "values": {
@@ -5992,6 +6051,7 @@
         "outcome": "applied",
         "note": "Trust grew | Something shifted between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -6059,6 +6119,7 @@
         "outcome": "ignored:duplicate:false",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -6126,6 +6187,7 @@
         "outcome": "ignored:unknownKind:true",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -6193,6 +6255,7 @@
         "outcome": "ignored:noEvidence:true",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -6260,6 +6323,7 @@
         "outcome": "ignored:noEvidence:true",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -6327,6 +6391,7 @@
         "outcome": "ignored:contradictsFact:true",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -6394,6 +6459,7 @@
         "outcome": "applied",
         "note": "Trust grew | Something shifted between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -6488,6 +6554,7 @@
         "outcome": "ignored:noEvidence:true",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -6587,6 +6654,7 @@
         "outcome": "applied",
         "note": "Trust grew | Something shifted between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -6646,6 +6714,7 @@
         "outcome": "applied",
         "note": "Trust slipped | A distance opened between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -6756,6 +6825,7 @@
         "outcome": "ignored:noMatch:false",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -6891,6 +6961,7 @@
         "outcome": "applied",
         "note": "Trust grew | Something shifted between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -7056,6 +7127,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -7136,6 +7208,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -7240,6 +7313,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -7368,6 +7442,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -7542,6 +7617,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -7763,6 +7839,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -8013,6 +8090,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -8068,6 +8146,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -8149,6 +8228,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -8230,6 +8310,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -8311,6 +8392,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -8445,6 +8527,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "slow",
           "values": {
@@ -8486,6 +8569,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "slow",
           "values": {
@@ -8527,6 +8611,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "slow",
           "values": {
@@ -8568,6 +8653,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "slow",
           "values": {
@@ -8600,6 +8686,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "fast",
           "values": {
@@ -8632,6 +8719,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "fast",
           "values": {
@@ -8664,6 +8752,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "familial",
           "pacing": "fast",
           "values": {
@@ -8696,6 +8785,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "familial",
           "pacing": "fast",
           "values": {
@@ -8733,6 +8823,7 @@
         "outcome": "applied",
         "note": "Trust grew | Something shifted between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -8792,6 +8883,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -8857,6 +8949,7 @@
         "outcome": "applied",
         "note": "Trust grew | Something shifted between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -8948,6 +9041,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -9044,6 +9138,7 @@
         "outcome": "ignored:trivial:true",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -9076,6 +9171,7 @@
         "outcome": "ignored:trivial:true",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -9110,6 +9206,7 @@
         "outcome": "ignored:noMatch:false",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -9145,6 +9242,7 @@
         "outcome": "applied",
         "note": "Attraction grew | Something shifted between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -9206,6 +9304,7 @@
         "outcome": "applied",
         "note": "Trust grew | Something shifted between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "undecided",
           "pacing": "balanced",
           "values": {
@@ -9297,6 +9396,7 @@
         "outcome": "applied",
         "note": "Tension eased | Something mended, a little.",
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -9357,6 +9457,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -9423,6 +9524,7 @@
         "outcome": "applied",
         "note": "Trust grew a little | Something shifted between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -9522,6 +9624,7 @@
         "outcome": "ignored:tensionTooLow:true",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -9556,6 +9659,7 @@
         "outcome": "ignored:earlierMissing:true",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -9591,6 +9695,7 @@
         "outcome": "applied",
         "note": "Trust grew | Something shifted between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -9652,6 +9757,7 @@
         "outcome": "ok",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -9719,6 +9825,7 @@
         "outcome": "ignored:trivial:true",
         "note": null,
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -9787,6 +9894,7 @@
         "outcome": "applied",
         "note": "Tension rose | A distance opened between you.",
         "state": {
+          "startingPoint": "strangers",
           "type": "platonic",
           "pacing": "balanced",
           "values": {
@@ -9865,6 +9973,2306 @@
               "messageId": "m2",
               "turn": 3,
               "stageBefore": 1,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            }
+          ],
+          "pending": []
+        }
+      }
+    ]
+  },
+  {
+    "name": "starting point: a couple from the start, then starting over",
+    "steps": [
+      {
+        "op": "tick",
+        "outcome": "ok",
+        "note": null,
+        "state": {
+          "startingPoint": "together",
+          "type": "romantic",
+          "pacing": "balanced",
+          "values": {
+            "trust": 70.0,
+            "affection": 75.0,
+            "attraction": 70.0,
+            "tension": 0.0
+          },
+          "stages": [
+            "On the Rocks",
+            "Drifting Apart",
+            "Mending",
+            "Steady",
+            "Happy Together",
+            "Deeply in Love"
+          ],
+          "stageIdx": 4,
+          "stageLocked": false,
+          "romanticFrom": null,
+          "turn": 0,
+          "ignored": 0,
+          "recentHashes": [],
+          "facts": [],
+          "events": [],
+          "pending": []
+        }
+      },
+      {
+        "op": "user",
+        "outcome": "applied",
+        "note": "Trust grew | Something shifted between you.",
+        "state": {
+          "startingPoint": "together",
+          "type": "romantic",
+          "pacing": "balanced",
+          "values": {
+            "trust": 74.0,
+            "affection": 75.0,
+            "attraction": 70.0,
+            "tension": 0.0
+          },
+          "stages": [
+            "On the Rocks",
+            "Drifting Apart",
+            "Mending",
+            "Steady",
+            "Happy Together",
+            "Deeply in Love"
+          ],
+          "stageIdx": 4,
+          "stageLocked": false,
+          "romanticFrom": null,
+          "turn": 1,
+          "ignored": 0,
+          "recentHashes": [
+            "1|i promise i will be home before the storm you have my word"
+          ],
+          "facts": [],
+          "events": [
+            {
+              "id": "#1",
+              "kindId": "promise_made",
+              "category": "shift",
+              "title": "You made a promise",
+              "at": "2026-03-10T09:03:00.000Z",
+              "why": "Matched “you made a promise” in your message: “I promise I will be home before the storm, you have my word.”. Balanced pacing: Trust +4 → +4.",
+              "source": "engine",
+              "deltas": {
+                "trust": 4.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m1",
+              "turn": 1,
+              "stageBefore": 4,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            }
+          ],
+          "pending": []
+        }
+      },
+      {
+        "op": "user",
+        "outcome": "applied",
+        "note": "Attraction grew | Something shifted between you.",
+        "state": {
+          "startingPoint": "together",
+          "type": "romantic",
+          "pacing": "balanced",
+          "values": {
+            "trust": 74.0,
+            "affection": 75.0,
+            "attraction": 72.0,
+            "tension": 0.0
+          },
+          "stages": [
+            "On the Rocks",
+            "Drifting Apart",
+            "Mending",
+            "Steady",
+            "Happy Together",
+            "Deeply in Love"
+          ],
+          "stageIdx": 4,
+          "stageLocked": false,
+          "romanticFrom": null,
+          "turn": 2,
+          "ignored": 0,
+          "recentHashes": [
+            "1|i promise i will be home before the storm you have my word",
+            "2|come here i want to kiss you before i leave"
+          ],
+          "facts": [],
+          "events": [
+            {
+              "id": "#1",
+              "kindId": "romantic_gesture",
+              "category": "shift",
+              "title": "A romantic gesture",
+              "at": "2026-03-10T09:04:00.000Z",
+              "why": "Matched “a romantic gesture” in your message: “Come here, I want to kiss you before I leave.”. Balanced pacing: Attraction +2 → +2.",
+              "source": "engine",
+              "deltas": {
+                "attraction": 2.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m2",
+              "turn": 2,
+              "stageBefore": 4,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#2",
+              "kindId": "promise_made",
+              "category": "shift",
+              "title": "You made a promise",
+              "at": "2026-03-10T09:03:00.000Z",
+              "why": "Matched “you made a promise” in your message: “I promise I will be home before the storm, you have my word.”. Balanced pacing: Trust +4 → +4.",
+              "source": "engine",
+              "deltas": {
+                "trust": 4.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m1",
+              "turn": 1,
+              "stageBefore": 4,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            }
+          ],
+          "pending": []
+        }
+      },
+      {
+        "op": "stages",
+        "outcome": "ok",
+        "note": null,
+        "state": {
+          "startingPoint": "together",
+          "type": "romantic",
+          "pacing": "balanced",
+          "values": {
+            "trust": 74.0,
+            "affection": 75.0,
+            "attraction": 72.0,
+            "tension": 0.0
+          },
+          "stages": [
+            "On the Rocks",
+            "Drifting Apart",
+            "Mending",
+            "Steady",
+            "Happy Together",
+            "Deeply in Love"
+          ],
+          "stageIdx": 5,
+          "stageLocked": true,
+          "romanticFrom": null,
+          "turn": 2,
+          "ignored": 0,
+          "recentHashes": [
+            "1|i promise i will be home before the storm you have my word",
+            "2|come here i want to kiss you before i leave"
+          ],
+          "facts": [],
+          "events": [
+            {
+              "id": "#1",
+              "kindId": null,
+              "category": "correction",
+              "title": "Stage set to Deeply in Love",
+              "at": "2026-03-10T09:05:00.000Z",
+              "why": "You set the stage yourself. It’s locked, so the engine won’t move it.",
+              "source": "user",
+              "deltas": {},
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Relationship journal",
+              "conversationId": null,
+              "messageId": null,
+              "turn": 2,
+              "stageBefore": null,
+              "stageAfter": null,
+              "undoable": false,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#2",
+              "kindId": "romantic_gesture",
+              "category": "shift",
+              "title": "A romantic gesture",
+              "at": "2026-03-10T09:04:00.000Z",
+              "why": "Matched “a romantic gesture” in your message: “Come here, I want to kiss you before I leave.”. Balanced pacing: Attraction +2 → +2.",
+              "source": "engine",
+              "deltas": {
+                "attraction": 2.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m2",
+              "turn": 2,
+              "stageBefore": 4,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#3",
+              "kindId": "promise_made",
+              "category": "shift",
+              "title": "You made a promise",
+              "at": "2026-03-10T09:03:00.000Z",
+              "why": "Matched “you made a promise” in your message: “I promise I will be home before the storm, you have my word.”. Balanced pacing: Trust +4 → +4.",
+              "source": "engine",
+              "deltas": {
+                "trust": 4.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m1",
+              "turn": 1,
+              "stageBefore": 4,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            }
+          ],
+          "pending": []
+        }
+      },
+      {
+        "op": "start",
+        "outcome": "ok",
+        "note": null,
+        "state": {
+          "startingPoint": "together",
+          "type": "romantic",
+          "pacing": "balanced",
+          "values": {
+            "trust": 70.0,
+            "affection": 75.0,
+            "attraction": 70.0,
+            "tension": 0.0
+          },
+          "stages": [
+            "On the Rocks",
+            "Drifting Apart",
+            "Mending",
+            "Steady",
+            "Happy Together",
+            "Deeply in Love"
+          ],
+          "stageIdx": 4,
+          "stageLocked": false,
+          "romanticFrom": null,
+          "turn": 2,
+          "ignored": 0,
+          "recentHashes": [
+            "1|i promise i will be home before the storm you have my word",
+            "2|come here i want to kiss you before i leave"
+          ],
+          "facts": [],
+          "events": [
+            {
+              "id": "#1",
+              "kindId": "start",
+              "category": "correction",
+              "title": "Starting point: Together",
+              "at": "2026-03-10T09:06:00.000Z",
+              "why": "You chose where your story starts. The kind of relationship, the stages, the pacing and the values now match it, and the next reply is written with them. Earlier moments stay in the timeline; to change it again, pick another starting point.",
+              "source": "user",
+              "deltas": {
+                "trust": -4.0,
+                "attraction": -2.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Relationship journal",
+              "conversationId": null,
+              "messageId": null,
+              "turn": 2,
+              "stageBefore": null,
+              "stageAfter": null,
+              "undoable": false,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#2",
+              "kindId": null,
+              "category": "correction",
+              "title": "Stage set to Deeply in Love",
+              "at": "2026-03-10T09:05:00.000Z",
+              "why": "You set the stage yourself. It’s locked, so the engine won’t move it.",
+              "source": "user",
+              "deltas": {},
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Relationship journal",
+              "conversationId": null,
+              "messageId": null,
+              "turn": 2,
+              "stageBefore": null,
+              "stageAfter": null,
+              "undoable": false,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#3",
+              "kindId": "romantic_gesture",
+              "category": "shift",
+              "title": "A romantic gesture",
+              "at": "2026-03-10T09:04:00.000Z",
+              "why": "Matched “a romantic gesture” in your message: “Come here, I want to kiss you before I leave.”. Balanced pacing: Attraction +2 → +2.",
+              "source": "engine",
+              "deltas": {
+                "attraction": 2.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m2",
+              "turn": 2,
+              "stageBefore": 4,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#4",
+              "kindId": "promise_made",
+              "category": "shift",
+              "title": "You made a promise",
+              "at": "2026-03-10T09:03:00.000Z",
+              "why": "Matched “you made a promise” in your message: “I promise I will be home before the storm, you have my word.”. Balanced pacing: Trust +4 → +4.",
+              "source": "engine",
+              "deltas": {
+                "trust": 4.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m1",
+              "turn": 1,
+              "stageBefore": 4,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            }
+          ],
+          "pending": []
+        }
+      },
+      {
+        "op": "start",
+        "outcome": "ok",
+        "note": null,
+        "state": {
+          "startingPoint": "together",
+          "type": "romantic",
+          "pacing": "balanced",
+          "values": {
+            "trust": 70.0,
+            "affection": 75.0,
+            "attraction": 70.0,
+            "tension": 0.0
+          },
+          "stages": [
+            "On the Rocks",
+            "Drifting Apart",
+            "Mending",
+            "Steady",
+            "Happy Together",
+            "Deeply in Love"
+          ],
+          "stageIdx": 4,
+          "stageLocked": false,
+          "romanticFrom": null,
+          "turn": 2,
+          "ignored": 0,
+          "recentHashes": [
+            "1|i promise i will be home before the storm you have my word",
+            "2|come here i want to kiss you before i leave"
+          ],
+          "facts": [],
+          "events": [
+            {
+              "id": "#1",
+              "kindId": "start",
+              "category": "correction",
+              "title": "Starting point: Together",
+              "at": "2026-03-10T09:06:00.000Z",
+              "why": "You chose where your story starts. The kind of relationship, the stages, the pacing and the values now match it, and the next reply is written with them. Earlier moments stay in the timeline; to change it again, pick another starting point.",
+              "source": "user",
+              "deltas": {
+                "trust": -4.0,
+                "attraction": -2.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Relationship journal",
+              "conversationId": null,
+              "messageId": null,
+              "turn": 2,
+              "stageBefore": null,
+              "stageAfter": null,
+              "undoable": false,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#2",
+              "kindId": null,
+              "category": "correction",
+              "title": "Stage set to Deeply in Love",
+              "at": "2026-03-10T09:05:00.000Z",
+              "why": "You set the stage yourself. It’s locked, so the engine won’t move it.",
+              "source": "user",
+              "deltas": {},
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Relationship journal",
+              "conversationId": null,
+              "messageId": null,
+              "turn": 2,
+              "stageBefore": null,
+              "stageAfter": null,
+              "undoable": false,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#3",
+              "kindId": "romantic_gesture",
+              "category": "shift",
+              "title": "A romantic gesture",
+              "at": "2026-03-10T09:04:00.000Z",
+              "why": "Matched “a romantic gesture” in your message: “Come here, I want to kiss you before I leave.”. Balanced pacing: Attraction +2 → +2.",
+              "source": "engine",
+              "deltas": {
+                "attraction": 2.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m2",
+              "turn": 2,
+              "stageBefore": 4,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#4",
+              "kindId": "promise_made",
+              "category": "shift",
+              "title": "You made a promise",
+              "at": "2026-03-10T09:03:00.000Z",
+              "why": "Matched “you made a promise” in your message: “I promise I will be home before the storm, you have my word.”. Balanced pacing: Trust +4 → +4.",
+              "source": "engine",
+              "deltas": {
+                "trust": 4.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m1",
+              "turn": 1,
+              "stageBefore": 4,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            }
+          ],
+          "pending": []
+        }
+      },
+      {
+        "op": "start",
+        "outcome": "ok",
+        "note": null,
+        "state": {
+          "startingPoint": "friends",
+          "type": "undecided",
+          "pacing": "balanced",
+          "values": {
+            "trust": 55.0,
+            "affection": 55.0,
+            "attraction": 0.0,
+            "tension": 0.0
+          },
+          "stages": [
+            "Strangers",
+            "Acquaintances",
+            "Allies",
+            "Friends",
+            "Close Friends",
+            "Found Family"
+          ],
+          "stageIdx": 3,
+          "stageLocked": false,
+          "romanticFrom": null,
+          "turn": 2,
+          "ignored": 0,
+          "recentHashes": [
+            "1|i promise i will be home before the storm you have my word",
+            "2|come here i want to kiss you before i leave"
+          ],
+          "facts": [],
+          "events": [
+            {
+              "id": "#1",
+              "kindId": "start",
+              "category": "correction",
+              "title": "Starting point: Friends",
+              "at": "2026-03-10T09:08:00.000Z",
+              "why": "You chose where your story starts. The kind of relationship, the stages, the pacing and the values now match it, and the next reply is written with them. Earlier moments stay in the timeline; to change it again, pick another starting point.",
+              "source": "user",
+              "deltas": {
+                "trust": -15.0,
+                "affection": -20.0,
+                "attraction": -70.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Relationship journal",
+              "conversationId": null,
+              "messageId": null,
+              "turn": 2,
+              "stageBefore": null,
+              "stageAfter": null,
+              "undoable": false,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#2",
+              "kindId": "start",
+              "category": "correction",
+              "title": "Starting point: Together",
+              "at": "2026-03-10T09:06:00.000Z",
+              "why": "You chose where your story starts. The kind of relationship, the stages, the pacing and the values now match it, and the next reply is written with them. Earlier moments stay in the timeline; to change it again, pick another starting point.",
+              "source": "user",
+              "deltas": {
+                "trust": -4.0,
+                "attraction": -2.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Relationship journal",
+              "conversationId": null,
+              "messageId": null,
+              "turn": 2,
+              "stageBefore": null,
+              "stageAfter": null,
+              "undoable": false,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#3",
+              "kindId": null,
+              "category": "correction",
+              "title": "Stage set to Deeply in Love",
+              "at": "2026-03-10T09:05:00.000Z",
+              "why": "You set the stage yourself. It’s locked, so the engine won’t move it.",
+              "source": "user",
+              "deltas": {},
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Relationship journal",
+              "conversationId": null,
+              "messageId": null,
+              "turn": 2,
+              "stageBefore": null,
+              "stageAfter": null,
+              "undoable": false,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#4",
+              "kindId": "romantic_gesture",
+              "category": "shift",
+              "title": "A romantic gesture",
+              "at": "2026-03-10T09:04:00.000Z",
+              "why": "Matched “a romantic gesture” in your message: “Come here, I want to kiss you before I leave.”. Balanced pacing: Attraction +2 → +2.",
+              "source": "engine",
+              "deltas": {
+                "attraction": 2.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m2",
+              "turn": 2,
+              "stageBefore": 4,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#5",
+              "kindId": "promise_made",
+              "category": "shift",
+              "title": "You made a promise",
+              "at": "2026-03-10T09:03:00.000Z",
+              "why": "Matched “you made a promise” in your message: “I promise I will be home before the storm, you have my word.”. Balanced pacing: Trust +4 → +4.",
+              "source": "engine",
+              "deltas": {
+                "trust": 4.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m1",
+              "turn": 1,
+              "stageBefore": 4,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            }
+          ],
+          "pending": []
+        }
+      },
+      {
+        "op": "user",
+        "outcome": "applied",
+        "note": "Trust grew a little | Something shifted between you.",
+        "state": {
+          "startingPoint": "friends",
+          "type": "undecided",
+          "pacing": "balanced",
+          "values": {
+            "trust": 56.5,
+            "affection": 55.5,
+            "attraction": 0.0,
+            "tension": 0.0
+          },
+          "stages": [
+            "Strangers",
+            "Acquaintances",
+            "Allies",
+            "Friends",
+            "Close Friends",
+            "Found Family"
+          ],
+          "stageIdx": 3,
+          "stageLocked": false,
+          "romanticFrom": null,
+          "turn": 3,
+          "ignored": 0,
+          "recentHashes": [
+            "1|i promise i will be home before the storm you have my word",
+            "2|come here i want to kiss you before i leave",
+            "3|let me help you carry the boxes up the stairs"
+          ],
+          "facts": [],
+          "events": [
+            {
+              "id": "#1",
+              "kindId": "help_offered",
+              "category": "shift",
+              "title": "You offered help",
+              "at": "2026-03-10T09:09:00.000Z",
+              "why": "Matched “you offered help” in your message: “Let me help you carry the boxes up the stairs.”. Balanced pacing: Trust +3 → +1.5, Affection +1 → +0.5. Capped: this scene has already moved things a lot.",
+              "source": "engine",
+              "deltas": {
+                "trust": 1.5,
+                "affection": 0.5
+              },
+              "multipliers": {
+                "budget": 0.5
+              },
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m7",
+              "turn": 3,
+              "stageBefore": 3,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#2",
+              "kindId": "start",
+              "category": "correction",
+              "title": "Starting point: Friends",
+              "at": "2026-03-10T09:08:00.000Z",
+              "why": "You chose where your story starts. The kind of relationship, the stages, the pacing and the values now match it, and the next reply is written with them. Earlier moments stay in the timeline; to change it again, pick another starting point.",
+              "source": "user",
+              "deltas": {
+                "trust": -15.0,
+                "affection": -20.0,
+                "attraction": -70.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Relationship journal",
+              "conversationId": null,
+              "messageId": null,
+              "turn": 2,
+              "stageBefore": null,
+              "stageAfter": null,
+              "undoable": false,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#3",
+              "kindId": "start",
+              "category": "correction",
+              "title": "Starting point: Together",
+              "at": "2026-03-10T09:06:00.000Z",
+              "why": "You chose where your story starts. The kind of relationship, the stages, the pacing and the values now match it, and the next reply is written with them. Earlier moments stay in the timeline; to change it again, pick another starting point.",
+              "source": "user",
+              "deltas": {
+                "trust": -4.0,
+                "attraction": -2.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Relationship journal",
+              "conversationId": null,
+              "messageId": null,
+              "turn": 2,
+              "stageBefore": null,
+              "stageAfter": null,
+              "undoable": false,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#4",
+              "kindId": null,
+              "category": "correction",
+              "title": "Stage set to Deeply in Love",
+              "at": "2026-03-10T09:05:00.000Z",
+              "why": "You set the stage yourself. It’s locked, so the engine won’t move it.",
+              "source": "user",
+              "deltas": {},
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Relationship journal",
+              "conversationId": null,
+              "messageId": null,
+              "turn": 2,
+              "stageBefore": null,
+              "stageAfter": null,
+              "undoable": false,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#5",
+              "kindId": "romantic_gesture",
+              "category": "shift",
+              "title": "A romantic gesture",
+              "at": "2026-03-10T09:04:00.000Z",
+              "why": "Matched “a romantic gesture” in your message: “Come here, I want to kiss you before I leave.”. Balanced pacing: Attraction +2 → +2.",
+              "source": "engine",
+              "deltas": {
+                "attraction": 2.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m2",
+              "turn": 2,
+              "stageBefore": 4,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#6",
+              "kindId": "promise_made",
+              "category": "shift",
+              "title": "You made a promise",
+              "at": "2026-03-10T09:03:00.000Z",
+              "why": "Matched “you made a promise” in your message: “I promise I will be home before the storm, you have my word.”. Balanced pacing: Trust +4 → +4.",
+              "source": "engine",
+              "deltas": {
+                "trust": 4.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m1",
+              "turn": 1,
+              "stageBefore": 4,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            }
+          ],
+          "pending": []
+        }
+      },
+      {
+        "op": "start",
+        "outcome": "ok",
+        "note": null,
+        "state": {
+          "startingPoint": "family",
+          "type": "familial",
+          "pacing": "balanced",
+          "values": {
+            "trust": 65.0,
+            "affection": 70.0,
+            "attraction": 0.0,
+            "tension": 0.0
+          },
+          "stages": [
+            "Estranged",
+            "Distant",
+            "Thawing",
+            "Reconnecting",
+            "Close",
+            "Unbreakable"
+          ],
+          "stageIdx": 4,
+          "stageLocked": false,
+          "romanticFrom": null,
+          "turn": 3,
+          "ignored": 0,
+          "recentHashes": [
+            "1|i promise i will be home before the storm you have my word",
+            "2|come here i want to kiss you before i leave",
+            "3|let me help you carry the boxes up the stairs"
+          ],
+          "facts": [],
+          "events": [
+            {
+              "id": "#1",
+              "kindId": "start",
+              "category": "correction",
+              "title": "Starting point: Family",
+              "at": "2026-03-10T09:10:00.000Z",
+              "why": "You chose where your story starts. The kind of relationship, the stages, the pacing and the values now match it, and the next reply is written with them. Earlier moments stay in the timeline; to change it again, pick another starting point.",
+              "source": "user",
+              "deltas": {
+                "trust": 8.5,
+                "affection": 14.5
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Relationship journal",
+              "conversationId": null,
+              "messageId": null,
+              "turn": 3,
+              "stageBefore": null,
+              "stageAfter": null,
+              "undoable": false,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#2",
+              "kindId": "help_offered",
+              "category": "shift",
+              "title": "You offered help",
+              "at": "2026-03-10T09:09:00.000Z",
+              "why": "Matched “you offered help” in your message: “Let me help you carry the boxes up the stairs.”. Balanced pacing: Trust +3 → +1.5, Affection +1 → +0.5. Capped: this scene has already moved things a lot.",
+              "source": "engine",
+              "deltas": {
+                "trust": 1.5,
+                "affection": 0.5
+              },
+              "multipliers": {
+                "budget": 0.5
+              },
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m7",
+              "turn": 3,
+              "stageBefore": 3,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#3",
+              "kindId": "start",
+              "category": "correction",
+              "title": "Starting point: Friends",
+              "at": "2026-03-10T09:08:00.000Z",
+              "why": "You chose where your story starts. The kind of relationship, the stages, the pacing and the values now match it, and the next reply is written with them. Earlier moments stay in the timeline; to change it again, pick another starting point.",
+              "source": "user",
+              "deltas": {
+                "trust": -15.0,
+                "affection": -20.0,
+                "attraction": -70.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Relationship journal",
+              "conversationId": null,
+              "messageId": null,
+              "turn": 2,
+              "stageBefore": null,
+              "stageAfter": null,
+              "undoable": false,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#4",
+              "kindId": "start",
+              "category": "correction",
+              "title": "Starting point: Together",
+              "at": "2026-03-10T09:06:00.000Z",
+              "why": "You chose where your story starts. The kind of relationship, the stages, the pacing and the values now match it, and the next reply is written with them. Earlier moments stay in the timeline; to change it again, pick another starting point.",
+              "source": "user",
+              "deltas": {
+                "trust": -4.0,
+                "attraction": -2.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Relationship journal",
+              "conversationId": null,
+              "messageId": null,
+              "turn": 2,
+              "stageBefore": null,
+              "stageAfter": null,
+              "undoable": false,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#5",
+              "kindId": null,
+              "category": "correction",
+              "title": "Stage set to Deeply in Love",
+              "at": "2026-03-10T09:05:00.000Z",
+              "why": "You set the stage yourself. It’s locked, so the engine won’t move it.",
+              "source": "user",
+              "deltas": {},
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Relationship journal",
+              "conversationId": null,
+              "messageId": null,
+              "turn": 2,
+              "stageBefore": null,
+              "stageAfter": null,
+              "undoable": false,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#6",
+              "kindId": "romantic_gesture",
+              "category": "shift",
+              "title": "A romantic gesture",
+              "at": "2026-03-10T09:04:00.000Z",
+              "why": "Matched “a romantic gesture” in your message: “Come here, I want to kiss you before I leave.”. Balanced pacing: Attraction +2 → +2.",
+              "source": "engine",
+              "deltas": {
+                "attraction": 2.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m2",
+              "turn": 2,
+              "stageBefore": 4,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#7",
+              "kindId": "promise_made",
+              "category": "shift",
+              "title": "You made a promise",
+              "at": "2026-03-10T09:03:00.000Z",
+              "why": "Matched “you made a promise” in your message: “I promise I will be home before the storm, you have my word.”. Balanced pacing: Trust +4 → +4.",
+              "source": "engine",
+              "deltas": {
+                "trust": 4.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m1",
+              "turn": 1,
+              "stageBefore": 4,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            }
+          ],
+          "pending": []
+        }
+      },
+      {
+        "op": "user",
+        "outcome": "ignored:romanceOff:true",
+        "note": null,
+        "state": {
+          "startingPoint": "family",
+          "type": "familial",
+          "pacing": "balanced",
+          "values": {
+            "trust": 65.0,
+            "affection": 70.0,
+            "attraction": 0.0,
+            "tension": 0.0
+          },
+          "stages": [
+            "Estranged",
+            "Distant",
+            "Thawing",
+            "Reconnecting",
+            "Close",
+            "Unbreakable"
+          ],
+          "stageIdx": 4,
+          "stageLocked": false,
+          "romanticFrom": null,
+          "turn": 4,
+          "ignored": 1,
+          "recentHashes": [
+            "1|i promise i will be home before the storm you have my word",
+            "2|come here i want to kiss you before i leave",
+            "3|let me help you carry the boxes up the stairs",
+            "4|you look beautiful tonight let me hold your hand"
+          ],
+          "facts": [],
+          "events": [
+            {
+              "id": "#1",
+              "kindId": "start",
+              "category": "correction",
+              "title": "Starting point: Family",
+              "at": "2026-03-10T09:10:00.000Z",
+              "why": "You chose where your story starts. The kind of relationship, the stages, the pacing and the values now match it, and the next reply is written with them. Earlier moments stay in the timeline; to change it again, pick another starting point.",
+              "source": "user",
+              "deltas": {
+                "trust": 8.5,
+                "affection": 14.5
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Relationship journal",
+              "conversationId": null,
+              "messageId": null,
+              "turn": 3,
+              "stageBefore": null,
+              "stageAfter": null,
+              "undoable": false,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#2",
+              "kindId": "help_offered",
+              "category": "shift",
+              "title": "You offered help",
+              "at": "2026-03-10T09:09:00.000Z",
+              "why": "Matched “you offered help” in your message: “Let me help you carry the boxes up the stairs.”. Balanced pacing: Trust +3 → +1.5, Affection +1 → +0.5. Capped: this scene has already moved things a lot.",
+              "source": "engine",
+              "deltas": {
+                "trust": 1.5,
+                "affection": 0.5
+              },
+              "multipliers": {
+                "budget": 0.5
+              },
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m7",
+              "turn": 3,
+              "stageBefore": 3,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#3",
+              "kindId": "start",
+              "category": "correction",
+              "title": "Starting point: Friends",
+              "at": "2026-03-10T09:08:00.000Z",
+              "why": "You chose where your story starts. The kind of relationship, the stages, the pacing and the values now match it, and the next reply is written with them. Earlier moments stay in the timeline; to change it again, pick another starting point.",
+              "source": "user",
+              "deltas": {
+                "trust": -15.0,
+                "affection": -20.0,
+                "attraction": -70.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Relationship journal",
+              "conversationId": null,
+              "messageId": null,
+              "turn": 2,
+              "stageBefore": null,
+              "stageAfter": null,
+              "undoable": false,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#4",
+              "kindId": "start",
+              "category": "correction",
+              "title": "Starting point: Together",
+              "at": "2026-03-10T09:06:00.000Z",
+              "why": "You chose where your story starts. The kind of relationship, the stages, the pacing and the values now match it, and the next reply is written with them. Earlier moments stay in the timeline; to change it again, pick another starting point.",
+              "source": "user",
+              "deltas": {
+                "trust": -4.0,
+                "attraction": -2.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Relationship journal",
+              "conversationId": null,
+              "messageId": null,
+              "turn": 2,
+              "stageBefore": null,
+              "stageAfter": null,
+              "undoable": false,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#5",
+              "kindId": null,
+              "category": "correction",
+              "title": "Stage set to Deeply in Love",
+              "at": "2026-03-10T09:05:00.000Z",
+              "why": "You set the stage yourself. It’s locked, so the engine won’t move it.",
+              "source": "user",
+              "deltas": {},
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Relationship journal",
+              "conversationId": null,
+              "messageId": null,
+              "turn": 2,
+              "stageBefore": null,
+              "stageAfter": null,
+              "undoable": false,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#6",
+              "kindId": "romantic_gesture",
+              "category": "shift",
+              "title": "A romantic gesture",
+              "at": "2026-03-10T09:04:00.000Z",
+              "why": "Matched “a romantic gesture” in your message: “Come here, I want to kiss you before I leave.”. Balanced pacing: Attraction +2 → +2.",
+              "source": "engine",
+              "deltas": {
+                "attraction": 2.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m2",
+              "turn": 2,
+              "stageBefore": 4,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#7",
+              "kindId": "promise_made",
+              "category": "shift",
+              "title": "You made a promise",
+              "at": "2026-03-10T09:03:00.000Z",
+              "why": "Matched “you made a promise” in your message: “I promise I will be home before the storm, you have my word.”. Balanced pacing: Trust +4 → +4.",
+              "source": "engine",
+              "deltas": {
+                "trust": 4.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m1",
+              "turn": 1,
+              "stageBefore": 4,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            }
+          ],
+          "pending": []
+        }
+      },
+      {
+        "op": "start",
+        "outcome": "ok",
+        "note": null,
+        "state": {
+          "startingPoint": "rivals",
+          "type": "rivalrous",
+          "pacing": "slow",
+          "values": {
+            "trust": 15.0,
+            "affection": 15.0,
+            "attraction": 0.0,
+            "tension": 45.0
+          },
+          "stages": [
+            "Rivals",
+            "Grudging Respect",
+            "Uneasy Truce",
+            "Reluctant Allies",
+            "Trusted Rival",
+            "Partners"
+          ],
+          "stageIdx": 0,
+          "stageLocked": false,
+          "romanticFrom": null,
+          "turn": 4,
+          "ignored": 1,
+          "recentHashes": [
+            "1|i promise i will be home before the storm you have my word",
+            "2|come here i want to kiss you before i leave",
+            "3|let me help you carry the boxes up the stairs",
+            "4|you look beautiful tonight let me hold your hand"
+          ],
+          "facts": [],
+          "events": [
+            {
+              "id": "#1",
+              "kindId": "start",
+              "category": "correction",
+              "title": "Starting point: Rivals",
+              "at": "2026-03-10T09:12:00.000Z",
+              "why": "You chose where your story starts. The kind of relationship, the stages, the pacing and the values now match it, and the next reply is written with them. Earlier moments stay in the timeline; to change it again, pick another starting point.",
+              "source": "user",
+              "deltas": {
+                "trust": -50.0,
+                "affection": -55.0,
+                "tension": 45.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Relationship journal",
+              "conversationId": null,
+              "messageId": null,
+              "turn": 4,
+              "stageBefore": null,
+              "stageAfter": null,
+              "undoable": false,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#2",
+              "kindId": "start",
+              "category": "correction",
+              "title": "Starting point: Family",
+              "at": "2026-03-10T09:10:00.000Z",
+              "why": "You chose where your story starts. The kind of relationship, the stages, the pacing and the values now match it, and the next reply is written with them. Earlier moments stay in the timeline; to change it again, pick another starting point.",
+              "source": "user",
+              "deltas": {
+                "trust": 8.5,
+                "affection": 14.5
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Relationship journal",
+              "conversationId": null,
+              "messageId": null,
+              "turn": 3,
+              "stageBefore": null,
+              "stageAfter": null,
+              "undoable": false,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#3",
+              "kindId": "help_offered",
+              "category": "shift",
+              "title": "You offered help",
+              "at": "2026-03-10T09:09:00.000Z",
+              "why": "Matched “you offered help” in your message: “Let me help you carry the boxes up the stairs.”. Balanced pacing: Trust +3 → +1.5, Affection +1 → +0.5. Capped: this scene has already moved things a lot.",
+              "source": "engine",
+              "deltas": {
+                "trust": 1.5,
+                "affection": 0.5
+              },
+              "multipliers": {
+                "budget": 0.5
+              },
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m7",
+              "turn": 3,
+              "stageBefore": 3,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#4",
+              "kindId": "start",
+              "category": "correction",
+              "title": "Starting point: Friends",
+              "at": "2026-03-10T09:08:00.000Z",
+              "why": "You chose where your story starts. The kind of relationship, the stages, the pacing and the values now match it, and the next reply is written with them. Earlier moments stay in the timeline; to change it again, pick another starting point.",
+              "source": "user",
+              "deltas": {
+                "trust": -15.0,
+                "affection": -20.0,
+                "attraction": -70.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Relationship journal",
+              "conversationId": null,
+              "messageId": null,
+              "turn": 2,
+              "stageBefore": null,
+              "stageAfter": null,
+              "undoable": false,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#5",
+              "kindId": "start",
+              "category": "correction",
+              "title": "Starting point: Together",
+              "at": "2026-03-10T09:06:00.000Z",
+              "why": "You chose where your story starts. The kind of relationship, the stages, the pacing and the values now match it, and the next reply is written with them. Earlier moments stay in the timeline; to change it again, pick another starting point.",
+              "source": "user",
+              "deltas": {
+                "trust": -4.0,
+                "attraction": -2.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Relationship journal",
+              "conversationId": null,
+              "messageId": null,
+              "turn": 2,
+              "stageBefore": null,
+              "stageAfter": null,
+              "undoable": false,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#6",
+              "kindId": null,
+              "category": "correction",
+              "title": "Stage set to Deeply in Love",
+              "at": "2026-03-10T09:05:00.000Z",
+              "why": "You set the stage yourself. It’s locked, so the engine won’t move it.",
+              "source": "user",
+              "deltas": {},
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Relationship journal",
+              "conversationId": null,
+              "messageId": null,
+              "turn": 2,
+              "stageBefore": null,
+              "stageAfter": null,
+              "undoable": false,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#7",
+              "kindId": "romantic_gesture",
+              "category": "shift",
+              "title": "A romantic gesture",
+              "at": "2026-03-10T09:04:00.000Z",
+              "why": "Matched “a romantic gesture” in your message: “Come here, I want to kiss you before I leave.”. Balanced pacing: Attraction +2 → +2.",
+              "source": "engine",
+              "deltas": {
+                "attraction": 2.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m2",
+              "turn": 2,
+              "stageBefore": 4,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#8",
+              "kindId": "promise_made",
+              "category": "shift",
+              "title": "You made a promise",
+              "at": "2026-03-10T09:03:00.000Z",
+              "why": "Matched “you made a promise” in your message: “I promise I will be home before the storm, you have my word.”. Balanced pacing: Trust +4 → +4.",
+              "source": "engine",
+              "deltas": {
+                "trust": 4.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m1",
+              "turn": 1,
+              "stageBefore": 4,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            }
+          ],
+          "pending": []
+        }
+      },
+      {
+        "op": "start",
+        "outcome": "ok",
+        "note": null,
+        "state": {
+          "startingPoint": "strangers",
+          "type": "undecided",
+          "pacing": "slow",
+          "values": {
+            "trust": 20.0,
+            "affection": 15.0,
+            "attraction": 0.0,
+            "tension": 0.0
+          },
+          "stages": [
+            "Strangers",
+            "Acquaintances",
+            "Allies",
+            "Friends",
+            "Close Friends",
+            "Found Family"
+          ],
+          "stageIdx": 1,
+          "stageLocked": false,
+          "romanticFrom": null,
+          "turn": 4,
+          "ignored": 1,
+          "recentHashes": [
+            "1|i promise i will be home before the storm you have my word",
+            "2|come here i want to kiss you before i leave",
+            "3|let me help you carry the boxes up the stairs",
+            "4|you look beautiful tonight let me hold your hand"
+          ],
+          "facts": [],
+          "events": [
+            {
+              "id": "#1",
+              "kindId": "start",
+              "category": "correction",
+              "title": "Starting point: Just met",
+              "at": "2026-03-10T09:13:00.000Z",
+              "why": "You chose where your story starts. The kind of relationship, the stages, the pacing and the values now match it, and the next reply is written with them. Earlier moments stay in the timeline; to change it again, pick another starting point.",
+              "source": "user",
+              "deltas": {
+                "trust": 5.0,
+                "tension": -45.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Relationship journal",
+              "conversationId": null,
+              "messageId": null,
+              "turn": 4,
+              "stageBefore": null,
+              "stageAfter": null,
+              "undoable": false,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#2",
+              "kindId": "start",
+              "category": "correction",
+              "title": "Starting point: Rivals",
+              "at": "2026-03-10T09:12:00.000Z",
+              "why": "You chose where your story starts. The kind of relationship, the stages, the pacing and the values now match it, and the next reply is written with them. Earlier moments stay in the timeline; to change it again, pick another starting point.",
+              "source": "user",
+              "deltas": {
+                "trust": -50.0,
+                "affection": -55.0,
+                "tension": 45.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Relationship journal",
+              "conversationId": null,
+              "messageId": null,
+              "turn": 4,
+              "stageBefore": null,
+              "stageAfter": null,
+              "undoable": false,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#3",
+              "kindId": "start",
+              "category": "correction",
+              "title": "Starting point: Family",
+              "at": "2026-03-10T09:10:00.000Z",
+              "why": "You chose where your story starts. The kind of relationship, the stages, the pacing and the values now match it, and the next reply is written with them. Earlier moments stay in the timeline; to change it again, pick another starting point.",
+              "source": "user",
+              "deltas": {
+                "trust": 8.5,
+                "affection": 14.5
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Relationship journal",
+              "conversationId": null,
+              "messageId": null,
+              "turn": 3,
+              "stageBefore": null,
+              "stageAfter": null,
+              "undoable": false,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#4",
+              "kindId": "help_offered",
+              "category": "shift",
+              "title": "You offered help",
+              "at": "2026-03-10T09:09:00.000Z",
+              "why": "Matched “you offered help” in your message: “Let me help you carry the boxes up the stairs.”. Balanced pacing: Trust +3 → +1.5, Affection +1 → +0.5. Capped: this scene has already moved things a lot.",
+              "source": "engine",
+              "deltas": {
+                "trust": 1.5,
+                "affection": 0.5
+              },
+              "multipliers": {
+                "budget": 0.5
+              },
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m7",
+              "turn": 3,
+              "stageBefore": 3,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#5",
+              "kindId": "start",
+              "category": "correction",
+              "title": "Starting point: Friends",
+              "at": "2026-03-10T09:08:00.000Z",
+              "why": "You chose where your story starts. The kind of relationship, the stages, the pacing and the values now match it, and the next reply is written with them. Earlier moments stay in the timeline; to change it again, pick another starting point.",
+              "source": "user",
+              "deltas": {
+                "trust": -15.0,
+                "affection": -20.0,
+                "attraction": -70.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Relationship journal",
+              "conversationId": null,
+              "messageId": null,
+              "turn": 2,
+              "stageBefore": null,
+              "stageAfter": null,
+              "undoable": false,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#6",
+              "kindId": "start",
+              "category": "correction",
+              "title": "Starting point: Together",
+              "at": "2026-03-10T09:06:00.000Z",
+              "why": "You chose where your story starts. The kind of relationship, the stages, the pacing and the values now match it, and the next reply is written with them. Earlier moments stay in the timeline; to change it again, pick another starting point.",
+              "source": "user",
+              "deltas": {
+                "trust": -4.0,
+                "attraction": -2.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Relationship journal",
+              "conversationId": null,
+              "messageId": null,
+              "turn": 2,
+              "stageBefore": null,
+              "stageAfter": null,
+              "undoable": false,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#7",
+              "kindId": null,
+              "category": "correction",
+              "title": "Stage set to Deeply in Love",
+              "at": "2026-03-10T09:05:00.000Z",
+              "why": "You set the stage yourself. It’s locked, so the engine won’t move it.",
+              "source": "user",
+              "deltas": {},
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Relationship journal",
+              "conversationId": null,
+              "messageId": null,
+              "turn": 2,
+              "stageBefore": null,
+              "stageAfter": null,
+              "undoable": false,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#8",
+              "kindId": "romantic_gesture",
+              "category": "shift",
+              "title": "A romantic gesture",
+              "at": "2026-03-10T09:04:00.000Z",
+              "why": "Matched “a romantic gesture” in your message: “Come here, I want to kiss you before I leave.”. Balanced pacing: Attraction +2 → +2.",
+              "source": "engine",
+              "deltas": {
+                "attraction": 2.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m2",
+              "turn": 2,
+              "stageBefore": 4,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#9",
+              "kindId": "promise_made",
+              "category": "shift",
+              "title": "You made a promise",
+              "at": "2026-03-10T09:03:00.000Z",
+              "why": "Matched “you made a promise” in your message: “I promise I will be home before the storm, you have my word.”. Balanced pacing: Trust +4 → +4.",
+              "source": "engine",
+              "deltas": {
+                "trust": 4.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m1",
+              "turn": 1,
+              "stageBefore": 4,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            }
+          ],
+          "pending": []
+        }
+      }
+    ]
+  },
+  {
+    "name": "starting point: old rivals",
+    "steps": [
+      {
+        "op": "tick",
+        "outcome": "ok",
+        "note": null,
+        "state": {
+          "startingPoint": "rivals",
+          "type": "rivalrous",
+          "pacing": "slow",
+          "values": {
+            "trust": 15.0,
+            "affection": 15.0,
+            "attraction": 0.0,
+            "tension": 45.0
+          },
+          "stages": [
+            "Rivals",
+            "Grudging Respect",
+            "Uneasy Truce",
+            "Reluctant Allies",
+            "Trusted Rival",
+            "Partners"
+          ],
+          "stageIdx": 0,
+          "stageLocked": false,
+          "romanticFrom": null,
+          "turn": 0,
+          "ignored": 0,
+          "recentHashes": [],
+          "facts": [],
+          "events": [],
+          "pending": []
+        }
+      },
+      {
+        "op": "user",
+        "outcome": "applied",
+        "note": "Tension rose | A distance opened between you.",
+        "state": {
+          "startingPoint": "rivals",
+          "type": "rivalrous",
+          "pacing": "slow",
+          "values": {
+            "trust": 15.0,
+            "affection": 15.0,
+            "attraction": 0.0,
+            "tension": 48.0
+          },
+          "stages": [
+            "Rivals",
+            "Grudging Respect",
+            "Uneasy Truce",
+            "Reluctant Allies",
+            "Trusted Rival",
+            "Partners"
+          ],
+          "stageIdx": 0,
+          "stageLocked": false,
+          "romanticFrom": null,
+          "turn": 1,
+          "ignored": 0,
+          "recentHashes": [
+            "1|you are a pathetic fraud and everybody knows it"
+          ],
+          "facts": [],
+          "events": [
+            {
+              "id": "#1",
+              "kindId": "conflict",
+              "category": "setback",
+              "title": "You said something cruel",
+              "at": "2026-03-10T09:03:00.000Z",
+              "why": "Matched “you said something cruel” in your message: “You are a pathetic fraud and everybody knows it.”. Slow burn pacing: Tension +4 → +3.",
+              "source": "engine",
+              "deltas": {
+                "tension": 3.0
+              },
+              "multipliers": {
+                "pacing": 0.75
+              },
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m1",
+              "turn": 1,
+              "stageBefore": 0,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            }
+          ],
+          "pending": []
+        }
+      },
+      {
+        "op": "user",
+        "outcome": "applied",
+        "note": "Tension eased | Something mended, a little.",
+        "state": {
+          "startingPoint": "rivals",
+          "type": "rivalrous",
+          "pacing": "slow",
+          "values": {
+            "trust": 16.0,
+            "affection": 15.0,
+            "attraction": 0.0,
+            "tension": 46.5
+          },
+          "stages": [
+            "Rivals",
+            "Grudging Respect",
+            "Uneasy Truce",
+            "Reluctant Allies",
+            "Trusted Rival",
+            "Partners"
+          ],
+          "stageIdx": 0,
+          "stageLocked": false,
+          "romanticFrom": null,
+          "turn": 2,
+          "ignored": 0,
+          "recentHashes": [
+            "1|you are a pathetic fraud and everybody knows it",
+            "2|i m sorry i was wrong to say that to you"
+          ],
+          "facts": [],
+          "events": [
+            {
+              "id": "#1",
+              "kindId": "apology",
+              "category": "reconcile",
+              "title": "You apologised or told the truth",
+              "at": "2026-03-10T09:04:00.000Z",
+              "why": "Matched “you apologised or told the truth” in your message: “I'm sorry, I was wrong to say that to you.”. Slow burn pacing: Tension −4 → −1.5, Trust +2 → +1. Capped: this scene has already moved things a lot.",
+              "source": "engine",
+              "deltas": {
+                "trust": 1.0,
+                "tension": -1.5
+              },
+              "multipliers": {
+                "budget": 0.833333333,
+                "pacing": 0.5
+              },
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m2",
+              "turn": 2,
+              "stageBefore": 0,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#2",
+              "kindId": "conflict",
+              "category": "setback",
+              "title": "You said something cruel",
+              "at": "2026-03-10T09:03:00.000Z",
+              "why": "Matched “you said something cruel” in your message: “You are a pathetic fraud and everybody knows it.”. Slow burn pacing: Tension +4 → +3.",
+              "source": "engine",
+              "deltas": {
+                "tension": 3.0
+              },
+              "multipliers": {
+                "pacing": 0.75
+              },
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m1",
+              "turn": 1,
+              "stageBefore": 0,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            }
+          ],
+          "pending": []
+        }
+      },
+      {
+        "op": "proposal",
+        "outcome": "ignored:romanceOff:true",
+        "note": null,
+        "state": {
+          "startingPoint": "rivals",
+          "type": "rivalrous",
+          "pacing": "slow",
+          "values": {
+            "trust": 16.0,
+            "affection": 15.0,
+            "attraction": 0.0,
+            "tension": 46.5
+          },
+          "stages": [
+            "Rivals",
+            "Grudging Respect",
+            "Uneasy Truce",
+            "Reluctant Allies",
+            "Trusted Rival",
+            "Partners"
+          ],
+          "stageIdx": 0,
+          "stageLocked": false,
+          "romanticFrom": null,
+          "turn": 2,
+          "ignored": 1,
+          "recentHashes": [
+            "1|you are a pathetic fraud and everybody knows it",
+            "2|i m sorry i was wrong to say that to you"
+          ],
+          "facts": [],
+          "events": [
+            {
+              "id": "#1",
+              "kindId": "apology",
+              "category": "reconcile",
+              "title": "You apologised or told the truth",
+              "at": "2026-03-10T09:04:00.000Z",
+              "why": "Matched “you apologised or told the truth” in your message: “I'm sorry, I was wrong to say that to you.”. Slow burn pacing: Tension −4 → −1.5, Trust +2 → +1. Capped: this scene has already moved things a lot.",
+              "source": "engine",
+              "deltas": {
+                "trust": 1.0,
+                "tension": -1.5
+              },
+              "multipliers": {
+                "budget": 0.833333333,
+                "pacing": 0.5
+              },
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m2",
+              "turn": 2,
+              "stageBefore": 0,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            },
+            {
+              "id": "#2",
+              "kindId": "conflict",
+              "category": "setback",
+              "title": "You said something cruel",
+              "at": "2026-03-10T09:03:00.000Z",
+              "why": "Matched “you said something cruel” in your message: “You are a pathetic fraud and everybody knows it.”. Slow burn pacing: Tension +4 → +3.",
+              "source": "engine",
+              "deltas": {
+                "tension": 3.0
+              },
+              "multipliers": {
+                "pacing": 0.75
+              },
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m1",
+              "turn": 1,
+              "stageBefore": 0,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            }
+          ],
+          "pending": []
+        }
+      }
+    ]
+  },
+  {
+    "name": "starting point: friends",
+    "steps": [
+      {
+        "op": "tick",
+        "outcome": "ok",
+        "note": null,
+        "state": {
+          "startingPoint": "friends",
+          "type": "undecided",
+          "pacing": "balanced",
+          "values": {
+            "trust": 55.0,
+            "affection": 55.0,
+            "attraction": 0.0,
+            "tension": 0.0
+          },
+          "stages": [
+            "Strangers",
+            "Acquaintances",
+            "Allies",
+            "Friends",
+            "Close Friends",
+            "Found Family"
+          ],
+          "stageIdx": 3,
+          "stageLocked": false,
+          "romanticFrom": null,
+          "turn": 0,
+          "ignored": 0,
+          "recentHashes": [],
+          "facts": [],
+          "events": [],
+          "pending": []
+        }
+      },
+      {
+        "op": "user",
+        "outcome": "applied",
+        "note": "Affection grew a little | Something shifted between you.",
+        "state": {
+          "startingPoint": "friends",
+          "type": "undecided",
+          "pacing": "balanced",
+          "values": {
+            "trust": 55.0,
+            "affection": 56.0,
+            "attraction": 0.0,
+            "tension": 0.0
+          },
+          "stages": [
+            "Strangers",
+            "Acquaintances",
+            "Allies",
+            "Friends",
+            "Close Friends",
+            "Found Family"
+          ],
+          "stageIdx": 3,
+          "stageLocked": false,
+          "romanticFrom": null,
+          "turn": 1,
+          "ignored": 0,
+          "recentHashes": [
+            "1|thank you for always being there for me truly"
+          ],
+          "facts": [],
+          "events": [
+            {
+              "id": "#1",
+              "kindId": "appreciation",
+              "category": "shift",
+              "title": "You showed appreciation",
+              "at": "2026-03-10T09:03:00.000Z",
+              "why": "Matched “you showed appreciation” in your message: “Thank you for always being there for me, truly.”. Balanced pacing: Affection +1 → +1.",
+              "source": "engine",
+              "deltas": {
+                "affection": 1.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m1",
+              "turn": 1,
+              "stageBefore": 3,
+              "stageAfter": null,
+              "undoable": true,
+              "undoneBy": null,
+              "undoOf": null,
+              "fromDeletedChat": false
+            }
+          ],
+          "pending": []
+        }
+      }
+    ]
+  },
+  {
+    "name": "starting point: family",
+    "steps": [
+      {
+        "op": "tick",
+        "outcome": "ok",
+        "note": null,
+        "state": {
+          "startingPoint": "family",
+          "type": "familial",
+          "pacing": "balanced",
+          "values": {
+            "trust": 65.0,
+            "affection": 70.0,
+            "attraction": 0.0,
+            "tension": 0.0
+          },
+          "stages": [
+            "Estranged",
+            "Distant",
+            "Thawing",
+            "Reconnecting",
+            "Close",
+            "Unbreakable"
+          ],
+          "stageIdx": 4,
+          "stageLocked": false,
+          "romanticFrom": null,
+          "turn": 0,
+          "ignored": 0,
+          "recentHashes": [],
+          "facts": [],
+          "events": [],
+          "pending": []
+        }
+      },
+      {
+        "op": "user",
+        "outcome": "applied",
+        "note": "Trust grew | Something shifted between you.",
+        "state": {
+          "startingPoint": "family",
+          "type": "familial",
+          "pacing": "balanced",
+          "values": {
+            "trust": 69.0,
+            "affection": 70.0,
+            "attraction": 0.0,
+            "tension": 0.0
+          },
+          "stages": [
+            "Estranged",
+            "Distant",
+            "Thawing",
+            "Reconnecting",
+            "Close",
+            "Unbreakable"
+          ],
+          "stageIdx": 4,
+          "stageLocked": false,
+          "romanticFrom": null,
+          "turn": 1,
+          "ignored": 0,
+          "recentHashes": [
+            "1|i promise i will visit you every sunday you have my word"
+          ],
+          "facts": [],
+          "events": [
+            {
+              "id": "#1",
+              "kindId": "promise_made",
+              "category": "shift",
+              "title": "You made a promise",
+              "at": "2026-03-10T09:03:00.000Z",
+              "why": "Matched “you made a promise” in your message: “I promise I will visit you every Sunday, you have my word.”. Balanced pacing: Trust +4 → +4.",
+              "source": "engine",
+              "deltas": {
+                "trust": 4.0
+              },
+              "multipliers": {},
+              "evidence": null,
+              "chatTitle": "Chat",
+              "conversationId": null,
+              "messageId": "m1",
+              "turn": 1,
+              "stageBefore": 4,
               "stageAfter": null,
               "undoable": true,
               "undoneBy": null,

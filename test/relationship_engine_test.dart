@@ -840,7 +840,7 @@ void main() {
       expect(r.romanticFrom, isNull);
       r = engine.applyPreset(r, presetById('romance'));
       expect(r.romanticFrom, 4);
-      expect(stagePresets.map((p) => p.label), ['Romance arc', 'Friendship', 'Rivalry', 'Family']);
+      expect(stagePresets.map((p) => p.label), ['Romance arc', 'Friendship', 'Rivalry', 'Family', 'Couple']);
       for (final p in stagePresets) {
         expect(p.stages, hasLength(6));
       }
@@ -1039,6 +1039,116 @@ void main() {
       expect(n.values, const Values());
       expect(n.stageName, 'Acquaintances');
       expect(n.events, isEmpty);
+    });
+  });
+
+  group('starting points', () {
+    Relationship start(StartingPoint s) =>
+        startingRelationship(id: 'r', characterId: 'c', personaId: 'p', start: s);
+
+    test('each begins on its arc, at a stage the stage maths agrees with', () {
+      for (final s in StartingPoint.values) {
+        final r = start(s);
+        final setup = startingSetups[s]!;
+        expect(r.startingPoint, s);
+        expect(r.stageIdx, setup.stageIdx, reason: s.name);
+        expect(stageFor(r), r.stageIdx, reason: '${s.name}: the first moment must not move the stage');
+        expect(r.stages, presetById(setup.presetId).stages, reason: s.name);
+        expect((r.type, r.pacing, r.values), (setup.type, setup.pacing, setup.values), reason: s.name);
+        expect(r.events, isEmpty);
+        expect(r.facts, isEmpty);
+      }
+    });
+
+    test('Just met is the old default: Acquaintances, slow burn, nothing assumed', () {
+      final r = start(StartingPoint.strangers);
+      expect(r.values, const Values());
+      expect((r.stageName, r.type, r.pacing), ('Acquaintances', RelationType.undecided, RelPacing.slow));
+      expect(promptBlock(r), isNot(contains('history:')));
+    });
+
+    test('Together is a romantic couple, Happy Together on the Couple arc', () {
+      final r = start(StartingPoint.together);
+      expect((r.stageName, r.type, r.pacing), ('Happy Together', RelationType.romantic, RelPacing.balanced));
+      expect(r.romanticFrom, isNull);
+      expect(r.values, const Values(trust: 70, affection: 75, attraction: 70));
+      final lines = behaviorLines(r);
+      expect(lines[0], 'Confides in you and asks your opinion before big decisions.');
+      expect(lines[1], 'Openly glad to see you; teases you and checks on you.');
+      expect(lines[2], 'At ease in your company.');
+      expect(lines[3], 'Romantic feelings are present and may be acknowledged.');
+      expect(replyTier(r), 'warm');
+    });
+
+    test('Friends leave romance to the story; Family and Rivals keep it off', () {
+      final f = start(StartingPoint.friends);
+      expect((f.stageName, f.type), ('Friends', RelationType.undecided));
+      expect(behaviorLines(f)[3], 'Shows no romantic interest; fondness stays platonic for now.');
+      final fam = start(StartingPoint.family);
+      expect((fam.stageName, fam.type.romanceAllowed), ('Close', false));
+      final rv = start(StartingPoint.rivals);
+      expect((rv.stageName, rv.type, rv.pacing), ('Rivals', RelationType.rivalrous, RelPacing.slow));
+      expect(behaviorLines(rv)[2], 'On edge: likely to argue, test you or pull away.');
+    });
+
+    test('the AI is told the history, right after the kind of relationship', () {
+      final block = promptBlock(start(StartingPoint.together)).split('\n');
+      expect(block[1], 'stage: Happy Together');
+      expect(block[2], 'type: Romantic');
+      expect(block[3], 'history: already a couple before the story began — this is not a first meeting');
+      expect(block[4], startsWith('trust 70 (deep), affection 75 (warm), attraction 70, tension 0'));
+      expect(block[5], 'pacing: balanced — change openness gradually');
+      for (final s in [StartingPoint.friends, StartingPoint.family, StartingPoint.rivals]) {
+        expect(promptBlock(start(s)), contains('history: already ${s.name} before the story began'));
+      }
+    });
+
+    test('an open romance is not told to hold back confessions; a budding or ruled-out one is', () {
+      String block(Values v, [RelationType type = RelationType.undecided]) =>
+          promptBlock(rel(values: v, type: type));
+      expect(block(const Values(trust: 30, affection: 20, attraction: 59)), contains('no sudden confessions'));
+      expect(block(const Values(trust: 30, affection: 20, attraction: 60)), isNot(contains('no sudden confessions')));
+      expect(block(const Values(attraction: 80), RelationType.platonic), contains('no sudden confessions'));
+    });
+
+    test('starting over re-bases kind, arc, stage, pacing and values; the history stays', () {
+      var r = seedRelationship(characterId: 'vesper', personaId: 'wren', now: t0);
+      r = engine.saveStages(r, const [], 2, true, now: t0);
+      final next = engine.applyStartingPoint(r, StartingPoint.together, now: t0);
+      expect(next.startingPoint, StartingPoint.together);
+      expect((next.type, next.pacing, next.stageName, next.stageLocked),
+          (RelationType.romantic, RelPacing.balanced, 'Happy Together', false));
+      expect(next.values, startingSetups[StartingPoint.together]!.values);
+      expect(next.romanticFrom, isNull);
+      expect(next.events, hasLength(r.events.length + 1));
+      final e = next.events.first;
+      expect((e.kindId, e.category, e.source, e.title),
+          ('start', TimelineKind.correction, EventSource.user, 'Starting point: Together'));
+      expect(e.canUndo, isFalse, reason: 'it changes more than values: pick another starting point instead');
+      expect(e.deltas, {RelValue.trust: 38.5, RelValue.affection: 53, RelValue.attraction: 64, RelValue.tension: -14});
+      expect(next.events.skip(1).map((x) => x.id), r.events.map((x) => x.id));
+      expect(next.facts, r.facts, reason: 'your facts stay');
+      expect(next.ledger, r.ledger, reason: 'cooldowns and budgets carry on');
+      expect(stageFor(next), next.stageIdx);
+      expect(promptBlock(next), contains('latest turning point: You gave your word about the letters'));
+    });
+
+    test('the same starting point again changes nothing, unless things moved since', () {
+      final r = start(StartingPoint.friends);
+      expect(identical(engine.applyStartingPoint(r, StartingPoint.friends, now: t0), r), isTrue);
+      final moved = Run(r)..say('I promise I will keep this secret, you have my word.');
+      expect(moved.r.values.trust, 59);
+      final reset = engine.applyStartingPoint(moved.r, StartingPoint.friends, now: t0);
+      expect(reset.values, startingSetups[StartingPoint.friends]!.values);
+      expect(reset.events.first.title, 'Starting point: Friends');
+      expect(reset.events.first.deltas, {RelValue.trust: -4});
+    });
+
+    test('a new character begins at the starting point picked for them; Iselde begins as rivals', () {
+      final n = seedRelationship(characterId: 'zed', personaId: 'wren', now: t0, startingPoint: StartingPoint.together);
+      expect((n.startingPoint, n.stageName), (StartingPoint.together, 'Happy Together'));
+      expect(seedRelationship(characterId: 'iselde', personaId: 'wren', now: t0).startingPoint, StartingPoint.rivals);
+      expect(seedRelationship(characterId: 'vesper', personaId: 'wren', now: t0).startingPoint, StartingPoint.strangers);
     });
   });
 }

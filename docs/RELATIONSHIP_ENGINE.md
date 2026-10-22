@@ -11,14 +11,30 @@
 - **Journal sections:**
   - StageHeader: stage, type, pacing, and a plain-language "Next:" hint.
   - Suggestions waiting for approval (Manual pacing only).
+  - Starting point: where the story began (see "Starting points"), with Change, which opens "Where does your story start?" and starts the relationship over from the one you pick.
   - "How this shapes X right now": the four behaviour lines, plus an expandable "what the AI is told".
   - Value meters (word + number): Trust, Affection, Attraction, Tension, with an Adjust button.
   - Pacing (Slow burn by default, Balanced, Fast, Manual).
   - Relationship type: Let the story decide / Platonic / Romantic / Family / Rivalry / Something else.
-  - Editable stages, with presets: Romance arc, Friendship, Rivalry, Family.
+  - Editable stages, with presets: Romance arc, Friendship, Rivalry, Family, Couple.
   - Established facts, which can be locked.
   - Timeline: Milestone, Setback, Reconciliation, Small shift, Your correction. Each entry expands to show why it changed, who decided, and Undo.
   - During-roleplay setting.
+
+## Starting points
+A relationship does not have to begin with strangers. Each character has a starting point, picked in the editor ("You and Mara": Just met by default), and every new relationship with them begins there. The journal's Change starts an existing relationship over from another one.
+
+| Starting point | Kind | Stages (arc) | Starts at | Pacing | Trust / affection / attraction / tension |
+|---|---|---|---|---|---|
+| Just met (`strangers`) | Let the story decide | Friendship | Acquaintances | Slow burn | 20 / 15 / 0 / 0 |
+| Friends | Let the story decide | Friendship | Friends | Balanced | 55 / 55 / 0 / 0 |
+| Together | Romantic | Couple: On the Rocks, Drifting Apart, Mending, Steady, Happy Together, Deeply in Love | Happy Together | Balanced | 70 / 75 / 70 / 0 |
+| Family | Family | Family | Close | Balanced | 65 / 70 / 0 / 0 |
+| Rivals | Rivalry | Rivalry | Rivals | Slow burn | 15 / 15 / 0 / 45 |
+
+- The values sit inside their stage's score band, so the first moment in the story does not move the stage.
+- A new relationship simply begins there: no timeline entry, no facts. Starting over (journal, or a changed starting point saved in the editor) sets the kind, stages, stage, pacing and values, unlocks the stage, and logs "Starting point: X" as your correction. Earlier moments, facts, cooldowns and budgets stay. It has no Undo of its own (it changes more than the values): pick another starting point. Picking the one you are already at, with nothing changed since, logs nothing.
+- Every starting point except Just met adds a `history:` line to the prompt, so a couple or old friends never play a first meeting.
 
 ## Engine loop (per user message, in the `chat_turn` edge function)
 1. **Classify** the user's action: rule matchers plus a small classifier pick at most one kind from the catalogue.
@@ -69,6 +85,7 @@ create table relationships (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references auth.users,
   character_id uuid not null, universe_id uuid, persona_id uuid,
+  starting_point text not null default 'strangers',   -- also on characters (picked in the editor)
   type text not null default 'undecided',
   pacing text not null default 'slow',
   trust numeric(5,1) default 20, affection numeric(5,1) default 15,
@@ -92,6 +109,7 @@ create table relationship_facts (id uuid primary key default gen_random_uuid(), 
 create table relationship_suggestions (id uuid primary key default gen_random_uuid(), relationship_id uuid references relationships on delete cascade, event jsonb, status text default 'pending', created_at timestamptz default now());
 -- RLS: user_id = auth.uid() on every table (via a join for the child tables).
 -- Values change only through security-definer functions apply_event() and apply_correction().
+-- ensure_relationship() creates a relationship on first use at its character's starting point.
 ```
 **Scope:** one relationship per user × character × universe × persona. Different universes never share values; several chats in the same universe do.
 
@@ -100,6 +118,7 @@ create table relationship_suggestions (id uuid primary key default gen_random_uu
 [relationship — set by the app, read-only]
 stage: Wary Acquaintances
 type: Let the story decide — do not assume romance
+(history: already a couple before the story began — this is not a first meeting)   ← only when not "Just met"
 trust 32 (cautious), affection 22 (polite warmth), attraction 6, tension 14 (mild)
 pacing: slow burn — change openness gradually; no sudden confessions
 play it like this:
@@ -112,6 +131,8 @@ never contradict:
 latest turning point: You gave your word about the letters
 you may propose ONE relationship_event {kind, reason}; the app decides whether it counts.
 ```
+Once romance is out in the open (a type that allows it, and attraction ≥ 60: the band where feelings "may be acknowledged"), the pacing line drops "no sudden confessions".
+
 Behaviour lines come from deterministic value bands (the same tables the journal displays), so what the user reads is exactly what the model gets. The bands are in `behaviorLines()` in `prototype/Main.dc.html`.
 
 ## Model output contract

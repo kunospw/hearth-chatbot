@@ -74,6 +74,11 @@ Relationship relationshipFromJson(Map<String, dynamic> j) {
     characterId: j['characterId'] as String,
     personaId: j['personaId'] as String,
     universeId: _n(j['universeId']),
+    startingPoint: _byName(
+      StartingPoint.values,
+      j['startingPoint'],
+      StartingPoint.strangers,
+    ),
     type: _byName(RelationType.values, j['type'], RelationType.undecided),
     pacing: _byName(RelPacing.values, j['pacing'], RelPacing.slow),
     values: Values(

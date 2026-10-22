@@ -59,6 +59,7 @@ void main() {
       final r = relationshipFromJson(fixture());
       expect(r.id, 'rel-1');
       expect(r.characterId, 'char-1');
+      expect(r.startingPoint, StartingPoint.strangers);
       expect(r.type, RelationType.undecided);
       expect(r.pacing, RelPacing.manual);
       expect(r.values.trust, 24);
@@ -84,10 +85,12 @@ void main() {
       final j = fixture();
       j['type'] = 'something-new';
       j['pacing'] = 'warp';
+      j['startingPoint'] = 'pen-pals';
       (j['events'] as List).first['category'] = 'weird';
       final r = relationshipFromJson(j);
       expect(r.type, RelationType.undecided);
       expect(r.pacing, RelPacing.slow);
+      expect(r.startingPoint, StartingPoint.strangers);
       expect(r.events.first.category, TimelineKind.shift);
     });
   });
@@ -109,11 +112,23 @@ void main() {
       expect(api.log, ['rpc ensure_relationship']);
     });
 
+    test('the server picks the starting point from the character; the app only names the ids', () async {
+      final sent = <Map<String, Object?>>[];
+      api.rpcs['ensure_relationship'] = (p) {
+        sent.add(p);
+        return {...fixture(), 'startingPoint': 'together'};
+      };
+      final r = await backend.load('c-1', 'p-1', startingPoint: StartingPoint.rivals);
+      expect(r.startingPoint, StartingPoint.together);
+      expect(sent.single, {'p_character': 'c-1', 'p_persona': 'p-1'});
+    });
+
     test('each thing you can do is one named action, and only the ask is sent', () async {
       await backend.correct('rel-1', const Values(trust: 50, affection: 40, attraction: 0, tension: 5), reason: 'We made up');
       await backend.setType('rel-1', RelationType.familial);
       await backend.setPacing('rel-1', RelPacing.fast);
       await backend.applyPreset('rel-1', 'family');
+      await backend.setStartingPoint('rel-1', StartingPoint.together);
       await backend.saveStages('rel-1', ['A', 'B'], 2, true);
       await backend.addFact('rel-1', 'Text', locked: false);
       await backend.setFactLocked('rel-1', 'f1', true);
@@ -126,6 +141,7 @@ void main() {
         {'action': 'set_type', 'relationshipId': 'rel-1', 'type': 'familial'},
         {'action': 'set_pacing', 'relationshipId': 'rel-1', 'pacing': 'fast'},
         {'action': 'apply_preset', 'relationshipId': 'rel-1', 'presetId': 'family'},
+        {'action': 'set_starting_point', 'relationshipId': 'rel-1', 'startingPoint': 'together'},
         {'action': 'save_stages', 'relationshipId': 'rel-1', 'names': ['A', 'B'], 'current': 2, 'lock': true},
         {'action': 'add_fact', 'relationshipId': 'rel-1', 'text': 'Text', 'locked': false},
         {'action': 'set_fact_locked', 'relationshipId': 'rel-1', 'factId': 'f1', 'locked': true},

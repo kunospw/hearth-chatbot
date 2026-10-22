@@ -16,7 +16,7 @@ supabase/
 |---|---|
 | **The app** | Holds only the project URL, the publishable (anon) key and your own session. It reads and edits *your* rows (row-level security). It never sees the model key and never writes a relationship number. |
 | **`chat_turn`** (edge function) | Verifies who you are, loads your conversation, character, persona and memories, runs the relationship engine on your new message, counts the reply against the model's daily free replies, builds the prompt (with the relationship block), streams the reply from Ollama Cloud, then validates the one event the model may propose and saves it. |
-| **`apply_correction`** (edge function) | Undo, approve/dismiss a suggestion, your own corrections, type, pacing, stages, facts. The engine decides; the app only asks. |
+| **`apply_correction`** (edge function) | Undo, approve/dismiss a suggestion, your own corrections, type, pacing, stages, facts, starting over from a starting point. The engine decides; the app only asks. |
 | **Postgres** | `relationships*` tables are readable by you but have **no** write policy: only the server (service role, through `commit_relationship()`) can change them. |
 
 The engine in `functions/_shared/engine/` is a TypeScript port of
@@ -103,6 +103,11 @@ If you change the engine's behaviour on purpose: change the Dart engine, run
 and check `test/relationship_wire_test.dart`.
 
 ## Things worth knowing
+
+- **Starting points** (`migrations/…0900_starting_point.sql`) add a `starting_point` column to
+  `characters` and `relationships`. On a project that is already set up, run
+  `npx supabase db push` and deploy `chat_turn` and `apply_correction` again *before* using
+  an app built from this version: until the column exists, saving a character fails.
 
 - **Daily free replies reset at 00:00 UTC** (the app text still says 07:00 in sample mode).
 - **Streaming on the web** (Chrome) works through `fetch`; on Android it is a normal streamed request.

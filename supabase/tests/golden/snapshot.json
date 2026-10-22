@@ -3,6 +3,7 @@
   "characterId": "char-1",
   "personaId": "persona-1",
   "universeId": null,
+  "startingPoint": "strangers",
   "type": "undecided",
   "pacing": "manual",
   "values": {

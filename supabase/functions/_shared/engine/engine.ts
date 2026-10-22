@@ -5,11 +5,12 @@
 // This is the ONLY place relationship numbers are computed. The Flutter app
 // never runs it in production; it displays what the server returns.
 import { EVENT_CATALOGUE, classifyUserText } from './catalogue.ts';
-import { STAGE_PRESETS, signed, stageFor, type StagePreset } from './bands.ts';
+import { STAGE_PRESETS, STARTING_SETUPS, presetById, signed, stageFor, type StagePreset } from './bands.ts';
 import {
   PACING,
   REL_LABEL,
   REL_VALUES,
+  STARTING_LABEL,
   canUndo,
   isUndone,
   magnitude,
@@ -26,6 +27,7 @@ import {
   type RelationshipEvent,
   type RelationshipNote,
   type RelPacing,
+  type StartingPoint,
   type Suggestion,
   type TimelineKind,
   type Values,
@@ -620,6 +622,69 @@ export class RelationshipEngine {
   applyPreset(r: Relationship, p: StagePreset): Relationship {
     const next = { ...r, stages: [...p.stages], romanticFrom: p.romanticFrom };
     return { ...next, stageIdx: stageFor(next) };
+  }
+
+  /**
+   * Starts over from [start]: kind, stage arc and stage, pacing and values all
+   * match it, and the stage is unlocked. Earlier moments stay in the timeline.
+   * Logged as your correction, without an Undo of its own (it changes more than
+   * the values): pick another starting point instead.
+   */
+  applyStartingPoint(r: Relationship, start: StartingPoint, o: { now: Date }): Relationship {
+    const s = STARTING_SETUPS[start];
+    const p = presetById(s.presetId);
+    const deltas: Deltas = {};
+    for (const k of REL_VALUES) {
+      const d = roundHalf(s.values[k] - r.values[k]);
+      if (d !== 0) deltas[k] = d;
+    }
+    const unchanged =
+      r.startingPoint === start &&
+      REL_VALUES.every((k) => r.values[k] === s.values[k]) &&
+      r.type === s.type &&
+      r.pacing === s.pacing &&
+      r.stageIdx === s.stageIdx &&
+      !r.stageLocked &&
+      r.romanticFrom === p.romanticFrom &&
+      r.stages.join('\n') === p.stages.join('\n');
+    if (unchanged) return r;
+    const event: RelationshipEvent = {
+      id: this.newId('e'),
+      kindId: 'start',
+      category: 'correction',
+      title: `Starting point: ${STARTING_LABEL[start]}`,
+      at: o.now,
+      why:
+        'You chose where your story starts. The kind of relationship, the stages, ' +
+        'the pacing and the values now match it, and the next reply is written with them. ' +
+        'Earlier moments stay in the timeline; to change it again, pick another starting point.',
+      source: 'user',
+      deltas,
+      multipliers: {},
+      evidence: null,
+      chatTitle: 'Relationship journal',
+      conversationId: null,
+      messageId: null,
+      turn: r.turn,
+      stageBefore: null,
+      stageAfter: null,
+      undoable: false,
+      undoneBy: null,
+      undoOf: null,
+      fromDeletedChat: false,
+    };
+    return {
+      ...r,
+      startingPoint: start,
+      type: s.type,
+      pacing: s.pacing,
+      values: { ...s.values },
+      stages: [...p.stages],
+      romanticFrom: p.romanticFrom,
+      stageIdx: s.stageIdx,
+      stageLocked: false,
+      events: [event, ...r.events],
+    };
   }
 
   /** Edit stage names, set the current stage yourself, and lock it. */

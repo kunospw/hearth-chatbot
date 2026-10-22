@@ -38,7 +38,8 @@ Map<String, Object?> characterToRow(
   'rules': c.rules,
   'relationships': c.relationships,
   'scenario': c.scenario,
-      'archived': c.archived,
+  'starting_point': c.startingPoint.name,
+  'archived': c.archived,
 };
 
 Character characterFromRow(Map<String, dynamic> r) => Character(
@@ -61,7 +62,10 @@ Character characterFromRow(Map<String, dynamic> r) => Character(
   rules: _s(r['rules']),
   relationships: _s(r['relationships']),
   scenario: _s(r['scenario']),
-      archived: r['archived'] == true,
+  startingPoint:
+      StartingPoint.values.asNameMap()[r['starting_point']] ??
+      StartingPoint.strangers,
+  archived: r['archived'] == true,
 );
 
 // ── library ───────────────────────────────────────────────────────────────

@@ -130,6 +130,18 @@ class _JournalState extends ConsumerState<_Journal> {
     if (mounted) showToast(context, 'Stages saved');
   }
 
+  Future<void> _changeStart() async {
+    final start = await showStartingPointSheet(context, r, ch.first);
+    if (start == null || !mounted) return;
+    await _notifier.setStartingPoint(ch.id, start);
+    if (mounted) {
+      showToast(
+        context,
+        'Starting point: ${start.label} — the next reply will reflect it',
+      );
+    }
+  }
+
   Future<void> _addFact() async {
     final res = await showFactSheet(context);
     if (res == null || !mounted) return;
@@ -215,6 +227,8 @@ class _JournalState extends ConsumerState<_Journal> {
                     const SizedBox(height: Space.xl),
                     _pending(c, t),
                   ],
+                  const SizedBox(height: Space.xl),
+                  _start(c, t),
                   const SizedBox(height: Space.xl),
                   _shapes(c, t),
                   const SizedBox(height: Space.xl),
@@ -354,6 +368,31 @@ class _JournalState extends ConsumerState<_Journal> {
               ],
             ),
           ),
+      ],
+    );
+  }
+
+  Widget _start(HearthColors c, HearthText t) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Wrap(
+          alignment: WrapAlignment.spaceBetween,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            const Overline('Starting point'),
+            TextButton(
+              style: TextButton.styleFrom(
+                minimumSize: const Size(Hit.primary, Hit.inline),
+              ),
+              onPressed: _changeStart,
+              child: const Text('Change'),
+            ),
+          ],
+        ),
+        Text(r.startingPoint.label, style: t.label),
+        const SizedBox(height: Space.xs),
+        Text(r.startingPoint.hint, style: t.body.copyWith(color: c.textMuted)),
       ],
     );
   }

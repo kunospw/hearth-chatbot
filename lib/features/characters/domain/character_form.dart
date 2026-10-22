@@ -1,7 +1,23 @@
 import 'package:flutter/foundation.dart';
 
 import '../../../data/mock/mock_data.dart';
+import '../../relationship/domain/relationship_models.dart';
 import 'character.dart';
+
+/// The greeting written for you when the field is left blank: a first line
+/// that fits how you know each other.
+String defaultGreeting(String first, StartingPoint start) => switch (start) {
+  StartingPoint.strangers =>
+    '*$first looks up as you arrive.* "Oh — hello. I wasn\'t expecting anyone tonight."',
+  StartingPoint.friends =>
+    '*$first grins the moment you walk in.* "There you are! Sit down — I saved you a seat."',
+  StartingPoint.together =>
+    '*$first looks up as you come in, and smiles.* "There you are. I missed you today."',
+  StartingPoint.family =>
+    '*$first waves you over.* "Hey, you. Come sit — tell me everything."',
+  StartingPoint.rivals =>
+    '*$first looks up, unimpressed.* "You. Of course it\'s you."',
+};
 
 /// Everything the character editor edits. Only [name] is required.
 @immutable
@@ -17,6 +33,7 @@ class CharacterForm {
     this.rules = '',
     this.relationships = '',
     this.scenario = '',
+    this.startingPoint = StartingPoint.strangers,
     this.universeId,
     this.swatch = 0,
     this.imageBytes,
@@ -33,6 +50,9 @@ class CharacterForm {
   final String rules;
   final String relationships;
   final String scenario;
+
+  /// How you know each other when a story with them begins.
+  final StartingPoint startingPoint;
   final String? universeId;
 
   /// Index into [MockData.swatches]; the colour behind the initial.
@@ -66,6 +86,7 @@ class CharacterForm {
     String? rules,
     String? relationships,
     String? scenario,
+    StartingPoint? startingPoint,
     String? universeId,
     bool clearUniverse = false,
     int? swatch,
@@ -83,6 +104,7 @@ class CharacterForm {
     rules: rules ?? this.rules,
     relationships: relationships ?? this.relationships,
     scenario: scenario ?? this.scenario,
+    startingPoint: startingPoint ?? this.startingPoint,
     universeId: clearUniverse ? null : (universeId ?? this.universeId),
     swatch: swatch ?? this.swatch,
     imageBytes: clearImageBytes ? null : (imageBytes ?? this.imageBytes),
@@ -105,6 +127,7 @@ class CharacterForm {
       rules: c.rules,
       relationships: c.relationships,
       scenario: c.scenario,
+      startingPoint: c.startingPoint,
       universeId: c.universeId,
       swatch: sw,
     );
@@ -143,14 +166,12 @@ class CharacterForm {
           : 'Not much is known about $f yet — you’ll find out together.',
       personality: orElse(personality, 'Still taking shape.'),
       speaking: orElse(speaking, 'Natural and conversational.'),
-      greeting: orElse(
-        greeting,
-        '*$f looks up as you arrive.* "Oh — hello. I wasn\'t expecting anyone tonight."',
-      ),
+      greeting: orElse(greeting, defaultGreeting(f, startingPoint)),
       exampleDialogue: examples.trim(),
       rules: rules.trim(),
       relationships: relationships.trim(),
       scenario: scenario.trim(),
+      startingPoint: startingPoint,
       archived: base?.archived ?? false,
     );
   }
@@ -168,6 +189,7 @@ class CharacterForm {
       other.rules == rules &&
       other.relationships == relationships &&
       other.scenario == scenario &&
+      other.startingPoint == startingPoint &&
       other.universeId == universeId &&
       other.swatch == swatch &&
       identical(other.imageBytes, imageBytes) &&
@@ -185,6 +207,7 @@ class CharacterForm {
     rules,
     relationships,
     scenario,
+    startingPoint,
     universeId,
     swatch,
     imageRemoved,

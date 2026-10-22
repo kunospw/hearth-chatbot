@@ -2,7 +2,7 @@
 // test (pure engine) and the database round-trip test (engine + SQL).
 import assert from 'node:assert/strict';
 import { RelationshipEngine, inferFactTags, type EngineOutcome } from '../../functions/_shared/engine/engine.ts';
-import { presetById } from '../../functions/_shared/engine/bands.ts';
+import { presetById, startingRelationship } from '../../functions/_shared/engine/bands.ts';
 import {
   REL_VALUES,
   canUndo,
@@ -44,6 +44,7 @@ export function normState(r: Relationship, unmap: (x: string) => string = (x) =>
   r.pending.forEach((p) => id(p.id));
   r.facts.forEach((f) => id(f.id));
   return {
+    startingPoint: r.startingPoint,
     type: r.type,
     pacing: r.pacing,
     values: Object.fromEntries(REL_VALUES.map((k) => [k, round9(r.values[k])])),
@@ -117,6 +118,10 @@ export interface Run {
 
 export function initialState(sc: Json, o: RunOptions = {}): Relationship {
   const setup = sc.setup as Json;
+  // A relationship created at a starting point, as on first use.
+  if (setup.start !== undefined) {
+    return startingRelationship({ id: o.relationshipId ?? 'r', characterId: 'c', personaId: 'p', start: setup.start });
+  }
   const preset = presetById(setup.preset);
   const v = (setup.values ?? {}) as Json;
   return {
@@ -124,6 +129,7 @@ export function initialState(sc: Json, o: RunOptions = {}): Relationship {
     characterId: 'c',
     personaId: 'p',
     universeId: null,
+    startingPoint: 'strangers',
     type: setup.type,
     pacing: setup.pacing,
     values: {
@@ -237,6 +243,9 @@ export function run(sc: Json, o: RunOptions = {}): Run {
         break;
       case 'preset':
         r = engine.applyPreset(r, presetById(s.id));
+        break;
+      case 'start':
+        r = engine.applyStartingPoint(r, s.id, { now: now() });
         break;
       case 'stages':
         r = engine.saveStages(r, s.names, s.current, s.lock, { now: now() });

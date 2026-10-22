@@ -18,6 +18,8 @@ import '../../../core/widgets/toast.dart';
 import '../../../data/mock/mock_data.dart';
 import '../../chat/data/conversation_repository.dart';
 import '../../library/data/library_repository.dart';
+import '../../relationship/data/relationship_providers.dart';
+import '../../relationship/domain/relationship_models.dart';
 import '../data/character_repository.dart';
 import '../data/draft_repository.dart';
 import '../domain/character.dart';
@@ -139,6 +141,20 @@ class _CharacterEditorScreenState extends ConsumerState<CharacterEditorScreen> {
 
   void _change(CharacterForm next) => setState(() => _form = next);
 
+  /// How you know each other. A greeting that is still the one written for
+  /// the old starting point follows the new one.
+  void _setStartingPoint(StartingPoint start) {
+    var next = _form.copyWith(startingPoint: start);
+    final f = _form.first;
+    if (f.isNotEmpty &&
+        _form.greeting.trim() == defaultGreeting(f, _form.startingPoint)) {
+      final g = defaultGreeting(f, start);
+      _greeting.text = g;
+      next = next.copyWith(greeting: g);
+    }
+    _change(next);
+  }
+
   // ── picture ───────────────────────────────────────────────────────────
 
   Future<void> _pickPicture() async {
@@ -228,11 +244,27 @@ class _CharacterEditorScreenState extends ConsumerState<CharacterEditorScreen> {
     if (!mounted) return;
 
     if (_editing) {
+      var message = 'Changes saved';
+      // A new starting point starts your story with them over from there.
+      if (_base != null && character.startingPoint != _base!.startingPoint) {
+        try {
+          await ref
+              .read(relationshipsProvider.notifier)
+              .setStartingPoint(id, character.startingPoint);
+          message =
+              'Changes saved — starting point: ${character.startingPoint.label}';
+        } catch (_) {
+          message =
+              'Changes saved, but your story couldn’t start over. '
+              'Try again in the relationship journal.';
+        }
+        if (!mounted) return;
+      }
       setState(() => _bypassGuard = true);
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (!mounted) return;
         context.canPop() ? context.pop() : context.go(Routes.characters);
-        showToast(context, 'Changes saved', aboveBottomBar: false);
+        showToast(context, message, aboveBottomBar: false);
       });
       return;
     }
@@ -378,11 +410,20 @@ class _CharacterEditorScreenState extends ConsumerState<CharacterEditorScreen> {
                       label: 'Greeting',
                       helper:
                           'Their first message. Put actions in *asterisks*. '
-                          'Leave it blank and we’ll write a simple one.',
+                          'Leave it blank and we’ll write one that fits how you know each other.',
                       controller: _greeting,
                       hint: '*She glances up from the map.* "You\'re late. Sit — we sail at dawn."',
                       lines: 4,
                       onChanged: (v) => _change(_form.copyWith(greeting: v)),
+                    ),
+                    _StartingPointField(
+                      first: _form.first,
+                      value: _form.startingPoint,
+                      restarts:
+                          _editing &&
+                          _base != null &&
+                          _form.startingPoint != _base!.startingPoint,
+                      onChanged: _setStartingPoint,
                     ),
                     _MoreDetails(
                       open: _advancedOpen,
@@ -702,6 +743,68 @@ class _Field extends StatelessWidget {
               constraints: const BoxConstraints(minHeight: Hit.primary),
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+/// "You and Mara": how you know each other when a story with them begins.
+/// Every new relationship with the character starts here.
+class _StartingPointField extends StatelessWidget {
+  const _StartingPointField({
+    required this.first,
+    required this.value,
+    required this.restarts,
+    required this.onChanged,
+  });
+
+  final String first;
+  final StartingPoint value;
+
+  /// Editing a character: saving starts the story with them over.
+  final bool restarts;
+  final ValueChanged<StartingPoint> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.hc;
+    final t = context.ht;
+    final who = first.isEmpty ? 'them' : first;
+    return Padding(
+      padding: const EdgeInsets.only(bottom: Space.xl - 2),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('You and $who', style: t.label.copyWith(fontSize: 15)),
+          Text(
+            'How you know each other when the story begins.',
+            style: t.caption,
+          ),
+          const SizedBox(height: Space.sm),
+          Wrap(
+            spacing: Space.sm,
+            runSpacing: Space.xs,
+            children: [
+              for (final s in StartingPoint.values)
+                HearthChip(
+                  label: s.label,
+                  selected: value == s,
+                  onTap: () => onChanged(s),
+                ),
+            ],
+          ),
+          const SizedBox(height: Space.xs),
+          Text(value.hint, style: t.caption.copyWith(color: c.textMuted)),
+          if (restarts)
+            Padding(
+              padding: const EdgeInsets.only(top: Space.xs),
+              child: Text(
+                'When you save, your story with $who starts again from here. '
+                'Earlier moments stay in the relationship journal.',
+                style: t.caption.copyWith(color: c.primaryInk),
+              ),
+            ),
         ],
       ),
     );

@@ -44,6 +44,7 @@ Read these before writing UI or backend code:
 - **Phase 4 – Creation and management: done** (plus Light mode). Editor, drafts, Chats list (+ wide list-detail), Library (Universes/Memories/Personas), Universe detail, Memories, AI settings, App settings.
 - **Phase 5 – Relationship Journal on mock data: done.** Pure-Dart engine, journal screen + sheets, in-chat notes, Story ornament, manual-pacing approvals. The mock backend runs the engine on the device; Phase 6 swaps in the server.
 - **Phase 6 – Backend: built and tested locally, not yet deployed** (needs your Supabase project and Ollama key; steps in `supabase/README.md`). Without `--dart-define SUPABASE_URL/SUPABASE_ANON_KEY` the app still runs on sample data.
+- **Starting points (established relationships): done.** A character can begin as Just met, Friends, Together, Family or Rivals (editor: "You and X"; journal: Starting point → Change). Needs migration `…0900` on a deployed project (see "Starting points" below).
 
 ## Commands
 ```
@@ -140,6 +141,23 @@ All in `lib/core/widgets/` unless noted. Read colours/sizes from `context.hc`, `
 
 - **Persona switcher + reply ideas** (`chat_tools_row.dart`, a fixed 48dp row above the composer; it keeps its height while a reply is written so nothing shifts): "As X" (shown with >1 persona) opens "Play this chat as"; the choice is stored on `Conversation.personaId` (`conversations.persona_id`, migration `…0800`) and also becomes the selected persona (the journal follows it). "Suggest replies" calls `suggest_replies` (edge function, `_shared/suggest.ts`; uses the selected model without spending a free reply) via `SuggestionService` (`Mock…` / `Server…`); `SuggestionsController` keeps the ideas only for the last message they were written for. Picking one fills the message box; nothing is sent. Tests: `test/persona_suggestions_test.dart`, `supabase/functions/_shared/suggest.test.ts`.
 
+## Starting points — how it works
+- **Why**: every relationship used to begin as near-strangers (Acquaintances, slow burn, "do not assume romance", "keeps answers short"), so a partner or an old friend was told to act like a first meeting. Now a story can begin inside an existing relationship.
+- **Model**: `StartingPoint` enum (`strangers` "Just met", `friends`, `together`, `family`, `rivals`; label + hint) in `relationship_models.dart`; `Relationship.startingPoint` and `Character.startingPoint` (default strangers). The table of kind / arc / stage / pacing / values / prompt `history` line is `startingSetups` in `relationship_bands.dart`; `startingRelationship()` builds a new relationship from it. New arc preset **Couple** (On the Rocks … Happy Together … Deeply in Love). Same table in `bands.ts` (`STARTING_SETUPS`) and in SQL `ensure_relationship_for()`: change all three together (goldens + `tests/db_roundtrip.test.ts` check them).
+- **Creation**: a relationship is created on first use at its character's starting point (mock: `seedRelationship(startingPoint:)`; server: `ensure_relationship_for` reads `characters.starting_point`). No event, no facts.
+- **Starting over**: `RelationshipEngine.applyStartingPoint` (TS port, `apply_correction` action `set_starting_point`, `RelationshipsNotifier.setStartingPoint`) sets kind, arc, stage, pacing and values, unlocks the stage, keeps events/facts/ledger, and logs "Starting point: X" as a non-undoable correction (`kindId: 'start'`). Same start with nothing changed = no-op.
+- **Prompt**: non-strangers add `history: already a couple before the story began — this is not a first meeting` (etc.) after `type:`. The pacing line drops "no sudden confessions" once romance is open (romance allowed and attraction ≥ 60).
+- **Editor** (`_StartingPointField`, after Greeting): chips + hint. A blank greeting becomes `defaultGreeting(first, start)` (character_form.dart); a greeting still equal to the default for the old start follows a change. Editing an existing character's starting point shows a warning, and Save calls `setStartingPoint` for the persona in use (the toast says so; a failure keeps the character saved and says to retry from the journal).
+- **Journal**: "Starting point" section under the stage header (and pending suggestions), Change → `showStartingPointSheet` (radio rows, "Start from here").
+- **Database**: migration `…0900_starting_point.sql` adds `starting_point` (checked) to `characters` and `relationships`, seeds in `ensure_relationship_for`, and adds `startingPoint` to `relationship_snapshot()` and the `commit_relationship()` patch. Tests: `supabase/tests/20_starting_point_test.sql`, `test/starting_point_test.dart`, the "starting points" group in `test/relationship_engine_test.dart`, four `starting point:` golden scenarios.
+
+## Decisions on spec ambiguities (Starting points)
+1. Not in the spec or the prototype (the prototype only hints at it: "Starting point you chose when the story began"). Five options cover the common established relationships; anything finer is a fact or the character's text.
+2. Friends keep "Let the story decide" so friends-to-lovers stays possible; Family and Rivals keep their non-romantic kinds (as Iselde's seed). Iselde's character now says Rivals, matching her seed.
+3. Together uses the new Couple arc rather than the top of the Romance arc, so a fight drops a couple to "Steady", not to "Unspoken Feelings".
+4. Starting over is not undoable (Undo only reverses values); the timeline keeps everything before it.
+5. "You and X" sits after Greeting so the spec's field order (and the 360dp first screen) is unchanged.
+
 ## Decisions on spec ambiguities (Phase 6)
 1. Daily free replies reset at 00:00 UTC (server), not 07:00 local.
 2. Dismissing a Manual-pacing suggestion frees its cooldown and budget (like Undo); changed in both engines.
@@ -149,10 +167,11 @@ All in `lib/core/widgets/` unless noted. Read colours/sizes from `context.hc`, `
 6. The seeded `models.ollama_model` values are placeholders: confirm them against `https://ollama.com/api/tags`.
 
 ## Testing notes
-- `flutter test` runs ~550 tests (plus `cd supabase && npm test`, and `bash supabase/tests/run.sh` with Docker) (theme, data, navigation, motion, parser, shared widgets, chat controller, reply service, scroll anchor, home/details, chat screen, utils). Widget tests use a 360×800 view and 200% text scale for overflow checks. `test/support/harness.dart` (`pumpHearth`) boots the whole app on mocks with fast timings.
+- `flutter test` runs ~590 tests (plus `cd supabase && npm test`, and `bash supabase/tests/run.sh` with Docker) (theme, data, navigation, motion, parser, shared widgets, chat controller, reply service, scroll anchor, home/details, chat screen, utils). Widget tests use a 360×800 view and 200% text scale for overflow checks. `test/support/harness.dart` (`pumpHearth`) boots the whole app on mocks with fast timings.
 - In lazily built lists, `find` only sees widgets inside the viewport; use `ensureVisible` (after `scrollUntilVisible`) before tapping, and scope scrolling to the screen's own `Scrollable` (`find.byType(Scrollable).first` can be a tab underneath).
 - `pumpAndSettle` is fine while a reply streams (it ends when the reply does), but use a `pumpUntil` loop to observe frames in between.
 - Don't leave `flutter run` / a web server running while running `flutter test` (build-dir locks cause hangs).
+- Known failure in `supabase/tests/10_rls_test.sql`: "a busy model says busy" expects Atlas to be busy, but migration `…0300` set `busy = false`, so `run.sh` stops there (the checks after it pass when Atlas is made busy first). It predates the starting points work.
 - A failing layout exception in a widget test can make `pumpAndSettle` hang; run a single file with `--timeout 60s` to find it.
 
 ## Decisions on spec ambiguities (Phase 4)

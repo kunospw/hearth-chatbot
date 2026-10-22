@@ -43,9 +43,114 @@ const stagePresets = <StagePreset>[
     'Close',
     'Unbreakable',
   ], null),
+  // For a couple who are already together: the stages say how it's going.
+  StagePreset('couple', 'Couple', [
+    'On the Rocks',
+    'Drifting Apart',
+    'Mending',
+    'Steady',
+    'Happy Together',
+    'Deeply in Love',
+  ], null),
 ];
 
 StagePreset presetById(String id) => stagePresets.firstWhere((p) => p.id == id);
+
+/// What a [StartingPoint] sets up. The values sit inside the stage's score
+/// band, so the first moment in the story doesn't move the stage.
+class StartingSetup {
+  const StartingSetup({
+    required this.presetId,
+    required this.stageIdx,
+    required this.type,
+    required this.pacing,
+    required this.values,
+    this.history,
+  });
+
+  final String presetId;
+  final int stageIdx;
+  final RelationType type;
+  final RelPacing pacing;
+  final Values values;
+
+  /// What the model is told about your past together (null: a first meeting).
+  final String? history;
+}
+
+/// The same table is in the server's engine (bands.ts) and in
+/// `ensure_relationship_for()` (SQL), which creates relationships on first use.
+const Map<StartingPoint, StartingSetup> startingSetups = {
+  StartingPoint.strangers: StartingSetup(
+    presetId: 'friendship',
+    stageIdx: 1,
+    type: RelationType.undecided,
+    pacing: RelPacing.slow,
+    values: Values(),
+  ),
+  StartingPoint.friends: StartingSetup(
+    presetId: 'friendship',
+    stageIdx: 3,
+    type: RelationType.undecided,
+    pacing: RelPacing.balanced,
+    values: Values(trust: 55, affection: 55),
+    history:
+        'already friends before the story began — this is not a first meeting',
+  ),
+  StartingPoint.together: StartingSetup(
+    presetId: 'couple',
+    stageIdx: 4,
+    type: RelationType.romantic,
+    pacing: RelPacing.balanced,
+    values: Values(trust: 70, affection: 75, attraction: 70),
+    history:
+        'already a couple before the story began — this is not a first meeting',
+  ),
+  StartingPoint.family: StartingSetup(
+    presetId: 'family',
+    stageIdx: 4,
+    type: RelationType.familial,
+    pacing: RelPacing.balanced,
+    values: Values(trust: 65, affection: 70),
+    history:
+        'already family before the story began — this is not a first meeting',
+  ),
+  StartingPoint.rivals: StartingSetup(
+    presetId: 'rivalry',
+    stageIdx: 0,
+    type: RelationType.rivalrous,
+    pacing: RelPacing.slow,
+    values: Values(trust: 15, affection: 15, tension: 45),
+    history:
+        'already rivals before the story began — this is not a first meeting',
+  ),
+};
+
+/// A new relationship that begins at [start]: what is created the first time
+/// you meet a character (no events, no facts yet).
+Relationship startingRelationship({
+  required String id,
+  required String characterId,
+  required String personaId,
+  String? universeId,
+  StartingPoint start = StartingPoint.strangers,
+}) {
+  final s = startingSetups[start]!;
+  final p = presetById(s.presetId);
+  return Relationship(
+    id: id,
+    characterId: characterId,
+    personaId: personaId,
+    universeId: universeId,
+    startingPoint: start,
+    type: s.type,
+    pacing: s.pacing,
+    values: s.values,
+    stages: List.of(p.stages),
+    romanticFrom: p.romanticFrom,
+    stageIdx: s.stageIdx,
+  );
+}
 
 /// A plain word for a value ("Cautious", "Fond"). The same table is shown in
 /// the journal and sent to the model, so what you read is what it is told.
@@ -128,15 +233,20 @@ List<String> behaviorLines(Relationship r) {
 String promptBlock(Relationship r) {
   final v = r.values;
   final romance = r.type.romanceAllowed;
+  final history = startingSetups[r.startingPoint]!.history;
+  // Once feelings "may be acknowledged" (the top attraction band), saying
+  // them is no longer a sudden confession, e.g. for a couple.
+  final openRomance = romance && v.attraction >= 60;
   final lines = <String>[
     '[relationship — set by the app, read-only]',
     'stage: ${r.stageName}${r.stageLocked ? ' (locked by user)' : ''}',
     'type: ${r.type.label}${r.type == RelationType.undecided ? ' — do not assume romance' : (romance ? '' : ' — no romance')}',
+    if (history != null) 'history: $history',
     'trust ${v.trust.round()} (${wordFor(RelValue.trust, v.trust).toLowerCase()}), '
         'affection ${v.affection.round()} (${wordFor(RelValue.affection, v.affection).toLowerCase()}), '
         'attraction ${romance ? v.attraction.round() : 'n/a'}, '
         'tension ${v.tension.round()} (${wordFor(RelValue.tension, v.tension).toLowerCase()})',
-    'pacing: ${r.pacing.label.toLowerCase()} — change openness gradually; no sudden confessions',
+    'pacing: ${r.pacing.label.toLowerCase()} — change openness gradually${openRomance ? '' : '; no sudden confessions'}',
     'play it like this:',
     for (final l in behaviorLines(r)) '- $l',
   ];

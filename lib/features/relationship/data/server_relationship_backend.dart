@@ -19,11 +19,13 @@ class ServerRelationshipBackend implements RelationshipBackend {
 
   final BackendApi api;
 
+  /// The server reads the universe and the starting point from the character.
   @override
   Future<Relationship> load(
     String characterId,
     String personaId, {
     String? universeId,
+    StartingPoint startingPoint = StartingPoint.strangers,
   }) async {
     final j = await api.rpc('ensure_relationship', {
       'p_character': characterId,
@@ -159,6 +161,14 @@ class ServerRelationshipBackend implements RelationshipBackend {
   @override
   Future<Relationship> applyPreset(String relationshipId, String presetId) =>
       _rel(_act('apply_preset', relationshipId, {'presetId': presetId}));
+
+  @override
+  Future<Relationship> setStartingPoint(
+    String relationshipId,
+    StartingPoint start,
+  ) => _rel(
+    _act('set_starting_point', relationshipId, {'startingPoint': start.name}),
+  );
 
   @override
   Future<Relationship> saveStages(

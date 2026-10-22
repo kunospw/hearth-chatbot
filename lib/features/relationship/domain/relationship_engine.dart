@@ -714,6 +714,62 @@ class RelationshipEngine {
     return next.copyWith(stageIdx: stageFor(next));
   }
 
+  /// Starts over from [start] (picked in the journal, or by editing the
+  /// character): the kind, the stage arc and stage, the pacing and the values
+  /// all match it, and the stage is unlocked. Earlier moments stay in the
+  /// timeline. It is logged as your correction without an Undo of its own,
+  /// because it changes more than the values: pick another starting point.
+  Relationship applyStartingPoint(
+    Relationship r,
+    StartingPoint start, {
+    required DateTime now,
+  }) {
+    final s = startingSetups[start]!;
+    final p = presetById(s.presetId);
+    final deltas = <RelValue, double>{};
+    for (final k in RelValue.values) {
+      final d = _round(s.values[k] - r.values[k]);
+      if (d != 0) deltas[k] = d;
+    }
+    final unchanged =
+        r.startingPoint == start &&
+        r.values == s.values &&
+        r.type == s.type &&
+        r.pacing == s.pacing &&
+        r.stageIdx == s.stageIdx &&
+        !r.stageLocked &&
+        r.romanticFrom == p.romanticFrom &&
+        r.stages.join('\n') == p.stages.join('\n');
+    if (unchanged) return r;
+    final event = RelationshipEvent(
+      id: _id(r, 'e'),
+      kindId: 'start',
+      category: TimelineKind.correction,
+      title: 'Starting point: ${start.label}',
+      at: now,
+      why:
+          'You chose where your story starts. The kind of relationship, the stages, '
+          'the pacing and the values now match it, and the next reply is written with them. '
+          'Earlier moments stay in the timeline; to change it again, pick another starting point.',
+      source: EventSource.user,
+      deltas: deltas,
+      chatTitle: 'Relationship journal',
+      turn: r.turn,
+    );
+    return r.copyWith(
+      startingPoint: start,
+      type: s.type,
+      pacing: s.pacing,
+      values: s.values,
+      stages: List.of(p.stages),
+      romanticFrom: p.romanticFrom,
+      clearRomanticFrom: p.romanticFrom == null,
+      stageIdx: s.stageIdx,
+      stageLocked: false,
+      events: [event, ...r.events],
+    );
+  }
+
   /// Edit stage names, set the current stage yourself, and lock it.
   Relationship saveStages(
     Relationship r,

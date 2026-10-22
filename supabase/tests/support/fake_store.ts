@@ -22,6 +22,7 @@ export function newRelationship(id: string, characterId: string, personaId: stri
     characterId,
     personaId,
     universeId: null,
+    startingPoint: 'strangers',
     type: 'undecided',
     pacing: 'balanced',
     values: { trust: 20, affection: 15, attraction: 0, tension: 0 },
@@ -42,6 +43,7 @@ export function newRelationship(id: string, characterId: string, personaId: stri
 
 export function applyPatch(r: Relationship, p: RelationshipPatch): Relationship {
   let n: Relationship = { ...r, version: r.version + 1 };
+  if (p.startingPoint !== undefined) n.startingPoint = p.startingPoint as Relationship['startingPoint'];
   if (p.type !== undefined) n.type = p.type as Relationship['type'];
   if (p.pacing !== undefined) n.pacing = p.pacing as Relationship['pacing'];
   if (p.values !== undefined) n.values = { ...p.values };

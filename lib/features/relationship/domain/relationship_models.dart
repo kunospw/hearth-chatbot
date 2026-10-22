@@ -67,6 +67,34 @@ enum RelPacing {
   final String hint;
 }
 
+/// Where the story between you begins. Picked for a character in the editor
+/// (every new relationship with them starts here) and changeable later in the
+/// journal. Each one sets the kind, the stage arc and stage, the pacing and the
+/// four values (`startingSetups` in relationship_bands.dart).
+enum StartingPoint {
+  strangers(
+    'Just met',
+    'You meet for the first time. Everything is still ahead of you.',
+  ),
+  friends(
+    'Friends',
+    'Already friends: easy trust and shared history, no first-meeting awkwardness.',
+  ),
+  together(
+    'Together',
+    'Already a couple: dating, engaged or married. Romance is there from the first message.',
+  ),
+  family('Family', 'Already family, and close. Romance is off.'),
+  rivals(
+    'Rivals',
+    'Old rivals with a score to settle. Expect sparks and sharp words.',
+  );
+
+  const StartingPoint(this.label, this.hint);
+  final String label;
+  final String hint;
+}
+
 /// How a moment shows in the timeline.
 enum TimelineKind {
   milestone('Milestone'),
@@ -334,6 +362,7 @@ class Relationship {
     required this.personaId,
     required this.stages,
     this.universeId,
+    this.startingPoint = StartingPoint.strangers,
     this.type = RelationType.undecided,
     this.pacing = RelPacing.slow,
     this.values = const Values(),
@@ -354,6 +383,10 @@ class Relationship {
   final String characterId;
   final String personaId;
   final String? universeId;
+
+  /// Where the story began (the model is told, so a couple or old friends
+  /// never act like a first meeting).
+  final StartingPoint startingPoint;
   final RelationType type;
   final RelPacing pacing;
   final Values values;
@@ -387,6 +420,7 @@ class Relationship {
   String get stageName => stages[stageIdx.clamp(0, stages.length - 1)];
 
   Relationship copyWith({
+    StartingPoint? startingPoint,
     RelationType? type,
     RelPacing? pacing,
     Values? values,
@@ -407,6 +441,7 @@ class Relationship {
     characterId: characterId,
     personaId: personaId,
     universeId: universeId,
+    startingPoint: startingPoint ?? this.startingPoint,
     type: type ?? this.type,
     pacing: pacing ?? this.pacing,
     values: values ?? this.values,

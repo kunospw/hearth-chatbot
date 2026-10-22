@@ -55,6 +55,18 @@ export const PACING: Record<RelPacing, { label: string; up: number; down: number
   manual: { label: 'Manual', up: 1, down: 1 },
 };
 
+/** Where the story between you begins (picked for a character, or in the journal). */
+export type StartingPoint = 'strangers' | 'friends' | 'together' | 'family' | 'rivals';
+export const STARTING_POINTS: readonly StartingPoint[] = ['strangers', 'friends', 'together', 'family', 'rivals'];
+
+export const STARTING_LABEL: Record<StartingPoint, string> = {
+  strangers: 'Just met',
+  friends: 'Friends',
+  together: 'Together',
+  family: 'Family',
+  rivals: 'Rivals',
+};
+
 export type TimelineKind = 'milestone' | 'setback' | 'reconcile' | 'shift' | 'correction';
 
 export type EventSource = 'engine' | 'modelProposal' | 'user' | 'undo' | 'approved' | 'setup';
@@ -148,6 +160,8 @@ export interface Relationship {
   characterId: string;
   personaId: string;
   universeId: string | null;
+  /** Where the story began (the model is told, so a couple never acts like strangers). */
+  startingPoint: StartingPoint;
   type: RelationType;
   pacing: RelPacing;
   values: Values;
@@ -278,6 +292,7 @@ export function relationshipFromJson(j: Json): Relationship {
     characterId: String(j.characterId),
     personaId: String(j.personaId),
     universeId: str(j.universeId),
+    startingPoint: (j.startingPoint ?? 'strangers') as StartingPoint,
     type: j.type as RelationType,
     pacing: j.pacing as RelPacing,
     values: {
@@ -358,6 +373,7 @@ export function relationshipToJson(r: Relationship): Json {
     characterId: r.characterId,
     personaId: r.personaId,
     universeId: r.universeId,
+    startingPoint: r.startingPoint,
     type: r.type,
     pacing: r.pacing,
     values: { ...r.values },
