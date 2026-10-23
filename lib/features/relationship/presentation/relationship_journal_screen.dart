@@ -133,7 +133,17 @@ class _JournalState extends ConsumerState<_Journal> {
   Future<void> _changeStart() async {
     final start = await showStartingPointSheet(context, r, ch.first);
     if (start == null || !mounted) return;
-    await _notifier.setStartingPoint(ch.id, start);
+    try {
+      await _notifier.setStartingPoint(ch.id, start);
+    } catch (_) {
+      if (mounted) {
+        showToast(
+          context,
+          'Couldn’t change the starting point. Check your connection and try again.',
+        );
+      }
+      return;
+    }
     if (mounted) {
       showToast(
         context,

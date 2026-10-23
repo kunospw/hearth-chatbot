@@ -77,6 +77,35 @@ app runs on built-in sample data, with no sign-in.
 First run: create an account on the sign-in screen, then on an empty home tap
 **Meet the sample characters** (or Settings → Your data → Add the sample stories).
 
+## The web version on Vercel
+
+`vercel.json` makes the repository deployable on [Vercel](https://vercel.com) as it
+is: Vercel's servers fetch Flutter (`scripts/vercel_install.sh`) and build the web
+app (`scripts/vercel_build.sh`) into `build/web`.
+
+1. On vercel.com, sign in with GitHub, choose **Add New → Project** and import
+   this repository. Leave the framework, build and output settings as they are.
+2. Under **Environment Variables**, add `SUPABASE_URL` and `SUPABASE_ANON_KEY`
+   (the same two values as `--dart-define` above), then **Deploy**. Without them
+   the build stops and says so. The first build takes a few minutes.
+3. Every push to `main` deploys again; other branches get preview links.
+
+The site is public. Anyone with the link can see the sign-in screen, and if new
+sign-ups are on in Supabase they can create an account and use your free
+replies. Once your own account exists, turn sign-ups off in the Supabase
+dashboard (Authentication → Sign In / Providers → "Allow new users to sign up").
+
+## Automatic backend deploys (GitHub Actions)
+
+`.github/workflows/deploy-supabase.yml` runs when `main` changes under
+`supabase/`: it applies new migrations (`supabase db push`) and redeploys the edge
+functions. Add three repository secrets (GitHub → Settings → Secrets and
+variables → Actions): `SUPABASE_ACCESS_TOKEN` (supabase.com → Account → Access
+Tokens), `SUPABASE_DB_PASSWORD` (Project Settings → Database; resetting it does not
+affect the app) and `SUPABASE_PROJECT_ID` (the `xyz` in `https://xyz.supabase.co`).
+Without them the workflow does nothing. You can also start it by hand from the
+Actions tab ("Run workflow").
+
 ## Mature content
 
 Settings → Roleplay → **Mature content** (off by default) is stored on your

@@ -47,6 +47,10 @@ app.*.map.json
 # Widget Preview related
 .widget_preview/
 
+# Vercel builds (scripts/vercel_install.sh puts Flutter in .flutter/)
+/.flutter/
+.vercel/
+
 # Supabase / secrets
 supabase/.temp/
 supabase/.branches/

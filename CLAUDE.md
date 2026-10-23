@@ -45,6 +45,7 @@ Read these before writing UI or backend code:
 - **Phase 5 – Relationship Journal on mock data: done.** Pure-Dart engine, journal screen + sheets, in-chat notes, Story ornament, manual-pacing approvals. The mock backend runs the engine on the device; Phase 6 swaps in the server.
 - **Phase 6 – Backend: built and tested locally, not yet deployed** (needs your Supabase project and Ollama key; steps in `supabase/README.md`). Without `--dart-define SUPABASE_URL/SUPABASE_ANON_KEY` the app still runs on sample data.
 - **Starting points (established relationships): done.** A character can begin as Just met, Friends, Together, Family or Rivals (editor: "You and X"; journal: Starting point → Change). Needs migration `…0900` on a deployed project (see "Starting points" below).
+- **Hosting and deploys: set up, not yet run.** Web version on Vercel (`vercel.json`, `scripts/vercel_*.sh`) and backend deploys from GitHub Actions on pushes to `main` (`.github/workflows/deploy-supabase.yml`). Steps and secrets are in `supabase/README.md`.
 
 ## Commands
 ```
@@ -54,7 +55,10 @@ flutter test                    # must be green
 flutter run                     # device or emulator
 flutter build apk --debug       # -> build/app/outputs/flutter-apk/app-debug.apk (sideload to a phone)
 flutter build apk --release     # smaller file; hides the debug-only /dev route
+flutter build web --release --dart-define=SUPABASE_URL=... --dart-define=SUPABASE_ANON_KEY=...   # what Vercel runs
 ```
+- **Vercel** builds the web app itself: `scripts/vercel_install.sh` clones Flutter 3.47.1 into `.flutter/` (keep it equal to `.metadata`) and `scripts/vercel_build.sh` builds `build/web` with `SUPABASE_URL` / `SUPABASE_ANON_KEY` from the Vercel project's environment variables (the build fails without them). Hash URLs, so no rewrites; the edge functions allow any origin.
+- **GitHub Actions** (`deploy-supabase.yml`) runs `supabase db push` and `supabase functions deploy --use-api` when `main` changes under `supabase/`, with secrets `SUPABASE_ACCESS_TOKEN`, `SUPABASE_DB_PASSWORD`, `SUPABASE_PROJECT_ID`; it skips without them.
 
 ## Machine setup notes (Windows)
 - JDK 17 is a portable Temurin at `C:\Users\dyahr\.jdks\temurin-17\jdk-17.0.20.1+1`, set with `flutter config --jdk-dir`. The `JAVA_HOME` env var points at a folder that no longer exists, so ignore it.

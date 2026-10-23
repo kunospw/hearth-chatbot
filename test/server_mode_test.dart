@@ -514,6 +514,22 @@ void main() {
       expect(api.invokeBodies.last, {'action': 'set_starting_point', 'relationshipId': 'rel-1', 'startingPoint': 'together'});
     });
 
+    testWidgets('if the server cannot start the story over from the journal, you are told and nothing changes', (t) async {
+      final api = world();
+      api.invokes['apply_correction'] = (b) => throw const BackendException(400, 'unknown_action', 'unknown action set_starting_point');
+      final h = await pumpServer(t, api);
+      await h.push('/characters/c-vesper/relationship');
+      await t.ensureVisible(find.text('Change'));
+      await t.pumpAndSettle();
+      await t.tapAndSettle(find.text('Change'));
+      await t.tapAndSettle(find.text('Together'));
+      await t.ensureVisible(find.text('Start from here'));
+      await t.pumpAndSettle();
+      await t.tapAndSettle(find.text('Start from here'));
+      expect(find.text('Couldn’t change the starting point. Check your connection and try again.'), findsOneWidget);
+      expect(find.text('Just met'), findsOneWidget);
+    });
+
     testWidgets('a starting point picked in the editor is saved with the character and starts the story over', (t) async {
       final api = world();
       final h = await pumpServer(t, api);
