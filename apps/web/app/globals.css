@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+/*
+ * Midnight Editorial — starter tokens (dark palette core).
+ * The full token system (type scale, radii, True-black + Light palettes,
+ * reading prefs) is ported in the design-system step from
+ * docs/SPEC.md and lib/core/theme/{hearth_colors,tokens,hearth_text}.dart.
+ */
+:root {
+  /* Surfaces */
+  --bg: #131214;
+  --surface: #1c1a1d;
+  --surface-raised: #262327;
+  --outline: #3a3539;
+
+  /* Text */
+  --text: #eee7e1;
+  --text-muted: #b3aaa3;
+  --text-subtle: #9c948d;
+
+  /* Accents */
+  --primary: #9a3349; /* burgundy — fills only */
+  --primary-pressed: #7e2739;
+  --primary-ink: #e9a0ae; /* links & focus */
+  --primary-soft: #3b1f27; /* user bubble, active nav pill */
+
+  /* Status */
+  --pin: #f2cf9a;
+  --danger-text: #ef8a78;
+  --danger-fill: #8e2b22;
+  --ok: #8dbf95;
+  --scrim: #080708;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, sans-serif; /* Figtree/Newsreader wired in design-system step */
+  -webkit-font-smoothing: antialiased;
+}

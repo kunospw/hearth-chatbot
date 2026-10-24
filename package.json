@@ -1,0 +1,14 @@
+{
+  "name": "hearth",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Hearth — AI character roleplay / creative-writing app (web). Next.js front-end on the existing Supabase backend.",
+  "packageManager": "pnpm@10.28.1",
+  "scripts": {
+    "dev": "pnpm --filter web dev",
+    "build": "pnpm --filter web build",
+    "start": "pnpm --filter web start",
+    "lint": "pnpm --filter web lint",
+    "typecheck": "pnpm --filter web typecheck"
+  }
+}
