@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { AgeGate } from "@/components/age-gate";
 import { figtree, newsreader } from "./fonts";
 import { Providers } from "./providers";
 import "./globals.css";
@@ -20,7 +21,9 @@ export default function RootLayout({
       className={`${figtree.variable} ${newsreader.variable}`}
     >
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          <AgeGate>{children}</AgeGate>
+        </Providers>
       </body>
     </html>
   );

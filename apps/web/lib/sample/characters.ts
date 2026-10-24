@@ -36,6 +36,8 @@ export const sampleCharacters: Character[] = [
     ink: hexToArgb("#E9A0AE"),
     short: "A weathered harbour captain with a soft spot for strays.",
     tags: ["Adventure", "Gruff"],
+    greeting:
+      '*leans on the weather-worn railing, watching you approach* "Didn\'t reckon on company at this hour." The harbour lights sway on the black water. "Name\'s Morrow. State your business — or just your name."',
   }),
   sample({
     id: "vesper",
@@ -45,6 +47,8 @@ export const sampleCharacters: Character[] = [
     ink: hexToArgb("#BFD9D6"),
     short: "A lighthouse keeper who keeps more than lamps alight.",
     tags: ["Slow burn", "Mystery"],
+    greeting:
+      'The lamp sweeps the dark and settles. *Vesper looks up from the logbook* "You climbed all those stairs." A faint smile. "Few people bother. What brings you to the light?"',
   }),
   sample({
     id: "jun",
@@ -54,5 +58,7 @@ export const sampleCharacters: Character[] = [
     ink: hexToArgb("#F2CF9A"),
     short: "A night-market cook trading stories for coin.",
     tags: ["Warm", "Slice of life"],
+    greeting:
+      '*the griddle hisses as he waves you to a stool* "Sit, sit — you look half-starved." He slides a bowl across the counter. "First one\'s free. Stories cost extra."',
   }),
 ];

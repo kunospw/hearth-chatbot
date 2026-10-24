@@ -17,6 +17,13 @@ export interface ReplyHandlers {
   onText?(cumulative: string): void;
 }
 
+/** A source of replies: the server (streamChatTurn) or a preview mock. */
+export type ReplyFn = (
+  request: ReplyRequest,
+  handlers: ReplyHandlers,
+  signal?: AbortSignal,
+) => Promise<string>;
+
 function note(v: unknown): RelationshipNote | null {
   return v && typeof v === "object"
     ? noteFromJson(v as Record<string, unknown>)

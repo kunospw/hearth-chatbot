@@ -10,7 +10,12 @@ let client: SupabaseClient | undefined;
 
 export function getBrowserClient(): SupabaseClient {
   if (!client) {
-    client = createBrowserClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    // In the signed-out preview (no env) the client is constructed but never
+    // called — session/repos are gated on hasSupabaseEnv. Use placeholders so
+    // createBrowserClient doesn't throw on empty values.
+    const url = SUPABASE_URL || "http://localhost:54321";
+    const key = SUPABASE_ANON_KEY || "preview-anon-key-placeholder";
+    client = createBrowserClient(url, key);
   }
   return client;
 }

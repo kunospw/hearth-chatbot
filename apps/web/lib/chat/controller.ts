@@ -3,7 +3,7 @@ import { OfflineError, isAbortError } from "@/lib/backend/errors";
 import type { Message } from "@/lib/domain/types";
 import { saveMessage } from "@/lib/repositories/messages";
 import { touchConversation } from "@/lib/repositories/conversations";
-import { streamChatTurn } from "./reply";
+import { type ReplyFn, streamChatTurn } from "./reply";
 import { Throttler } from "./throttler";
 import {
   type GenStatus,
@@ -35,6 +35,11 @@ export interface ChatControllerConfig {
   stream: boolean;
   /** Relationship snapshots / usage reported by the server during a turn. */
   onInfo?(info: ServerTurnInfo): void;
+  /** Override the reply source (defaults to the server's chat_turn). Used for
+   * the signed-out preview, mirroring the Flutter fake reply service. */
+  reply?: ReplyFn;
+  /** False for the signed-out preview: don't write to the database. */
+  persist?: boolean;
 }
 
 export interface ChatState {
@@ -132,9 +137,11 @@ export class ChatController {
       notes: {},
     };
     this.setMessages([...this.messages, userMsg]);
-    // Flush the user message before the turn; the server reads it by id.
-    await saveMessage(this.cfg.api, userMsg, this.cfg.conversationId);
-    await touchConversation(this.cfg.api, this.cfg.conversationId);
+    if (this.cfg.persist !== false) {
+      // Flush the user message before the turn; the server reads it by id.
+      await saveMessage(this.cfg.api, userMsg, this.cfg.conversationId);
+      await touchConversation(this.cfg.api, this.cfg.conversationId);
+    }
     await this.generate({ userMessageId: userMsg.id });
   }
 
@@ -186,6 +193,7 @@ export class ChatController {
   /** Edit a user message's text and persist it. */
   async edit(messageId: string, text: string): Promise<void> {
     this.updateMessage(messageId, (m) => ({ ...m, alts: [text] }));
+    if (this.cfg.persist === false) return;
     const m = this.messages.find((x) => x.id === messageId);
     if (m) await saveMessage(this.cfg.api, m, this.cfg.conversationId);
   }
@@ -223,9 +231,11 @@ export class ChatController {
       stream: this.cfg.stream,
     };
 
+    const reply: ReplyFn =
+      this.cfg.reply ?? ((req, h, s) => streamChatTurn(this.cfg.api, req, h, s));
+
     try {
-      await streamChatTurn(
-        this.cfg.api,
+      await reply(
         request,
         {
           onServerInfo: (info) => {

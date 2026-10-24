@@ -1,6 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import { useSession } from "@/components/providers/session";
 import { CharacterAvatar } from "@/components/ui/avatar";
@@ -66,18 +67,20 @@ export default function CharactersPage() {
         <Overline>Characters</Overline>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           {shown.map((c) => (
-            <Card key={c.id} className="flex flex-col gap-3 p-4 min-h-[210px]">
-              <CharacterAvatar character={c} size={56} radius={14} />
-              <div className="flex flex-col gap-1 flex-1">
-                <div className="t-label">{c.name}</div>
-                <p className="t-caption line-clamp-2">{c.short}</p>
-              </div>
-              {c.tags[0] ? (
-                <span className="self-start rounded-full bg-raised px-2.5 py-1 t-caption text-muted">
-                  {c.tags[0]}
-                </span>
-              ) : null}
-            </Card>
+            <Link key={c.id} href={`/chat/c/${c.id}`} className="block">
+              <Card className="flex flex-col gap-3 p-4 min-h-[210px] h-full hover:border-ink transition-colors">
+                <CharacterAvatar character={c} size={56} radius={14} />
+                <div className="flex flex-col gap-1 flex-1">
+                  <div className="t-label">{c.name}</div>
+                  <p className="t-caption line-clamp-2">{c.short}</p>
+                </div>
+                {c.tags[0] ? (
+                  <span className="self-start rounded-full bg-raised px-2.5 py-1 t-caption text-muted">
+                    {c.tags[0]}
+                  </span>
+                ) : null}
+              </Card>
+            </Link>
           ))}
 
           <button
