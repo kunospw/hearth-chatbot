@@ -1,46 +1,308 @@
 @import "tailwindcss";
 
-/*
- * Midnight Editorial — starter tokens (dark palette core).
- * The full token system (type scale, radii, True-black + Light palettes,
- * reading prefs) is ported in the design-system step from
- * docs/SPEC.md and lib/core/theme/{hearth_colors,tokens,hearth_text}.dart.
- */
+/* ===========================================================================
+ * Midnight Editorial design system
+ * Ported verbatim from lib/core/theme/{hearth_colors,tokens,hearth_text}.dart
+ * and docs/SPEC.md. Burgundy --primary is a FILL only; use --ink for links and
+ * focus. Never hard-code hex in components — read these variables (or the
+ * Tailwind utilities mapped below).
+ *
+ * Theme selection is driven by the `data-theme` attribute on <html>:
+ *   (default)   -> Dark
+ *   dark        -> Dark
+ *   true-black  -> Dark with pure-black bg / #121112 surface
+ *   light       -> Light (warm paper)
+ *   system      -> follows prefers-color-scheme
+ * ======================================================================== */
+
+/* ---- Dark palette (default) ------------------------------------------- */
 :root {
-  /* Surfaces */
   --bg: #131214;
   --surface: #1c1a1d;
   --surface-raised: #262327;
   --outline: #3a3539;
 
-  /* Text */
   --text: #eee7e1;
   --text-muted: #b3aaa3;
   --text-subtle: #9c948d;
 
-  /* Accents */
-  --primary: #9a3349; /* burgundy — fills only */
+  --primary: #9a3349; /* fills only */
   --primary-pressed: #7e2739;
-  --primary-ink: #e9a0ae; /* links & focus */
+  --ink: #e9a0ae; /* links & focus */
   --primary-soft: #3b1f27; /* user bubble, active nav pill */
+  --on-primary: #fff6f3;
 
-  /* Status */
   --pin: #f2cf9a;
-  --danger-text: #ef8a78;
+  --danger: #ef8a78; /* danger text */
   --danger-fill: #8e2b22;
   --ok: #8dbf95;
-  --scrim: #080708;
+  --scrim: rgb(8 7 8 / 0.66);
+
+  --dialogue: #f6efe9; /* roleplay: brightest */
+  --narration: #d9d1ca; /* roleplay: narration */
+
+  --on-inverse: #1a1719; /* content on a --text-filled pill */
+  --inverse-accent: #7e2739; /* e.g. Undo on that pill */
+  --on-scrim: #eee7e1; /* over a photo or scrim */
+  --ember: #e9a0ae; /* glowing centre of the flame */
+
+  --meter-trust: #bfd9d6;
+  --meter-affection: #e9a0ae;
+  --meter-attraction: #f2cf9a;
+  --meter-tension: #ef8a78;
+
+  --color-scheme: dark;
+
+  /* ---- Spacing (Space) ---- */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-gutter: 20px;
+  --space-xl: 24px;
+  --space-xxl: 32px;
+
+  /* ---- Radii (Radii) ---- */
+  --r-field: 12px;
+  --r-button: 14px;
+  --r-card: 18px;
+  --r-sheet: 26px;
+
+  /* ---- Hit targets (Hit) ---- */
+  --hit-primary: 48px;
+  --hit-inline: 44px;
+
+  /* ---- Component sizes (Sizes) ---- */
+  --size-avatar: 48px;
+  --size-avatar-lg: 56px;
+  --size-logo-sm: 24px;
+  --size-logo-splash: 88px;
+  --size-stroke: 2px;
+
+  /* ---- Reading (Reading) ---- */
+  --story-max-width: 640px;
+  --follow-threshold: 72px;
+
+  /* ---- Motion (Motion) ---- */
+  --motion-press: 150ms;
+  --motion-sheet: 250ms;
+  --motion-tab: 320ms;
+  --motion-enter: 480ms;
+  --ease-emph-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --ease-soft: cubic-bezier(0.215, 0.61, 0.355, 1); /* easeOutCubic */
+}
+
+/* ---- True black ------------------------------------------------------- */
+:root[data-theme="true-black"] {
+  --bg: #000000;
+  --surface: #121112;
+}
+
+/* ---- Light palette ---------------------------------------------------- */
+:root[data-theme="light"] {
+  --bg: #f6f1eb;
+  --surface: #fffcf8;
+  --surface-raised: #ede5dc;
+  --outline: #d8cec4;
+
+  --text: #241f22;
+  --text-muted: #5b5258;
+  --text-subtle: #6a6065;
+
+  --primary: #9a3349;
+  --primary-pressed: #7e2739;
+  --ink: #8c2a40;
+  --primary-soft: #f2dde2;
+  --on-primary: #fff6f3;
+
+  --pin: #8a5a00;
+  --danger: #b3342a;
+  --danger-fill: #8e2b22;
+  --ok: #2e7d45;
+  --scrim: rgb(26 21 24 / 0.7);
+
+  --dialogue: #14100e;
+  --narration: #3a3236;
+
+  --on-inverse: #f6f1eb;
+  --inverse-accent: #f4b6c2;
+  --on-scrim: #fff6f3;
+  --ember: #f2b3bf;
+
+  --meter-trust: #3e7f7a;
+  --meter-affection: #b04460;
+  --meter-attraction: #9a6b14;
+  --meter-tension: #b3342a;
+
+  --color-scheme: light;
+}
+
+/* ---- System: follow the OS when data-theme is "system" or unset ------- */
+@media (prefers-color-scheme: light) {
+  :root[data-theme="system"] {
+    --bg: #f6f1eb;
+    --surface: #fffcf8;
+    --surface-raised: #ede5dc;
+    --outline: #d8cec4;
+    --text: #241f22;
+    --text-muted: #5b5258;
+    --text-subtle: #6a6065;
+    --ink: #8c2a40;
+    --primary-soft: #f2dde2;
+    --pin: #8a5a00;
+    --danger: #b3342a;
+    --ok: #2e7d45;
+    --scrim: rgb(26 21 24 / 0.7);
+    --dialogue: #14100e;
+    --narration: #3a3236;
+    --on-inverse: #f6f1eb;
+    --inverse-accent: #f4b6c2;
+    --on-scrim: #fff6f3;
+    --ember: #f2b3bf;
+    --meter-trust: #3e7f7a;
+    --meter-affection: #b04460;
+    --meter-attraction: #9a6b14;
+    --meter-tension: #b3342a;
+    --color-scheme: light;
+  }
+}
+
+/* ===========================================================================
+ * Tailwind theme mapping. `inline` makes utilities emit var(--token) so they
+ * switch with the active palette at runtime, e.g. `bg-surface`, `text-muted`,
+ * `rounded-card`, `font-serif`.
+ * ======================================================================== */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-raised: var(--surface-raised);
+  --color-outline: var(--outline);
+  --color-text: var(--text);
+  --color-muted: var(--text-muted);
+  --color-subtle: var(--text-subtle);
+  --color-primary: var(--primary);
+  --color-primary-pressed: var(--primary-pressed);
+  --color-ink: var(--ink);
+  --color-soft: var(--primary-soft);
+  --color-on-primary: var(--on-primary);
+  --color-pin: var(--pin);
+  --color-danger: var(--danger);
+  --color-danger-fill: var(--danger-fill);
+  --color-ok: var(--ok);
+  --color-dialogue: var(--dialogue);
+  --color-narration: var(--narration);
+  --color-on-inverse: var(--on-inverse);
+  --color-inverse-accent: var(--inverse-accent);
+  --color-on-scrim: var(--on-scrim);
+  --color-ember: var(--ember);
+  --color-meter-trust: var(--meter-trust);
+  --color-meter-affection: var(--meter-affection);
+  --color-meter-attraction: var(--meter-attraction);
+  --color-meter-tension: var(--meter-tension);
+
+  --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-newsreader), ui-serif, Georgia, serif;
+
+  --radius-field: var(--r-field);
+  --radius-button: var(--r-button);
+  --radius-card: var(--r-card);
+  --radius-sheet: var(--r-sheet);
+
+  --spacing-gutter: var(--space-gutter);
+}
+
+/* ===========================================================================
+ * Base
+ * ======================================================================== */
+html {
+  color-scheme: var(--color-scheme);
 }
 
 html,
 body {
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: system-ui, sans-serif; /* Figtree/Newsreader wired in design-system step */
+  font-family: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Focus ring uses rose ink, never burgundy. */
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* ===========================================================================
+ * Text roles (mirror HearthText). Family / size / line-height / weight /
+ * colour / tracking, matching hearth_text.dart. Use these classes for prose
+ * and labels instead of ad-hoc font sizes.
+ * ======================================================================== */
+@layer components {
+  .t-display {
+    font-family: var(--font-newsreader), ui-serif, Georgia, serif;
+    font-size: 30px;
+    line-height: 1.15;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .t-title {
+    font-family: var(--font-newsreader), ui-serif, Georgia, serif;
+    font-size: 19px;
+    line-height: 1.25;
+    font-weight: 500;
+    color: var(--text);
+  }
+  /* Story prose at the Comfortable default (size/line-height are overridden
+     at runtime from reading prefs: 15–26 / 1.58–1.90). */
+  .t-story {
+    font-family: var(--font-newsreader), ui-serif, Georgia, serif;
+    font-size: 19px;
+    line-height: 1.72;
+    font-weight: 400;
+    color: var(--narration);
+  }
+  /* Chat text at the Comfortable default (14–22 / 1.50–1.80). */
+  .t-chat {
+    font-family: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.62;
+    font-weight: 400;
+    color: var(--text);
+  }
+  .t-label {
+    font-family: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.25;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .t-body {
+    font-family: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    font-weight: 400;
+    color: var(--text);
+  }
+  .t-overline {
+    font-family: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+    font-size: 13px;
+    line-height: 1.3;
+    font-weight: 600;
+    letter-spacing: 0.78px; /* 13 * 0.06 */
+    text-transform: uppercase;
+    color: var(--text-subtle);
+  }
+  .t-caption {
+    font-family: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+    font-size: 13px;
+    line-height: 1.45;
+    font-weight: 400;
+    color: var(--text-subtle);
+  }
 }
