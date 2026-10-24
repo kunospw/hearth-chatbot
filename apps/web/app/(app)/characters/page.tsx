@@ -67,7 +67,7 @@ export default function CharactersPage() {
         <Overline>Characters</Overline>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           {shown.map((c) => (
-            <Link key={c.id} href={`/chat/c/${c.id}`} className="block">
+            <Link key={c.id} href={`/characters/${c.id}`} className="block">
               <Card className="flex flex-col gap-3 p-4 min-h-[210px] h-full hover:border-ink transition-colors">
                 <CharacterAvatar character={c} size={56} radius={14} />
                 <div className="flex flex-col gap-1 flex-1">
@@ -83,13 +83,13 @@ export default function CharactersPage() {
             </Link>
           ))}
 
-          <button
-            type="button"
+          <Link
+            href="/characters/new"
             className="flex flex-col items-center justify-center gap-2 min-h-[210px] rounded-card border border-dashed border-outline text-muted hover:bg-surface transition-colors"
           >
             <PlusIcon />
             <span className="t-caption">Create a character</span>
-          </button>
+          </Link>
         </div>
 
         {shown.length === 0 ? (

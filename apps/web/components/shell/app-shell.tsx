@@ -28,6 +28,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const { configured, session, loading } = useSession();
   const previewMode = !configured;
 
+  // Detail / editor routes (/characters/<id>, /characters/new) are full-screen
+  // with their own header — no nav chrome (SPEC).
+  if (pathname.startsWith("/characters/")) {
+    return <div className="min-h-dvh bg-bg">{children}</div>;
+  }
+
   return (
     <div className="min-h-dvh flex flex-col sm:flex-row bg-bg">
       {/* Rail (sm+) */}
