@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { figtree, newsreader } from "./fonts";
+import { Providers } from "./providers";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -18,7 +19,9 @@ export default function RootLayout({
       data-theme="dark"
       className={`${figtree.variable} ${newsreader.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
