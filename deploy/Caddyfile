@@ -1,0 +1,9 @@
+# Hearth web — Caddy reverse proxy (automatic HTTPS).
+# Replace the domain. The Next.js server listens on 127.0.0.1:3000.
+# Note: the chat SSE stream goes browser -> Supabase directly, not through
+# Caddy, so no proxy-buffering tuning is needed here.
+
+hearth.example.com {
+	encode gzip zstd
+	reverse_proxy 127.0.0.1:3000
+}

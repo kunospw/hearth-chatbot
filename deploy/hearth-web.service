@@ -1,0 +1,28 @@
+# systemd unit for the Next.js standalone server.
+# Install to /etc/systemd/system/hearth-web.service, then:
+#   sudo systemctl daemon-reload && sudo systemctl enable --now hearth-web
+#
+# Assumes the repo is at /opt/hearth and you have run, from /opt/hearth:
+#   pnpm install
+#   pnpm --filter web build
+#   cp -r apps/web/.next/static apps/web/.next/standalone/apps/web/.next/static
+# (NEXT_PUBLIC_* values are baked at BUILD time — set them before `pnpm build`,
+#  see DEPLOY.md.)
+
+[Unit]
+Description=Hearth web
+After=network.target
+
+[Service]
+Type=simple
+User=hearth
+WorkingDirectory=/opt/hearth/apps/web/.next/standalone/apps/web
+Environment=NODE_ENV=production
+Environment=PORT=3000
+Environment=HOSTNAME=127.0.0.1
+ExecStart=/usr/bin/node server.js
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
