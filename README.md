@@ -1,16 +1,35 @@
-# Hearth handoff bundle
+# Hearth
 
-## Using this with Claude Code
-1. Unzip into the root of your Flutter project (or into an empty folder you'll `flutter create` in).
-2. Keep `CLAUDE.md` at the project root. Claude Code loads it automatically, and it points to everything else. If you already have a CLAUDE.md, paste this one's contents into yours.
-3. Start Claude Code in that folder and try a first prompt like:
-   > Read CLAUDE.md and docs/SPEC.md. Set up the Hearth theme (HearthColors, Space, Radii, Reading, Hit, text theme), then build CharacterAvatar and the Character Library screen with mock data matching prototype/Main.dc.html.
-4. Build one screen at a time, in the order CLAUDE.md lists. For the backend, point Claude Code at docs/RELATIONSHIP_ENGINE.md.
+A dark-first AI character **roleplay / creative-writing** web app.
+Core loop: open the app → choose a character → start roleplaying.
 
-## What's inside
-- `CLAUDE.md`: project brief and the design rules that must not drift.
-- `docs/SPEC.md`: tokens, type, spacing, navigation, screens, components, states and interaction rules.
-- `docs/RELATIONSHIP_ENGINE.md`: the journal UI, the deterministic engine, SQL schema, prompt block and model contract.
-- `docs/UX_REVIEW.md`: journeys, tap counts and acceptance checks.
-- `prototype/*.dc.html`: source of the interactive design canvas. These need the canvas runtime to render, so open the live canvas to *see* them. Claude Code can still read them for exact copy, mock data and logic.
-- `assets/`: sample portraits (vesper.svg, morrow.svg).
+Monorepo: a **Next.js** app (`apps/web`) on top of a **Supabase** backend
+(`supabase/`). Migrated from Flutter (the Flutter sources remain in git
+history).
+
+## Quick start
+
+```bash
+pnpm install
+pnpm --filter web dev      # http://localhost:3000
+```
+
+Without Supabase keys the app runs in a **signed-out preview** on sample data
+(no backend needed). To connect a backend, copy `apps/web/.env.local.example`
+to `apps/web/.env.local` and fill in your Supabase URL + anon key, then deploy
+the backend as in `supabase/README.md`.
+
+## Layout
+- `apps/web` — the Next.js frontend (App Router, TypeScript, Tailwind v4).
+- `supabase/` — Postgres schema + RLS, Auth, Storage, and the edge functions
+  (`chat_turn`, `apply_correction`, `suggest_replies`). Unchanged by the
+  migration.
+- `docs/` — SPEC, relationship engine, UX review (the source of truth).
+- `prototype/` — interactive design canvas (reference).
+- `assets/`, `marketing/` — brand assets and marketing kit.
+- `deploy/`, `DEPLOY.md` — self-host config (Caddy + systemd + Docker) and the
+  deployment guide.
+
+## Scripts
+`pnpm --filter web {dev,build,start,lint,typecheck,test}`. See `CLAUDE.md` for
+architecture and the design rules, and `DEPLOY.md` to ship it.
