@@ -1,37 +1,50 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useSession } from "@/components/providers/session";
+import {
+  CHAT_LINE_HEIGHTS,
+  STORY_LINE_HEIGHTS,
+  usePrefs,
+} from "@/components/providers/prefs";
 import { CharacterAvatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { ArrowLeftIcon } from "@/components/ui/icons";
 import { ChatController, type ChatState, type ConversationStore } from "@/lib/chat/controller";
-import { createPreviewReply } from "@/lib/chat/preview-reply";
-import { DEFAULT_REPLY_SETTINGS } from "@/lib/chat/types";
-import type { ChatMode, Message } from "@/lib/domain/types";
-import { listCharacters } from "@/lib/repositories/characters";
-import { sampleCharacters } from "@/lib/sample/characters";
+import type { ReplyFn } from "@/lib/chat/reply";
+import type { Character, ChatMode, Message } from "@/lib/domain/types";
 import { getClientBackend } from "@/lib/supabase/client";
 import { Composer } from "./composer";
 import { MessageView } from "./messages";
 
-export function ChatScreen({ characterId }: { characterId: string }) {
-  const { configured, session } = useSession();
-  const useReal = configured && !!session;
+// The chat/story experience over a resolved conversation. Wrappers supply the
+// character, conversation id, seed messages and reply source (server vs
+// preview). SPEC: AI replies are full-width prose; only user turns are bubbles.
 
-  const { data } = useQuery({
-    queryKey: ["characters"],
-    queryFn: () => listCharacters(getClientBackend()),
-    enabled: useReal,
-  });
+export interface ChatViewProps {
+  character: Character;
+  conversationId: string;
+  initialMessages: Message[];
+  initialMode?: ChatMode;
+  /** Undefined = the server's chat_turn; a function = preview/local. */
+  reply?: ReplyFn;
+  persist: boolean;
+  personaId?: string;
+  modelId?: string;
+}
 
-  const character =
-    (useReal ? (data ?? []) : sampleCharacters).find((c) => c.id === characterId) ?? null;
-
-  const [mode, setMode] = useState<ChatMode>("chat");
-  const [messages, setMessages] = useState<Message[]>([]);
+export function ChatView({
+  character,
+  conversationId,
+  initialMessages,
+  initialMode = "chat",
+  reply,
+  persist,
+  personaId = "me",
+}: ChatViewProps) {
+  const { prefs } = usePrefs();
+  const [mode, setMode] = useState<ChatMode>(initialMode);
+  const [messages, setMessages] = useState<Message[]>(initialMessages);
   const messagesRef = useRef<Message[]>(messages);
   messagesRef.current = messages;
 
@@ -46,39 +59,41 @@ export function ChatScreen({ characterId }: { characterId: string }) {
     [],
   );
 
-  // Seed the greeting when the character resolves / changes.
+  // Reseed when the conversation changes.
   useEffect(() => {
-    if (!character) return;
-    const seed: Message[] = character.greeting
-      ? [{ id: "greeting", role: "ai", alts: [character.greeting], altIndex: 0, notes: {} }]
-      : [];
-    messagesRef.current = seed;
-    setMessages(seed);
+    messagesRef.current = initialMessages;
+    setMessages(initialMessages);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [character?.id]);
+  }, [conversationId]);
 
-  // Until the chats-start + server flow lands, this screen streams through the
-  // local preview source. Connecting a Supabase conversation is a config flip:
-  // pass the real conversationId and drop `reply`/`persist`.
-  const controller = useMemo(() => {
-    if (!character) return null;
-    return new ChatController({
-      api: getClientBackend(),
-      conversationId: "preview",
-      store,
-      modelId: "ember",
-      personaId: "me",
-      settings: DEFAULT_REPLY_SETTINGS,
-      stream: true,
-      reply: createPreviewReply(character.id),
-      persist: false,
+  const controller = useMemo(
+    () =>
+      new ChatController({
+        api: getClientBackend(),
+        conversationId,
+        store,
+        modelId: prefs.modelId,
+        personaId,
+        settings: prefs.ai,
+        stream: prefs.reading.animate,
+        reply,
+        persist,
+      }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [conversationId],
+  );
+
+  // Keep the controller's model / settings / animate in sync with prefs.
+  useEffect(() => {
+    controller.configure({
+      modelId: prefs.modelId,
+      settings: prefs.ai,
+      stream: prefs.reading.animate,
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [character?.id]);
+  }, [controller, prefs.modelId, prefs.ai, prefs.reading.animate]);
 
-  const [gen, setGen] = useState<ChatState | null>(controller?.getState() ?? null);
+  const [gen, setGen] = useState<ChatState>(controller.getState());
   useEffect(() => {
-    if (!controller) return;
     setGen(controller.getState());
     const unsub = controller.subscribe(setGen);
     return () => {
@@ -90,36 +105,29 @@ export function ChatScreen({ characterId }: { characterId: string }) {
   const endRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-  }, [messages, gen?.status]);
+  }, [messages, gen.status]);
 
-  if (!character) {
-    return (
-      <div className="min-h-dvh grid place-items-center p-gutter text-center">
-        <div className="flex flex-col gap-4">
-          <p className="t-body text-muted">That character isn’t here.</p>
-          <Link href="/characters" className="text-ink underline">
-            Back to characters
-          </Link>
-        </div>
-      </div>
-    );
-  }
+  const generating = gen.status !== "idle";
 
-  const generating = gen != null && gen.status !== "idle";
+  const lineIndex = prefs.reading.lineIndex;
+  const textStyle =
+    mode === "story"
+      ? { fontSize: prefs.reading.storySize, lineHeight: STORY_LINE_HEIGHTS[lineIndex] }
+      : { fontSize: prefs.reading.chatSize, lineHeight: CHAT_LINE_HEIGHTS[lineIndex] };
 
   const handleSend = (text: string) => {
-    if (!controller) return;
-    if (mode === "story" && !text.trim()) {
-      void controller.continueStory();
-    } else {
-      void controller.send(text);
-    }
+    if (mode === "story" && !text.trim()) void controller.continueStory();
+    else void controller.send(text);
   };
 
   return (
     <div className="h-dvh flex flex-col bg-bg">
       <header className="sticky top-0 z-10 flex items-center gap-3 px-gutter h-14 border-b border-outline bg-bg/90 backdrop-blur">
-        <Link href="/characters" aria-label="Back" className="text-muted -ml-2 p-2">
+        <Link
+          href={`/characters/${character.id}`}
+          aria-label="Back"
+          className="text-muted -ml-2 p-2"
+        >
           <ArrowLeftIcon size={22} />
         </Link>
         <CharacterAvatar character={character} size={36} radius={10} />
@@ -151,21 +159,18 @@ export function ChatScreen({ characterId }: { characterId: string }) {
               key={m.id}
               message={m}
               story={mode === "story"}
-              streaming={generating && gen?.activeId === m.id}
-              stopped={controller?.wasStopped(m.id) ?? false}
+              streaming={generating && gen.activeId === m.id}
+              stopped={controller.wasStopped(m.id)}
+              textStyle={textStyle}
             />
           ))}
 
-          {gen?.error ? (
+          {gen.error ? (
             <div className="rounded-card border border-outline bg-surface p-4 flex flex-col gap-2">
               <p className="t-body text-danger">
                 {gen.error instanceof Error ? gen.error.message : "Something went wrong."}
               </p>
-              <Button
-                variant="ghost"
-                className="self-start"
-                onClick={() => void controller?.retry()}
-              >
+              <Button variant="ghost" className="self-start" onClick={() => void controller.retry()}>
                 Try again
               </Button>
             </div>
@@ -179,7 +184,7 @@ export function ChatScreen({ characterId }: { characterId: string }) {
         generating={generating}
         story={mode === "story"}
         onSend={handleSend}
-        onStop={() => controller?.stop()}
+        onStop={() => controller.stop()}
       />
     </div>
   );

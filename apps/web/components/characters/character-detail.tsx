@@ -102,6 +102,10 @@ export function CharacterDetail({ characterId }: { characterId: string }) {
               {showMore ? "Show less" : `More about ${first}`}
             </button>
           ) : null}
+
+          <Link href={`/characters/${c.id}/relationship`} className="self-start text-ink t-body">
+            Relationship journal →
+          </Link>
         </div>
       </div>
 

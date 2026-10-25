@@ -1,5 +1,6 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import { RichRoleplayText } from "@/components/ui/rich-roleplay-text";
 import { Overline } from "@/components/ui/overline";
 import type { Message } from "@/lib/domain/types";
@@ -25,10 +26,12 @@ export function AiMessage({
   text,
   streaming,
   stopped,
+  textStyle,
 }: {
   text: string;
   streaming: boolean;
   stopped: boolean;
+  textStyle?: CSSProperties;
 }) {
   const empty = text.trim().length === 0;
   return (
@@ -36,19 +39,19 @@ export function AiMessage({
       {empty && streaming ? (
         <ThinkingDots />
       ) : (
-        <RichRoleplayText text={text} className="t-story" />
+        <RichRoleplayText text={text} className="t-story" style={textStyle} />
       )}
       {stopped ? <p className="t-caption text-subtle mt-1">Stopped</p> : null}
     </div>
   );
 }
 
-export function UserBubble({ text }: { text: string }) {
+export function UserBubble({ text, textStyle }: { text: string; textStyle?: CSSProperties }) {
   return (
     <div className="flex justify-end">
       <div
         className="max-w-[85%] rounded-card px-4 py-2.5 t-chat"
-        style={{ background: "var(--primary-soft)" }}
+        style={{ background: "var(--primary-soft)", ...textStyle }}
       >
         {text}
       </div>
@@ -56,11 +59,11 @@ export function UserBubble({ text }: { text: string }) {
   );
 }
 
-export function StoryUserBlock({ text }: { text: string }) {
+export function StoryUserBlock({ text, textStyle }: { text: string; textStyle?: CSSProperties }) {
   return (
     <div className="my-2">
       <Overline>You</Overline>
-      <p className="t-story italic" style={{ color: "var(--text-muted)" }}>
+      <p className="t-story italic" style={{ color: "var(--text-muted)", ...textStyle }}>
         {text}
       </p>
     </div>
@@ -72,15 +75,21 @@ export function MessageView({
   story,
   streaming,
   stopped,
+  textStyle,
 }: {
   message: Message;
   story: boolean;
   streaming: boolean;
   stopped: boolean;
+  textStyle?: CSSProperties;
 }) {
   const text = message.alts[message.altIndex] ?? message.alts[0] ?? "";
   if (message.role === "user") {
-    return story ? <StoryUserBlock text={text} /> : <UserBubble text={text} />;
+    return story ? (
+      <StoryUserBlock text={text} textStyle={textStyle} />
+    ) : (
+      <UserBubble text={text} textStyle={textStyle} />
+    );
   }
-  return <AiMessage text={text} streaming={streaming} stopped={stopped} />;
+  return <AiMessage text={text} streaming={streaming} stopped={stopped} textStyle={textStyle} />;
 }

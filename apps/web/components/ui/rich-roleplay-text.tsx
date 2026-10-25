@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { parseRoleplay } from "@/lib/roleplay/parse";
 
 // Renders roleplay prose: *actions* italic/muted, "dialogue" brightest,
@@ -5,13 +6,15 @@ import { parseRoleplay } from "@/lib/roleplay/parse";
 export function RichRoleplayText({
   text,
   className = "",
+  style,
 }: {
   text: string;
   className?: string;
+  style?: CSSProperties;
 }) {
   const paragraphs = parseRoleplay(text);
   return (
-    <div className={className}>
+    <div className={className} style={style}>
       {paragraphs.map((segs, i) => (
         <p key={i} className="m-0 mb-3 last:mb-0">
           {segs.map((s, j) => {

@@ -1,10 +1,10 @@
-import { ChatScreen } from "@/components/chat/chat-screen";
+import { NewChat } from "@/components/chat/new-chat";
 
-export default async function ChatCharacterPage({
+export default async function NewChatPage({
   params,
 }: {
   params: Promise<{ characterId: string }>;
 }) {
   const { characterId } = await params;
-  return <ChatScreen characterId={characterId} />;
+  return <NewChat characterId={characterId} />;
 }
