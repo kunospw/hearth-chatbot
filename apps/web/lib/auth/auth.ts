@@ -26,6 +26,24 @@ export async function signOut(): Promise<void> {
   if (error) throw error;
 }
 
+/** Email a password-reset link. `redirectTo` is where the link lands (use the
+ * current origin so it returns to localhost or staging as appropriate). */
+export async function requestPasswordReset(
+  email: string,
+  redirectTo: string,
+): Promise<void> {
+  const { error } = await getBrowserClient().auth.resetPasswordForEmail(email, {
+    redirectTo,
+  });
+  if (error) throw error;
+}
+
+/** Set a new password for the user in the current (recovery) session. */
+export async function updatePassword(password: string): Promise<void> {
+  const { error } = await getBrowserClient().auth.updateUser({ password });
+  if (error) throw error;
+}
+
 export async function getSession(): Promise<Session | null> {
   const { data } = await getBrowserClient().auth.getSession();
   return data.session;
